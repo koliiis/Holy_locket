@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["PL/PL.csproj", "PL/"]
-RUN dotnet restore "PL/PL.csproj"
+COPY ["Holy_locket.WebAPi/Holy_locket.WebAPi.csproj", "Holy_locket.WebAPi/"]
+RUN dotnet restore "Holy_locket.WebAPi/Holy_locket.WebAPi.csproj"
 COPY . .
-WORKDIR "/src/PL"
-RUN dotnet build "PL.csproj" -c Release -o /app/build
+WORKDIR "/src/Holy_locket.WebAPi"
+RUN dotnet build "Holy_locket.WebAPi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "PL.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Holy_locket.WebAPi.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PL.dll"]
+ENTRYPOINT ["dotnet", "Holy_locket.WebAPi.dll"]
