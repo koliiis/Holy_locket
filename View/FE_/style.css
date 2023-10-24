@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+*, *:before, *:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus, :active{outline: none;}
+a:focus, a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html, body{
+	height: 100%;
+	width: 100%;
+	font-style: 100%;
+	line-height: 1;
+	font-style: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea{font-family: inherit;}
+
+input::-ms-clear{display:none;}
+button{cursor: pointer;}
+button::-moz-focus-inner{padding: 0;border: 0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style-type: none;}
+img{vertical-align: top;}
+
+h1,h2, h3, h4, h5, h6{font-style: inherit; font-weight: 400;}
+
+*{
+	font-family: "Merriweather", Muli, sans-serif;
+}
+
+h2{
+    text-align: center;
+    margin: 5px 0 50px 0;
+    font-size: 50px;
+}
+
+input[type="text"], input[type="tel"], input[type="email"] {
+    width: 300px; /* Измените значение на нужный размер */
+    height: 40px; /* Измените значение на нужный размер */
+    font-size: 14px; /* Измените значение на нужный размер */
+	/*border: 1px solid #000;*/
+	/*border-radius: 20px 0 20px 0;*/
+}
+
+button[type="submit"], button[type="reset"] {
+	width: 250px; /* Измените значение на нужный размер */
+    height: 40px; /* Измените значение на нужный размер */
+	opacity: 0.6;
+	font-size: 16px;
+	border: 1px solid white;
+	overflow: hidden;
+	border-radius: 15px;
+
+}
+
+/*button[type="submit"]{*/
+/*	padding: 0 10px 0 0 ;*/
+/*}*/
+
+
+input{
+	margin: 0 0 10px 0;
+	border: 1px solid white;
+	overflow: hidden;
+	border-radius: 15px;
+	background: #BCE4D1;
+}
+
+
+
+button{
+	margin: 0 0 40px 0;
+	background: #7FBF63;
+}
+
+.button_left{
+	margin-right: 30px;
+}
+
+.master {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+	background: url("../Img/image.png") round;
+}
+
+.header {
+	opacity: 0.8;
+}
+
+.master_2 {
+    border: 10px solid #5BAD9E;
+    display: inline-block;
+    text-align: center;
+	border-radius: 20px 0 20px 0;
+	padding: 30px;
+	box-shadow: 5px 5px 10px 5px #BCE4D1;
+	background: #FAF3DF;
+	opacity: 0.6;
+}
