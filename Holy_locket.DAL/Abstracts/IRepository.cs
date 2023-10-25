@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.DAL.Abstracts
 {
-    internal interface Interface1
+    internal interface IRepository
     {
     }
 }

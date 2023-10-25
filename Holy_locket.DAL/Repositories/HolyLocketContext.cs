@@ -12,7 +12,6 @@ namespace Holy_locket.DAL.Repositories
         public HolyLocketContext(DbContextOptions<HolyLocketContext> options) : base(options) { }
         public HolyLocketContext()
         {
-            int i = 0;
         }
 
     }
