@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Holy_locket.DAL.Abstracts
+namespace Holy_locket.DAL.Models
 {
-    public abstract class TEntity
+    internal class Patient
     {
-        public virtual int Id { get; set; }
     }
 }
