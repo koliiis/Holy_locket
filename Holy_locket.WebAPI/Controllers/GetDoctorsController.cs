@@ -15,7 +15,7 @@ namespace Holy_locket.WebAPI.Controllers
         public IActionResult GetDoctors() 
         {
             try {
-                //получение данных
+                //ToDo: add getting data logic from DoctorsService
 
                 return Ok(/*doctors*/);
             }
