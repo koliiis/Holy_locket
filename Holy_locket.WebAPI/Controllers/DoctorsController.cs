@@ -19,24 +19,21 @@ namespace Holy_locket.WebAPI.Controllers
 
         public DoctorsController()
         {
-            try {
-                string fileName = "Doctors.json";
+
+            string fileName = "Doctors.json";
 
 
-                string jsonString;
-                using (StreamReader reader = new StreamReader(fileName))
-                {
-                    jsonString = reader.ReadToEnd();
-                }
-
-
-                doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonString);
-            
-            } 
-            catch (Exception ex) {
-                return;
+            string jsonString;
+            using (StreamReader reader = new StreamReader(fileName))
+            {
+                jsonString = reader.ReadToEnd();
             }
-            for (int id = 0; id < doctors.Count; id++) 
+
+
+            doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonString);
+
+
+            for (int id = 0; id < doctors.Count; id++)
             {
                 doctors[id].Id = id;
             }
@@ -80,38 +77,62 @@ namespace Holy_locket.WebAPI.Controllers
         [HttpPost]
         public IActionResult PostDoctors(Doctor doc)
         {
-            doctors.Add(doc);
-            string fileName = "Doctors.json";
-            string jsonString = JsonSerializer.Serialize(doctors);
-            using (StreamWriter writer = new StreamWriter(fileName))
+            try
             {
-                writer.Write(jsonString);
+                doctors.Add(doc);
+                string fileName = "Doctors.json";
+                string jsonString = JsonSerializer.Serialize(doctors);
+                using (StreamWriter writer = new StreamWriter(fileName))
+                {
+                    writer.Write(jsonString);
+                }
+                return Ok();
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+            
         }
         [HttpPut("{id}")]
         public IActionResult PutDoctors(Doctor doc, int id)
         {
-            doctors[id] = doc;
-            string fileName = "Doctors.json";
-            string jsonString = JsonSerializer.Serialize(doctors);
-            using (StreamWriter writer = new StreamWriter(fileName))
+            try
             {
-                writer.Write(jsonString);
+                doctors[id] = doc;
+                string fileName = "Doctors.json";
+                string jsonString = JsonSerializer.Serialize(doctors);
+                using (StreamWriter writer = new StreamWriter(fileName))
+                {
+                    writer.Write(jsonString);
+                }
+                return Ok();
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+            
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteDoctors(int id)
         {
-            doctors.RemoveAt(id);
-            string fileName = "Doctors.json";
-            string jsonString = JsonSerializer.Serialize(doctors);
-            using (StreamWriter writer = new StreamWriter(fileName))
+            try
             {
-                writer.Write(jsonString);
+                doctors.RemoveAt(id);
+                string fileName = "Doctors.json";
+                string jsonString = JsonSerializer.Serialize(doctors);
+                using (StreamWriter writer = new StreamWriter(fileName))
+                {
+                    writer.Write(jsonString);
+                }
+                return Ok();
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+           
             
         }
     }
