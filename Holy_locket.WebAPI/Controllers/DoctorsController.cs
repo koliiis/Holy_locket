@@ -1,6 +1,8 @@
-﻿using Holy_locket.WebAPI.TestModels;
+﻿
+using Holy_locket.BLL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ModelsLibrary;
 using System;
 using System.IO;
 using System.Numerics;
@@ -14,46 +16,19 @@ namespace Holy_locket.WebAPI.Controllers
     //[Route("Doctors")]
     public class DoctorsController : ControllerBase
     {
-        List<Doctor> doctors = new List<Doctor>();
+        IDoctorService _doctorService;
 
 
-        public DoctorsController()
+        public DoctorsController(IDoctorService doctorService)
         {
-
-            string fileName = "Doctors.json";
-
-
-            string jsonString;
-            using (StreamReader reader = new StreamReader(fileName))
-            {
-                jsonString = reader.ReadToEnd();
-            }
-
-
-            doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonString);
-
-
-            for (int id = 0; id < doctors.Count; id++)
-            {
-                doctors[id].Id = id;
-            }
-
-
-
+            _doctorService= doctorService;
         }
 
         [HttpGet]
         public IActionResult GetDoctors()
         {
             try {
-                string fileName = "Doctors.json";
-                string jsonString = JsonSerializer.Serialize(doctors);
-                using (StreamWriter writer = new StreamWriter(fileName))
-                {
-                    writer.Write(jsonString);
-                }
-                //ToDo: add getting data logic from DoctorsService
-
+                var doctors = _doctorService.GetAll();
                 return Ok(doctors);
             }
             catch (Exception ex) {
@@ -66,8 +41,8 @@ namespace Holy_locket.WebAPI.Controllers
             try
             {
                 //ToDo: add getting data logic from DoctorsService
-
-                return Ok(doctors[id]);
+                var doctor = _doctorService.GetById(id);
+                return Ok(doctor);
             }
             catch (Exception ex)
             {
@@ -75,17 +50,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult PostDoctors(Doctor doc)
+        public IActionResult PostDoctors(Doctor doctor)
         {
             try
             {
-                doctors.Add(doc);
-                string fileName = "Doctors.json";
-                string jsonString = JsonSerializer.Serialize(doctors);
-                using (StreamWriter writer = new StreamWriter(fileName))
-                {
-                    writer.Write(jsonString);
-                }
+                _doctorService.Add(doctor);
                 return Ok();
             }
             catch (Exception ex)
@@ -95,17 +64,11 @@ namespace Holy_locket.WebAPI.Controllers
             
         }
         [HttpPut("{id}")]
-        public IActionResult PutDoctors(Doctor doc, int id)
+        public IActionResult PutDoctors(Doctor doctor, int id)
         {
             try
             {
-                doctors[id] = doc;
-                string fileName = "Doctors.json";
-                string jsonString = JsonSerializer.Serialize(doctors);
-                using (StreamWriter writer = new StreamWriter(fileName))
-                {
-                    writer.Write(jsonString);
-                }
+                _doctorService.Update(doctor, id);
                 return Ok();
             }
             catch (Exception ex)
@@ -118,14 +81,8 @@ namespace Holy_locket.WebAPI.Controllers
         public IActionResult DeleteDoctors(int id)
         {
             try
-            {
-                doctors.RemoveAt(id);
-                string fileName = "Doctors.json";
-                string jsonString = JsonSerializer.Serialize(doctors);
-                using (StreamWriter writer = new StreamWriter(fileName))
-                {
-                    writer.Write(jsonString);
-                }
+            {   
+                _doctorService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)
