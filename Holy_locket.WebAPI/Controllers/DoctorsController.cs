@@ -13,7 +13,7 @@ namespace Holy_locket.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Route("Doctors")]
+    
     public class DoctorsController : ControllerBase
     {
         IDoctorService _doctorService;
@@ -40,7 +40,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                //ToDo: add getting data logic from DoctorsService
+                
                 var doctor = _doctorService.GetById(id);
                 return Ok(doctor);
             }
