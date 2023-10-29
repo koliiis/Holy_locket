@@ -21,8 +21,5 @@ namespace ModelsLibrary
         public string Phone { get; set; }
         public string Photo { get; set; }
         public int SpecialityId { get; set; }
-        
-        //public Speciality Speciality { get; set; }
-        //public ICollection<Appointment> AppointmentList { get; set; }
     }
 }
