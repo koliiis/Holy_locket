@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.DAL.Abstracts
 {
-    internal interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
+        IRepository<T> GetRepository<T>() where T : TEntity;
+        public void Dispose();
     }
 }
