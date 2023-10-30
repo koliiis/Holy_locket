@@ -1,0 +1,53 @@
+@import url('https://fonts.cdnfonts.com/css/anton');
+
+.main {
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    display: flex;
+}
+
+nav {
+    background: #1F292A;
+
+}
+
+
+.logo {
+    font-size: 35px;
+    margin: 0 18% 0 55px;
+    color: #B1D3BB;
+    font-family: 'Anton', sans-serif;
+}
+
+nav ul {
+    margin-bottom: 15px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 15px;
+    height: 75px;
+}
+
+.btn {
+    font-size: 14px;
+}
+
+button:focus{
+    background: #7BBD8E;
+    transition: 0.5s;
+}
+
+
+nav ul li button {
+    padding: 9px 65px;
+    border-radius: 25px;
+    font-size: 12px;
+}
+
+
+
+
+
+
