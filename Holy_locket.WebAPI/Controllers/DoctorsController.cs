@@ -50,7 +50,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult PostDoctors(Doctor doctor)
+        public IActionResult PostDoctors(Doctors doctor)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Holy_locket.WebAPI.Controllers
             
         }
         [HttpPut("{id}")]
-        public IActionResult PutDoctors(Doctor doctor, int id)
+        public IActionResult PutDoctors(Doctors doctor, int id)
         {
             try
             {

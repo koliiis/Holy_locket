@@ -9,7 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+namespace Holy_locket.DAL.Models
 {
+    public class Doctors : TEntity
     {
         public string FirstName { get; set; }
         [Required]

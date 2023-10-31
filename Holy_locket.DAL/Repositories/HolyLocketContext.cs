@@ -10,20 +10,21 @@ namespace Holy_locket.DAL.Repositories
 {
     public class HolyLocketContext : DbContext
     {
-        public HolyLocketContext(DbContextOptions<HolyLocketContext> options) : base(options) { }
+        public HolyLocketContext(DbContextOptions<HolyLocketContext> options) : base(options) 
         {
+            ModelBuilder modelBuilder= new ModelBuilder();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Speciality>()
                     .HasMany(s => s.DoctorList)
                     .WithOne(d => d.Speciality)
                     .HasForeignKey(d => d.SpecialityId)
                     .IsRequired();
-            modelBuilder.Entity<Doctor>()
+            modelBuilder.Entity<Doctors>()
                    .HasMany(d => d.AppointmentList)
                    .WithOne(a => a.Doctor)
                    .HasForeignKey(a => a.DoctorId)
                    .IsRequired();
-            modelBuilder.Entity<Hospital>()
+            modelBuilder.Entity<Doctors>()
                    .HasMany(h => h.AppointmentList)
                    .WithOne(a => a.Hospital)
                    .HasForeignKey(a => a.HospitalId)
