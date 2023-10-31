@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.DAL.Abstracts
 {
-    internal class TEntity
+    public abstract class TEntity
     {
+        public virtual int Id { get; set; }
     }
 }
