@@ -11,7 +11,7 @@ namespace Holy_locket.DAL.Repository
 {
     public class DoctorRepository : IDoctorRepository
     {
-        public List<Doctors> doctors { get; set; }
+        public List<Doctor> doctors { get; set; }
         public DoctorRepository()
         {
             string fileName = "Doctors.json";
@@ -22,22 +22,22 @@ namespace Holy_locket.DAL.Repository
             }
 
 
-            doctors = JsonSerializer.Deserialize<List<Doctors>>(jsonString);
+            doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonString);
 
 
         }
-        public IEnumerable<Doctors> GetAll()
+        public IEnumerable<Doctor> GetAll()
         {
 
             return doctors;
         }
 
-        public Doctors GetById(int id)
+        public Doctor GetById(int id)
         {
             return doctors[id];
         }
 
-        public void Add(Doctors doctor)
+        public void Add(Doctor doctor)
         {
             doctors.Add(doctor);
             string fileName = "Doctors.json";
@@ -61,7 +61,7 @@ namespace Holy_locket.DAL.Repository
             return;
         }
 
-        public void Update(Doctors doctor, int id)
+        public void Update(Doctor doctor, int id)
         {
             doctors[id] = doctor;
             string fileName = "Doctors.json";

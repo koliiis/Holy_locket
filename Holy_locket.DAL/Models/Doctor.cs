@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.DAL.Models
 {
-    public class Doctors : TEntity
+    public class Doctor : TEntity
     {
         public string FirstName { get; set; }
         [Required]

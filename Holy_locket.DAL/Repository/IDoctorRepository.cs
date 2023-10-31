@@ -10,11 +10,11 @@ namespace Holy_locket.DAL.Repository
 {
     public interface IDoctorRepository
     {
-        List<Doctors> doctors { get; set; }
-        public IEnumerable<Doctors> GetAll();
-        public Doctors GetById(int id);
+        List<Doctor> doctors { get; set; }
+        public IEnumerable<Doctor> GetAll();
+        public Doctor GetById(int id);
         public void Delete(int id);
-        public void Add(Doctors doctor);
-        public void Update(Doctors doctor, int id);
+        public void Add(Doctor doctor);
+        public void Update(Doctor doctor, int id);
     }
 }

@@ -14,10 +14,10 @@ namespace Holy_locket.DAL.Models
         public override int Id { get; set; }
         public DateTime Time { get; set; }
         [NotMapped]
-        public Doctors Hospital { get; set; }
+        public Doctor Hospital { get; set; }
         public int HospitalId { get; set; }
         [NotMapped]
-        public Doctors Doctor { get; set; }
+        public Doctor Doctor { get; set; }
         public int DoctorId { get; set; }
         [NotMapped]
         public Patient Patient { get; set; }

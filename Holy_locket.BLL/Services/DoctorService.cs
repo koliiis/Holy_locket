@@ -17,7 +17,7 @@ namespace Holy_locket.BLL.Services
             _doctorRepository= doctorRepository;
            
         }
-        public void Add(Doctors doctor)
+        public void Add(Doctor doctor)
         {
             _doctorRepository.Add(doctor);
         }
@@ -27,17 +27,17 @@ namespace Holy_locket.BLL.Services
             _doctorRepository.Delete(id);
         }
 
-        public IEnumerable<Doctors> GetAll()
+        public IEnumerable<Doctor> GetAll()
         {
             return _doctorRepository.GetAll();  
         }
 
-        public Doctors GetById(int id)
+        public Doctor GetById(int id)
         {
             return _doctorRepository.GetById(id);
         }
 
-        public void Update(Doctors doctor, int id)
+        public void Update(Doctor doctor, int id)
         {
             _doctorRepository.Update(doctor,id);
         }

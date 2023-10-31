@@ -15,6 +15,6 @@ namespace Holy_locket.DAL.Models
         [MinLength(2)]
         [MaxLength(15)]
         public string Name { get; set; }
-        public ICollection<Doctors> DoctorList{ get; set; }
+        public ICollection<Doctor> DoctorList{ get; set; }
     }
 }
