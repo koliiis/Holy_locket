@@ -10,8 +10,9 @@ namespace Holy_locket.DAL.Repositories
 {
     public class HolyLocketContext : DbContext
     {
-        public HolyLocketContext(DbContextOptions<HolyLocketContext> options) : base(options) { }
+        public HolyLocketContext(DbContextOptions<HolyLocketContext> options) : base(options) 
         {
+            ModelBuilder modelBuilder= new ModelBuilder();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Speciality>()
                     .HasMany(s => s.DoctorList)
