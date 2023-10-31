@@ -18,11 +18,11 @@ const NavBar = () => {
                     </li>
 
                     <li>
-                        <button className="btn" onClick={() => navigate("/registration")}>Лікарі</button>
+                        <button className="btn" onClick={() => navigate("/doctors")}>Лікарі</button>
                     </li>
 
                     <li>
-                        <button className="btn" onClick={() => navigate("/registration")}>Мої записи</button>
+                        <button className="btn" onClick={() => navigate("/appointment")}>Мої записи</button>
                     </li>
                 </ul>
             </nav>
