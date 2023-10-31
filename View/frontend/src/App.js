@@ -1,14 +1,25 @@
-// import Registration from './pages/Registration';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Registration from './pages/registration/Registration';
+import Appointment from "./pages/appointment/appointment";
+import Doctor from "./pages/doctors/doctors";
+import Landing from "./pages/landing/landing";
+import NavBar from "./component/NavBar";
 
-function App() {
+
+const App = () => {
   return (
       <div className="App">
-        <header>
-          <h1 className="main">Добро пожаловать на мой сайт!</h1>
-        </header>
+        <nav>
+            <NavBar />
+        </nav>
         <main>
-          <Registration/>
+            <Routes>
+                <Route path="/registration" element={<Registration />} />
+                <Route path="/appointment" element={<Appointment />} />
+                <Route path="/doctors" element={<Doctor />} />
+                <Route path="/" element={<Landing />} />
+                <Route path="/landing" element={<Landing />} />
+            </Routes>
         </main>
       </div>
   );
