@@ -8,21 +8,21 @@ const NavBar = () => {
     return (
         <div className="main">
             <div className="logo">
-                <strong>HOLY Locket</strong>
+                <strong className="loggo">HOLY Locket</strong>
             </div>
 
             <nav>
                 <ul className="choose">
                     <li>
-                        <button className="btn" onClick={() => navigate("/registration")}>ГОЛОВНА</button>
+                        <button className="btn" onClick={() => navigate("/landing")}>ГОЛОВНА</button>
                     </li>
 
                     <li>
-                        <button className="btn" onClick={() => navigate("/registration")}>Лікарі</button>
+                        <button className="btn" onClick={() => navigate("/doctors")}>Лікарі</button>
                     </li>
 
                     <li>
-                        <button className="btn" onClick={() => navigate("/registration")}>Мої записи</button>
+                        <button className="btn" onClick={() => navigate("/appointment")}>Мої записи</button>
                     </li>
                 </ul>
             </nav>

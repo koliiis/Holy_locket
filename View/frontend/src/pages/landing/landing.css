@@ -1,0 +1,136 @@
+
+.bodys{
+
+    /*background: url("img/back.png");*/
+    background: url("./landing.jpg");
+    /* background-size: 1535px; */
+    background-size: cover;
+    height: 655px;
+}
+
+/** {box-sizing:border-box}*/
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    top: 95px;
+    left: -350px;
+    margin: auto;
+    width: 650px;
+    height: 450px;
+}
+
+/* Hide the images by default */
+.mySlides{
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+
+}
+
+img {
+    width: 300px;
+    height: 400px;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    position: relative;
+    top: 144px;
+    left: -350px;
+    transform: translate(1000%, -800%);
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+
+
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+
+}
+.headerr{
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 42px;
+    margin-top: -210px;
+    transform: translate(90%, -475%);
+}
+
+/* Caption text */
+/* .text {
+    color: #ffffff;
+    font-family: 'Oswald';
+    font-size: 26px;
+    margin-top: 0px;
+    margin-left: 750px;
+  } */
+
+.main-text{
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    margin-top: 0px;
+    margin-right: 50px;
+    transform: translate(120%, -155%);
+    line-height: 1.7;
+}
+
+
