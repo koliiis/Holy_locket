@@ -1,5 +1,6 @@
-﻿using Holy_locket.DAL.Repository;
-using ModelsLibrary;
+﻿using Holy_locket.DAL.Models;
+using Holy_locket.DAL.Repository;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
