@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Holy_locket.BLL", "Holy_loc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Holy_locket.DAL", "Holy_locket.DAL\Holy_locket.DAL.csproj", "{2BA73F48-5D1A-4B3E-B6E9-D557F6D7457A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelsLibrary", "ModelsLibrary\ModelsLibrary.csproj", "{0E7FA361-99E8-4347-964B-A57CCAB0ED24}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
