@@ -24,7 +24,7 @@ namespace Holy_locket.DAL.Repositories
                    .WithOne(a => a.Doctor)
                    .HasForeignKey(a => a.DoctorId)
                    .IsRequired();
-            modelBuilder.Entity<Doctor>()
+            modelBuilder.Entity<Hospital>()
                    .HasMany(h => h.AppointmentList)
                    .WithOne(a => a.Hospital)
                    .HasForeignKey(a => a.HospitalId)
