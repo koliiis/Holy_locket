@@ -7,21 +7,23 @@
     margin-left: 40px;
     display: flex;
     align-content: center;
-    border: 1px solid greenyellow;
+    border: 1px solid #9DB39F;
     width: 190px;
     height: 600px;
     border-radius: 0 0 35px 35px;
-    background: greenyellow;
+    background: #9DB39F;
     padding-top: 24px;
     padding-left: 20px;
 }
 .filt {
     font-size: 22px;
+    color: #1F292A;
 }
 
 .filt-btn {
     background: none;
     font-size: 17px;
+    color: #595959;
 }
 
 .filt-btn:hover {
@@ -66,6 +68,10 @@
     color: #595959;
 }
 
+.name {
+    color: #1F292A;
+}
+
 .info {
     font-size: 17px;
 }
@@ -80,11 +86,15 @@
 }
 
 .more_info{
-    background: green;
+    background: #7BBD8E;
     padding: 10px 50px;
     border-radius: 20px;
     transform: translate(-45%, 60%);
     color: #ffff;
+}
+
+.more_info:hover {
+    background: #3F7652;
 }
 
 

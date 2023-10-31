@@ -8,13 +8,13 @@ const NavBar = () => {
     return (
         <div className="main">
             <div className="logo">
-                <strong>HOLY Locket</strong>
+                <strong className="loggo">HOLY Locket</strong>
             </div>
 
             <nav>
                 <ul className="choose">
                     <li>
-                        <button className="btn" onClick={() => navigate("/registration")}>ГОЛОВНА</button>
+                        <button className="btn" onClick={() => navigate("/landing")}>ГОЛОВНА</button>
                     </li>
 
                     <li>

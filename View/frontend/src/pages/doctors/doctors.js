@@ -12,7 +12,7 @@ function Doctors() {
                     <li><button className='filt-btn'>Стать</button></li>
                     <li><button className='filt-btn'>Стаж</button></li>
                     <li><button className='filt-btn'>Спеціалізація</button></li>
-                    <li><button className='filt-btn'>Оцніка</button></li>
+                    <li><button className='filt-btn'>Оцінка</button></li>
                 </ul>
                 <div className="cards">
                     <div className="doctor-photo-cards">
