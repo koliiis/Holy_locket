@@ -10,17 +10,9 @@ namespace Holy_locket.DAL.Repositories
 {
     public class HolyLocketContext : DbContext
     {
-        public HolyLocketContext(DbContextOptions<HolyLocketContext> options) : base(options) { }
-       
-
-        public virtual DbSet<Appointment> Appointments { get; set; }
-        public virtual DbSet<Doctor> Doctors { get; set; }
-        public virtual DbSet<Patient> Patients { get; set; }
-        public virtual DbSet<Hospital> Hospitals { get; set; }
-        public virtual DbSet<Speciality> Specialities { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public HolyLocketContext(DbContextOptions<HolyLocketContext> options) : base(options) 
         {
+            ModelBuilder modelBuilder= new ModelBuilder();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Speciality>()
                     .HasMany(s => s.DoctorList)
@@ -44,5 +36,6 @@ namespace Holy_locket.DAL.Repositories
                    .IsRequired();
 
         }
+
     }
 }
