@@ -31,5 +31,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors("Mypolicy");
+
+app.UseCors("MyPolicy");
+
 app.Run();
