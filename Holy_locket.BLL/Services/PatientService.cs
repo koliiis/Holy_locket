@@ -1,4 +1,5 @@
-﻿using Holy_locket.BLL.DTO;
+﻿using AutoMapper;
+using Holy_locket.BLL.DTO;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
@@ -14,27 +15,29 @@ namespace Holy_locket.BLL.Services
     {
         private readonly IRepository<Patient> _repository;
         private readonly IUnitOfWork _unitOfWork;
-        public PatientService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public PatientService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _repository = _unitOfWork.GetRepository<Patient>();
+            _mapper = mapper;
         }
-        public async Task CreatePatient(Patient patient)
+        public async Task CreatePatient(PatientDTO patient)
         {
-            await _repository.Create(patient);
+            await _repository.Create(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
         }
         public async Task DeletePatient(int id)
         {
-            await _repository.Delete(id);
+            await _repository.Delete(id).ConfigureAwait(false);
         }
-        public async Task UpdatePatient(Patient patient)
+        public async Task UpdatePatient(PatientDTO patient)
         {
-            await _repository.Update(patient);
+            await _repository.Update(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
        
         }
         public async Task GetPatientById(int id)
         {
-            await _repository.Get(id);
+            await _repository.Get(id).ConfigureAwait(false);
         }
         public void Dispose()
         {

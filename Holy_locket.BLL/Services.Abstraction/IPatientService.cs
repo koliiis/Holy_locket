@@ -11,8 +11,8 @@ namespace Holy_locket.BLL.Services.Abstraction
     public interface IPatientService : IDisposable
     {
         Task DeletePatient(int id);
-        Task UpdatePatient(Patient patient);
-        Task CreatePatient(Patient patient);
+        Task UpdatePatient(PatientDTO patient);
+        Task CreatePatient(PatientDTO patient);
         Task GetPatientById(int id);
     }
 }

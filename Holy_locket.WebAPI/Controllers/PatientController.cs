@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Holy_locket.BLL.Services;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Models;
+using Holy_locket.BLL.DTO;
 
 namespace Holy_locket.WebAPI.Controllers
 {
@@ -30,7 +31,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult PostPatient(Patient patient)
+        public IActionResult PostPatient(PatientDTO patient)
         {
             try
             {
@@ -43,7 +44,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPut]
-        public IActionResult PutPatient(Patient patient)
+        public IActionResult PutPatient(PatientDTO patient)
         {
             try
             {

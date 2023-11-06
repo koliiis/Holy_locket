@@ -1,3 +1,4 @@
+using Holy_locket.BLL;
 using Holy_locket.BLL.Services;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
 builder.Services.AddTransient<IDoctorService, DoctorService>();
 //builder.Services.AddTransient<IPatientService, PatientService>();
-
+builder.Services.AddAutoMapper(typeof(ConfigurationMapper));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
