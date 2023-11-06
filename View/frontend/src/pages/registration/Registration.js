@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './Registration.css';
+import axios from "axios";
 
 function Registration() {
     const [name, setName] = useState('');
@@ -17,6 +18,21 @@ function Registration() {
             email,
         };
         setRegistrationData(data);
+
+        axios
+            .post('https://localhost:7172/api/Patient', {
+                firstName: name,
+                lastName: surname,
+                phone: phoneNumber,
+                email,
+            })
+            .then((response) => {
+                // Обработка успешного запроса, если это необходимо
+            })
+            .catch((error) => {
+                // Обработка ошибки, если запрос не удался
+                console.error('Ошибка при отправке данных:', error);
+            });
     };
 
 
@@ -76,6 +92,8 @@ function Registration() {
             )}
         </div>
     );
+        // Выполнить запрос при монтировании компонента
+
 }
 
 export default Registration;
