@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Holy_locket.BLL.DTO;
+using Holy_locket.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.Services.Abstraction
 {
-    internal interface IPatientService : IDisposable
+    public interface IPatientService : IDisposable
     {
-        Task DeleteProject(int id);
-        Task DeleteProject(Patien project);
-        Task UpdateProject(ProjectDTO project);
-        Task CreateProject(ProjectDTO project);
+        Task DeletePatient(int id);
+        Task UpdatePatient(Patient patient);
+        Task CreatePatient(Patient patient);
+        Task GetPatientById(int id);
     }
 }
