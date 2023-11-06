@@ -45,7 +45,7 @@
 
 .cards {
     border: 1px solid white;
-    width: 480px;
+    max-width: 450px;
     margin-left: 50px;
     height: 540px;
     padding-left: 150px;
@@ -108,3 +108,4 @@
     border-left: 5px solid #ffff; /* Измените цвет и размер стрелочки */
     margin-left: 5px; /* Измените отступ между текстом и стрелочкой */
 }
+
