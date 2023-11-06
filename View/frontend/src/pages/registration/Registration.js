@@ -24,10 +24,10 @@ function Registration() {
                 firstName: name,
                 lastName: surname,
                 phone: phoneNumber,
-                email,
+                email: email,
             })
             .then((response) => {
-                // Обработка успешного запроса, если это необходимо
+                console.log("Peremoga");
             })
             .catch((error) => {
                 // Обработка ошибки, если запрос не удался
