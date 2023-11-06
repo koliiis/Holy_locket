@@ -39,6 +39,7 @@ function Doctors() {
                             <button className='filt-btn'>Оцінка</button>
                         </li>
                     </ul>
+
                     <div className="cards">
                         <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
                         <h3 className="name">
@@ -57,11 +58,10 @@ function Doctors() {
                         <button className="more_info" onClick={() => navigate("/appointment")}>Дізнатись</button>
                     </div>
 
-                    <div className="cards">
-                        <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
-                        {doctors.map(doctor => (
-                            <div className="doctor-photo-cards" key={doctor.id}>
-
+                    {doctors.map(doctor => (
+                    <div className="card-container">
+                            <div className="cards" key={doctor.id}>
+                                <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
                                 <h3 className="name">
                                     {doctor.firstName}
                                     <p className="specail-card">
@@ -74,11 +74,11 @@ function Doctors() {
                                 <div className="info">
                                     {doctor.description}
                                 </div>
-
+                                <button className="more_info" onClick={() => navigate("/appointment")}>Дізнатись</button>
                             </div>
-                        ))}
-                        <button className="more_info" onClick={() => navigate("/appointment")}>Дізнатись</button>
+
                     </div>
+                    ))}
                     <div className="cards">
                         <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
                         <h3 className="name">
