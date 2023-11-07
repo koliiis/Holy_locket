@@ -1,4 +1,6 @@
+using Holy_locket.BLL;
 using Holy_locket.BLL.Services;
+using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repositories;
@@ -9,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<HolyLocketContext>();
 builder.Services.AddTransient<IRepository<Doctor>, Repository<Doctor>>();
 builder.Services.AddTransient<IDoctorService, DoctorService>();
-
+//builder.Services.AddTransient<IPatientService, PatientService>();
+builder.Services.AddAutoMapper(typeof(ConfigurationMapper));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,5 +37,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors("Mypolicy");
+
+app.UseCors("MyPolicy");
+
 app.Run();
