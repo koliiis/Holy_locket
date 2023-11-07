@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import "./patientsappointments.css";
+import { useNavigate } from 'react-router-dom';
 
-function patientsappointments() {
-   return (
+function Patientsappointments() {
+    const navigate = useNavigate();
+
+    return (
     <div className="body1">
         <div className="div1">
             <h2 className="h21">Костя Пивопив</h2>
             <p className="p1">Акушер-гінеколог</p>
             <h3 className="h31">Стан запису:</h3>
             <div className="div21">ЗАКІНЧЕНО</div>
-            <div className="div3">Записатися ще раз</div>
+            <button className="div3" onClick={() => navigate("/appointment")}>Записатися ще раз</button>
             <h3 className="appdet">Деталі прийому:</h3>
             <div className="div4">
                 <p className="p1">Дата: 6.11.2023</p>
@@ -24,7 +27,7 @@ function patientsappointments() {
             <p className="p1">Уролог</p>
             <h3 className="h31">Стан запису:</h3>
             <div class="div2">ПІДТВЕРДЖЕНО</div>
-            <div class="div3">Записатися ще раз</div>
+            <button className="div3" onClick={() => navigate("/appointment")}>Записатися ще раз</button>
             <h3 class="appdet">Деталі прийому:</h3>
             <div class="div4">
                 <p className="p1">Дата: 10.11.2023</p>
@@ -39,7 +42,7 @@ function patientsappointments() {
             <p className="p1">Уролог</p>
             <h3 className="h31">Стан запису:</h3>
             <div class="div2">ПІДТВЕРДЖЕНО</div>
-            <div class="div3">Записатися ще раз</div>
+            <button className="div3" onClick={() => navigate("/appointment")}>Записатися ще раз</button>
             <h3 class="appdet">Деталі прийому:</h3>
             <div class="div4">
                 <p className="p1">Дата: 10.11.2023</p>
@@ -53,4 +56,4 @@ function patientsappointments() {
    );
 }
 
-export default patientsappointments;
+export default Patientsappointments;
