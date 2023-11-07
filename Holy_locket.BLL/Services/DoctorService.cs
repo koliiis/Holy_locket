@@ -15,27 +15,26 @@ namespace Holy_locket.BLL.Services
         public DoctorService(IRepository<Doctor> Repository) 
         {
             _doctorRepository = Repository;
-           
         }
         public async Task Add(Doctor doctor)
         {
-            await _doctorRepository.Create(doctor);
+            await _doctorRepository.Create(doctor).ConfigureAwait(false);
         }
         public async Task Delete(int id)
         {
-            await _doctorRepository.Delete(id);
+            await _doctorRepository.Delete(id).ConfigureAwait(false);
         }
         public async Task<ICollection<Doctor>> GetAll()
         {
-            return await _doctorRepository.Get();  
+            return await _doctorRepository.Get().ConfigureAwait(false);  
         }
         public async Task<Doctor> GetById(int id)
         {
-            return await _doctorRepository.Get(id);
+            return await _doctorRepository.Get(id).ConfigureAwait(false);
         }
         public async Task Update(Doctor doctor)
         {
-            await _doctorRepository.Update(doctor);
+            await _doctorRepository.Update(doctor).ConfigureAwait(false);
         }
 
     }
