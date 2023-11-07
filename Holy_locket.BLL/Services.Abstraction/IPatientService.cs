@@ -13,6 +13,6 @@ namespace Holy_locket.BLL.Services.Abstraction
         Task DeletePatient(int id);
         Task UpdatePatient(PatientDTO patient);
         Task CreatePatient(PatientDTO patient);
-        Task GetPatientById(int id);
+        Task<PatientDTO> GetPatientById(int id);
     }
 }

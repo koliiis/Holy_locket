@@ -1,4 +1,7 @@
-﻿using Holy_locket.DAL.Abstracts;
+﻿using AutoMapper;
+using Holy_locket.BLL.DTO;
+using Holy_locket.BLL.Services.Abstraction;
+using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repository;
 using System;
@@ -11,31 +14,36 @@ namespace Holy_locket.BLL.Services
 {
     public class DoctorService : IDoctorService
     {
-        public IRepository<Doctor> _doctorRepository;
-        public DoctorService(IRepository<Doctor> Repository) 
+        private readonly IRepository<Doctor> _doctorRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        public DoctorService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _doctorRepository = Repository;
+            _unitOfWork = unitOfWork;
+            _doctorRepository = _unitOfWork.GetRepository<Doctor>();
+            _mapper = mapper;
         }
-        public async Task Add(Doctor doctor)
+        public async Task Add(DoctorDTO doctor)
         {
-            await _doctorRepository.Create(doctor).ConfigureAwait(false);
+            await _doctorRepository.Create(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
         }
         public async Task Delete(int id)
         {
             await _doctorRepository.Delete(id).ConfigureAwait(false);
         }
-        public async Task<ICollection<Doctor>> GetAll()
+        public async Task<ICollection<DoctorDTO>> GetAll()
         {
-            return await _doctorRepository.Get().ConfigureAwait(false);  
+            var doctors = await _doctorRepository.Get().ConfigureAwait(false);
+            return _mapper.Map<ICollection<DoctorDTO>>(doctors);
         }
-        public async Task<Doctor> GetById(int id)
+        public async Task<DoctorDTO> GetById(int id)
         {
-            return await _doctorRepository.Get(id).ConfigureAwait(false);
+            var doctor = await _doctorRepository.Get(id).ConfigureAwait(false);
+            return _mapper.Map<DoctorDTO>(doctor);
         }
-        public async Task Update(Doctor doctor)
+        public async Task Update(DoctorDTO doctor)
         {
-            await _doctorRepository.Update(doctor).ConfigureAwait(false);
+            await _doctorRepository.Update(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
         }
-
     }
 }

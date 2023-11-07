@@ -19,7 +19,7 @@ namespace Holy_locket.BLL.Services
         public PatientService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _repository = _unitOfWork.GetRepository<Patient>();
+            _repository = unitOfWork.GetRepository<Patient>();
             _mapper = mapper;
         }
         public async Task CreatePatient(PatientDTO patient)
@@ -33,11 +33,12 @@ namespace Holy_locket.BLL.Services
         public async Task UpdatePatient(PatientDTO patient)
         {
             await _repository.Update(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
-       
+
         }
-        public async Task GetPatientById(int id)
+        public async Task<PatientDTO> GetPatientById(int id)
         {
-            await _repository.Get(id).ConfigureAwait(false);
+            var patient = await _repository.Get(id).ConfigureAwait(false);
+            return _mapper.Map<PatientDTO>(patient);
         }
         public void Dispose()
         {

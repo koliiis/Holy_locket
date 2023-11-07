@@ -1,5 +1,5 @@
-﻿
-using Holy_locket.BLL.Services;
+﻿using Holy_locket.BLL.DTO;
+using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +45,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> PostDoctors(Doctor doctor)
+        public async Task<IActionResult> PostDoctors(DoctorDTO doctor)
         {
             try
             {
@@ -56,10 +56,9 @@ namespace Holy_locket.WebAPI.Controllers
             {
                 return StatusCode(500, "An error occurred while processing your request.");
             }
-            
         }
         [HttpPut]
-        public async Task<IActionResult> PutDoctors(Doctor doctor)
+        public async Task<IActionResult> PutDoctors(DoctorDTO doctor)
         {
             try
             {
