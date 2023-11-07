@@ -18,11 +18,11 @@ namespace Holy_locket.WebAPI.Controllers
             _patientService = patientService;
         }
         [HttpGet("{id}")]
-        public IActionResult GetPatientByID(int id) 
+        public async Task<IActionResult> GetPatientByID(int id) 
         {
             try
             {
-                var patient = _patientService.GetPatientById(id);
+                var patient =await _patientService.GetPatientById(id);
                 return Ok(patient);
             }
             catch (Exception ex)
@@ -31,11 +31,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult PostPatient(PatientDTO patient)
+        public async Task<IActionResult> PostPatient(PatientDTO patient)
         {
             try
             {
-                _patientService.CreatePatient(patient);
+               await _patientService.CreatePatient(patient);
                 return Ok();
             }
             catch (Exception)
@@ -44,11 +44,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPut]
-        public IActionResult PutPatient(PatientDTO patient)
+        public async Task<IActionResult> PutPatient(PatientDTO patient)
         {
             try
             {
-                _patientService.UpdatePatient(patient);
+               await _patientService.UpdatePatient(patient);
                 return Ok();
             }
             catch (Exception)
@@ -57,11 +57,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult DeletePatient(int id)
+        public async Task<IActionResult> DeletePatient(int id)
         {
             try
             {
-                _patientService.DeletePatient(id);
+                await _patientService.DeletePatient(id);
                 return Ok();
             }
             catch (Exception)

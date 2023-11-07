@@ -29,7 +29,8 @@ namespace Holy_locket.DAL.Models
         public string Email { get; set; }
         [Required]
         public DateTime Birthday { get; set; }
-        public string  Photo { get; set; }
-        public ICollection<Appointment> AppointmentList { get; set; }
+        public string?  Photo { get; set; } = "";
+        public ICollection<Appointment>? AppointmentList { get; set; }
+        
     }
 }

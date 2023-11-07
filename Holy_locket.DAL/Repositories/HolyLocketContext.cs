@@ -36,6 +36,18 @@ namespace Holy_locket.DAL.Repositories
                    .IsRequired();
 
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Server=DESKTOP-K7HFUB0\HOLY_LOCKET;Database=Holy_LocketDB;Trusted_Connection=True;TrustServerCertificate=True;");
+            }
+        }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Hospital> Hospitals { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
 
     }
 }
