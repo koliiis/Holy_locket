@@ -1,6 +1,6 @@
-﻿using Holy_locket.DAL.Models;
+﻿using Holy_locket.DAL.Abstracts;
+using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repository;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,35 +11,31 @@ namespace Holy_locket.BLL.Services
 {
     public class DoctorService : IDoctorService
     {
-        public IDoctorRepository _doctorRepository;
-        public DoctorService(IDoctorRepository doctorRepository) 
+        public IRepository<Doctor> _doctorRepository;
+        public DoctorService(IRepository<Doctor> Repository) 
         {
-            _doctorRepository= doctorRepository;
-           
+            _doctorRepository = Repository;
         }
-        public void Add(Doctor doctor)
+        public async Task Add(Doctor doctor)
         {
-            _doctorRepository.Add(doctor);
+            await _doctorRepository.Create(doctor).ConfigureAwait(false);
+        }
+        public async Task Delete(int id)
+        {
+            await _doctorRepository.Delete(id).ConfigureAwait(false);
+        }
+        public async Task<ICollection<Doctor>> GetAll()
+        {
+            return await _doctorRepository.Get().ConfigureAwait(false);  
+        }
+        public async Task<Doctor> GetById(int id)
+        {
+            return await _doctorRepository.Get(id).ConfigureAwait(false);
+        }
+        public async Task Update(Doctor doctor)
+        {
+            await _doctorRepository.Update(doctor).ConfigureAwait(false);
         }
 
-        public void Delete(int id)
-        {
-            _doctorRepository.Delete(id);
-        }
-
-        public IEnumerable<Doctor> GetAll()
-        {
-            return _doctorRepository.GetAll();  
-        }
-
-        public Doctor GetById(int id)
-        {
-            return _doctorRepository.GetById(id);
-        }
-
-        public void Update(Doctor doctor, int id)
-        {
-            _doctorRepository.Update(doctor,id);
-        }
     }
 }

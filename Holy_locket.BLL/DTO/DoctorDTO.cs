@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.DTO
 {
-    internal class DoctorDTO
+    public class DoctorDTO
     {
         public string FirstName { get; set; }
         public string SecondName { get; set; }

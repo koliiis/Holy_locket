@@ -32,6 +32,10 @@ namespace Holy_locket.DAL.Repositories
         {
             return await context.Set<T>().FindAsync(id);
         }
+        public async Task<ICollection<T>> GetAll()
+        {
+            return await context.Set<T>().ToListAsync();
+        }
         public async Task Update(T entity, string updateBody = null)
         {
             context.Set<T>().Attach(entity);

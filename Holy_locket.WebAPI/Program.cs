@@ -8,8 +8,8 @@ using Holy_locket.DAL.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
+builder.Services.AddDbContext<HolyLocketContext>();
+builder.Services.AddTransient<IRepository<Doctor>, Repository<Doctor>>();
 builder.Services.AddTransient<IDoctorService, DoctorService>();
 //builder.Services.AddTransient<IPatientService, PatientService>();
 builder.Services.AddAutoMapper(typeof(ConfigurationMapper));

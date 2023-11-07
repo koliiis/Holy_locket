@@ -9,10 +9,10 @@ namespace Holy_locket.BLL.Services
 {
     public interface IDoctorService
     {
-        public IEnumerable<Doctor> GetAll();
-        public Doctor GetById(int id);
-        public void Delete(int id);
-        public void Add(Doctor doctor);
-        public void Update(Doctor doctor, int id);
+        public Task<ICollection<Doctor>> GetAll();
+        public Task<Doctor> GetById(int id);
+        public Task Delete(int id);
+        public Task Add(Doctor doctor);
+        public Task Update(Doctor doctor);
     }
 }
