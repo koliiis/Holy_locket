@@ -4,6 +4,7 @@ import Appointment from "./pages/appointment/appointment";
 import Doctor from "./pages/doctors/doctors";
 import Landing from "./pages/landing/landing";
 import NavBar from "./component/NavBar";
+import Patientsappointments from "./pages/patientsappointments/patientsappointments";
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
                 <Route path="/doctors" element={<Doctor />} />
                 <Route path="/" element={<Landing />} />
                 <Route path="/landing" element={<Landing />} />
+                <Route path="/patientsappointments" element={<Patientsappointments />} />
             </Routes>
         </main>
       </div>
