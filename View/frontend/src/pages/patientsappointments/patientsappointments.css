@@ -1,0 +1,143 @@
+.body1{
+    background-color: #ffffff;
+    background-size: cover;
+    height: 655px;
+}
+
+.div1 {
+    margin-top: 50px;
+    margin-left: 250px;
+    width: 980px;
+    height: 250px;
+    background-color: #FFFFFF;
+    border: 1px solid #E8E6E6;
+    box-shadow: 1px 3px 27px #595959;
+    border-radius: 50px;
+  }
+
+
+.div2 {
+    margin-top: -30px;
+    margin-left: 380px;
+    width: 150px;
+    height: 35px;
+    background-color: #FFFFFF;
+    border: 2px solid #407C51;
+    border-radius: 50px;
+    font-family: 'Oswald';
+    font-size: 20px;
+    text-align: center;
+    color: #407C51;
+    padding: 4px;
+}
+
+.div2:hover {
+    background-color: #407C51;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+.div21 {
+    margin-top: -30px;
+    margin-left: 380px;
+    width: 150px;
+    height: 35px;
+    background-color: #FFFFFF;
+    border: 2px solid #694030;
+    border-radius: 50px;
+    font-family: 'Oswald';
+    font-size: 20px;
+    text-align: center;
+    color: #694030;
+    padding: 4px;
+}
+
+.div21:hover {
+    background-color: #694030;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+.div3 {
+    margin-top: 50px;
+    margin-left: 300px;
+    width: 170px;
+    height: 35px;
+    background-color: #FFFFFF;
+    border: 2px solid #407C51;
+    border-radius: 50px;
+    font-family: 'Oswald';
+    font-size: 20px;
+    text-align: center;
+    color: #407C51;
+    /* padding: 4px; */
+}
+
+.div3:hover {
+    background-color: #407C51;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+.div4 {
+    margin-top: 120px;
+    margin-left: 365px;
+}
+
+.div5 {
+    margin-top: -230px;
+    margin-left: 280px;
+    box-shadow: 1px 3px 27px #407C51;
+    width: 160px;
+    height: 160px;
+    border-radius: 100px;
+}
+
+.div51 {
+    margin-top: -230px;
+    margin-left: 280px;
+    box-shadow: 1px 3px 27px #407C51;
+    width: 160px;
+    height: 160px;
+    border-radius: 100px;
+}
+
+.h21{
+    margin-left: -300px;
+    margin-top: 20px;
+    font-family: 'Oswald';
+    font-size: 35px;
+    color: #1F292A;
+}
+
+.h211{
+  margin-left: -315px;
+  margin-top: 20px;
+  font-family: 'Oswald';
+  font-size: 35px;
+  color: #1F292A;
+}
+
+.h31{
+    margin-left: 235px;
+    margin-top: 20px;
+    font-family: 'Oswald';
+    font-size: 25px;
+    color: #1F292A;
+  }
+
+
+
+.appdet{
+    margin-left: 600px;
+    margin-top: -220px;
+}
+
+.p1{
+    margin-left: 228px;
+    margin-top: -55px;
+    font-family: 'Oswald';
+    font-size: 16px;
+    color: #595959;
+    padding: 8px;
+  }
