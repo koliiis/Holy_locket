@@ -13,6 +13,10 @@ namespace Holy_locket.DAL.Models
 {
     public class Doctor : TEntity
     {
+        public override int Id { get; set; }
+        [Required]
+        [MaxLength(15)]
+        [MinLength(4)]
         public string FirstName { get; set; }
         [Required]
         [MaxLength(15)]

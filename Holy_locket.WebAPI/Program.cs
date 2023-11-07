@@ -1,10 +1,13 @@
 using Holy_locket.BLL.Services;
+using Holy_locket.DAL.Abstracts;
+using Holy_locket.DAL.Models;
+using Holy_locket.DAL.Repositories;
 using Holy_locket.DAL.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
+builder.Services.AddDbContext<HolyLocketContext>();
+builder.Services.AddTransient<IRepository<Doctor>, Repository<Doctor>>();
 builder.Services.AddTransient<IDoctorService, DoctorService>();
 
 builder.Services.AddControllers();

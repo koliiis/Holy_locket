@@ -13,22 +13,18 @@ namespace Holy_locket.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
     public class DoctorsController : ControllerBase
     {
         IDoctorService _doctorService;
-
-
         public DoctorsController(IDoctorService doctorService)
         {
             _doctorService= doctorService;
         }
-
         [HttpGet]
-        public IActionResult GetDoctors()
+        public async Task<IActionResult> GetDoctors()
         {
             try {
-                var doctors = _doctorService.GetAll();
+                var doctors = await _doctorService.GetAll();
                 return Ok(doctors);
             }
             catch (Exception ex) {
@@ -36,12 +32,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpGet("{id}")]
-        public IActionResult GetDoctorsId(int id)
+        public async Task<IActionResult> GetDoctorsId(int id)
         {
             try
             {
-                
-                var doctor = _doctorService.GetById(id);
+                var doctor = await _doctorService.GetById(id);
                 return Ok(doctor);
             }
             catch (Exception ex)
@@ -50,11 +45,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public IActionResult PostDoctors(Doctor doctor)
+        public async Task<IActionResult> PostDoctors(Doctor doctor)
         {
             try
             {
-                _doctorService.Add(doctor);
+                await _doctorService.Add(doctor);
                 return Ok();
             }
             catch (Exception ex)
@@ -63,12 +58,12 @@ namespace Holy_locket.WebAPI.Controllers
             }
             
         }
-        [HttpPut("{id}")]
-        public IActionResult PutDoctors(Doctor doctor, int id)
+        [HttpPut]
+        public async Task<IActionResult> PutDoctors(Doctor doctor)
         {
             try
             {
-                _doctorService.Update(doctor, id);
+                await _doctorService.Update(doctor);
                 return Ok();
             }
             catch (Exception ex)
@@ -78,19 +73,17 @@ namespace Holy_locket.WebAPI.Controllers
             
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteDoctors(int id)
+        public async Task<IActionResult> DeleteDoctors(int id)
         {
             try
             {   
-                _doctorService.Delete(id);
+                await _doctorService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, "An error occurred while processing your request.");
             }
-           
-            
         }
     }
 }
