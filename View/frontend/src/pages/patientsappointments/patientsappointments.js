@@ -22,14 +22,14 @@ function Patientsappointments() {
             </div>
         </div>
         <img className="div5" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
-        <div class="div1">
+        <div className="div1">
             <h2 className="h211">Валєра Непив</h2>
             <p className="p1">Уролог</p>
             <h3 className="h31">Стан запису:</h3>
-            <div class="div2">ПІДТВЕРДЖЕНО</div>
+            <div className="div2">ПІДТВЕРДЖЕНО</div>
             <button className="div3" onClick={() => navigate("/appointment")}>Записатися ще раз</button>
-            <h3 class="appdet">Деталі прийому:</h3>
-            <div class="div4">
+            <h3 className="appdet">Деталі прийому:</h3>
+            <div className="div4">
                 <p className="p1">Дата: 10.11.2023</p>
                 <p className="p1">Час: 11:00</p>
                 <p className="p1">Адреса: вул. Академіка Янгеля, 7</p>
@@ -37,14 +37,14 @@ function Patientsappointments() {
             </div>
         </div>
         <img className="div5" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
-        <div class="div1">
+        <div className="div1">
             <h2 className="h211">Валєра Непив</h2>
             <p className="p1">Уролог</p>
             <h3 className="h31">Стан запису:</h3>
-            <div class="div2">ПІДТВЕРДЖЕНО</div>
+            <div className="div2">ПІДТВЕРДЖЕНО</div>
             <button className="div3" onClick={() => navigate("/appointment")}>Записатися ще раз</button>
-            <h3 class="appdet">Деталі прийому:</h3>
-            <div class="div4">
+            <h3 className="appdet">Деталі прийому:</h3>
+            <div className="div4">
                 <p className="p1">Дата: 10.11.2023</p>
                 <p className="p1">Час: 11:00</p>
                 <p className="p1">Адреса: вул. Академіка Янгеля, 7</p>
