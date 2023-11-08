@@ -9,10 +9,9 @@ using Holy_locket.DAL.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<HolyLocketContext>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
 builder.Services.AddTransient<IDoctorService, DoctorService>();
 builder.Services.AddTransient<IPatientService, PatientService>();
-
 builder.Services.AddAutoMapper(typeof(ConfigurationMapper));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +22,9 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
     .AllowAnyMethod()
     .AllowAnyHeader();
 }));
+
+Test test = new Test();
+test.Start();
 
 var app = builder.Build();
 
