@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, {useEffect, useState} from 'react';
-=======
 import React, { useState } from 'react';
->>>>>>> 3bffe16 (connect-doctor's-page-and-registration-maket-post (#19))
 import './Registration.css';
 import axios from "axios";
 
@@ -22,15 +18,13 @@ function Registration() {
             email,
         };
         setRegistrationData(data);
-<<<<<<< HEAD
 
-        axios
-            .post('https://localhost:7172/api/Patient', {
-                firstName: name,
-                lastName: surname,
-                phone: phoneNumber,
-                email: email,
-            })
+        axios.post('https://localhost:7172/api/Patient', {
+            firstName: name,
+            lastName: surname,
+            phone: phoneNumber,
+            email: email,
+        })
             .then((response) => {
                 console.log("Peremoga");
             })
@@ -38,10 +32,7 @@ function Registration() {
                 // Обработка ошибки, если запрос не удался
                 console.error('Ошибка при отправке данных:', error);
             });
-=======
->>>>>>> 3bffe16 (connect-doctor's-page-and-registration-maket-post (#19))
-    };
-
+    }
 
     return (
         <div className="master">
@@ -80,7 +71,6 @@ function Registration() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         /><br />
-
                     </div>
                     <div className="button">
                         <button className='button_left' type="submit">Зареєструватися</button>
@@ -99,8 +89,6 @@ function Registration() {
             )}
         </div>
     );
-        // Выполнить запрос при монтировании компонента
-
 }
 
 export default Registration;
