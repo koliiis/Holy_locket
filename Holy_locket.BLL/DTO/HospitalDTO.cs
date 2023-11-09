@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.DTO
 {
-    internal class HospitalDTO
+    public class HospitalDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }

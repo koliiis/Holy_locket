@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.DTO
 {
-    internal class AppointmentDTO
+    public class AppointmentDTO
     {
         public int Id { get; set; }
         public DateTime Time { get; set; }

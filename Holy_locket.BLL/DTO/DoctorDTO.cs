@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.DTO
 {
-    internal class DoctorDTO
+    public class DoctorDTO
     {
         public string FirstName { get; set; }
         public string SecondName { get; set; }
@@ -17,6 +17,7 @@ namespace Holy_locket.BLL.DTO
         public bool Gender { get; set; }
         public string Phone { get; set; }
         public string Photo { get; set; }   
+        public int Experience { get; set; }
         public int SpecialityId { get; set; }
     }
 }

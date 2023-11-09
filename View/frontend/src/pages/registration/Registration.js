@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
+
 import './Registration.css';
 import axios from "axios";
 
@@ -19,13 +20,13 @@ function Registration() {
         };
         setRegistrationData(data);
 
-        axios
-            .post('https://localhost:7172/api/Patient', {
-                firstName: name,
-                lastName: surname,
-                phone: phoneNumber,
-                email: email,
-            })
+        axios.post('https://localhost:7172/api/Patient', {
+            firstName: data.name,
+            secondName: data.surname,
+            phone: data.phoneNumber,
+            email: data.email,
+        })
+
             .then((response) => {
                 console.log("Peremoga");
             })
@@ -33,7 +34,8 @@ function Registration() {
                 // Обработка ошибки, если запрос не удался
                 console.error('Ошибка при отправке данных:', error);
             });
-    };
+    }
+
 
     return (
         <div className="master">
