@@ -17,6 +17,7 @@ namespace Holy_locket.BLL.DTO
         public bool Gender { get; set; }
         public string Phone { get; set; }
         public string Photo { get; set; }   
+        public int Experience { get; set; }
         public int SpecialityId { get; set; }
     }
 }

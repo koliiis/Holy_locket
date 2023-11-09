@@ -20,10 +20,10 @@ function Registration() {
         setRegistrationData(data);
 
         axios.post('https://localhost:7172/api/Patient', {
-            firstName: name,
-            lastName: surname,
-            phone: phoneNumber,
-            email: email,
+            firstName: data.name,
+            secondName: data.surname,
+            phone: data.phoneNumber,
+            email: data.email,
         })
             .then((response) => {
                 console.log("Peremoga");

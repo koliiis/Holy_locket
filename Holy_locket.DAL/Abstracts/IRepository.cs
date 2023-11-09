@@ -14,6 +14,5 @@ namespace Holy_locket.DAL.Abstracts
         Task Create(T entity, string createBody = null);
         Task Update(T entity, string modifieBody = null);
         Task Delete(int id);
-
     }
 }

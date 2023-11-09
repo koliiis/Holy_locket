@@ -12,7 +12,6 @@ namespace Holy_locket.WebAPI.Controllers
     public class PatientController : ControllerBase
     {
         IPatientService _patientService;
-
         public PatientController(IPatientService patientService)
         {
             _patientService = patientService;
