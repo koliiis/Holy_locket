@@ -29,7 +29,7 @@ function Doctors() {
                 console.error("Ошибка при получении данных о специальностях:", error);
             });
     }, []);
-
+  
     return (
 
         <div className="master-doctor">

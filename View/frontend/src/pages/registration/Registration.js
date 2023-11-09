@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import './Registration.css';
 import axios from "axios";
 
@@ -25,6 +26,7 @@ function Registration() {
             phone: data.phoneNumber,
             email: data.email,
         })
+
             .then((response) => {
                 console.log("Peremoga");
             })
@@ -33,6 +35,7 @@ function Registration() {
                 console.error('Ошибка при отправке данных:', error);
             });
     }
+
 
     return (
         <div className="master">
@@ -71,6 +74,7 @@ function Registration() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         /><br />
+
                     </div>
                     <div className="button">
                         <button className='button_left' type="submit">Зареєструватися</button>
@@ -78,6 +82,15 @@ function Registration() {
                     </div>
                 </div>
             </form>
+            {registrationData && (
+                <div className="registration-data">
+                    <h3>Дані реєстрації:</h3>
+                    <p>Ім'я: {registrationData.name}</p>
+                    <p>Прізвище: {registrationData.surname}</p>
+                    <p>Номер телефону: {registrationData.phoneNumber}</p>
+                    <p>Email: {registrationData.email}</p>
+                </div>
+            )}
         </div>
     );
 }
