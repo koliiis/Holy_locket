@@ -31,6 +31,5 @@ namespace Holy_locket.DAL.Models
         public DateTime Birthday { get; set; }
         public string?  Photo { get; set; } = "";
         public ICollection<Appointment>? AppointmentList { get; set; }
-        
     }
 }

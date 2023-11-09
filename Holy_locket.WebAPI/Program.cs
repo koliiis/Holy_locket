@@ -23,9 +23,6 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
     .AllowAnyHeader();
 }));
 
-Test test = new Test();
-test.Start();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
