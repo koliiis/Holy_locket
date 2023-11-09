@@ -4,7 +4,6 @@ using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repositories;
-using Holy_locket.DAL.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

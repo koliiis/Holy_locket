@@ -48,7 +48,7 @@ namespace Holy_locket.BLL
             speciality.Name = "Проктолог";
             //await specialityService.CreateSpeciality(speciality);
             //await patientService.CreatePatient(patient);
-            await doctorService.Add(doctor);
+            //await doctorService.Add(doctor);
 
         }
     }
