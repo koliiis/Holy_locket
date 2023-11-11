@@ -28,12 +28,12 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPatientByID(int id)
+        public async Task<IActionResult> GetHospitalByID(int id)
         {
             try
             {
-                var patient = await _hospitalService.GetHospitalById(id);
-                return Ok(patient);
+                var hospital = await _hospitalService.GetHospitalById(id);
+                return Ok(hospital);
             }
             catch (Exception ex)
             {
@@ -41,7 +41,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> PostPatient(HospitalDTO hospital)
+        public async Task<IActionResult> PostHospitalt(HospitalDTO hospital)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> PutPatient(HospitalDTO hospital)
+        public async Task<IActionResult> PutHospital(HospitalDTO hospital)
         {
             try
             {
