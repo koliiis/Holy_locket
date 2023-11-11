@@ -1,5 +1,4 @@
 ﻿using Holy_locket.BLL.DTO;
-using Holy_locket.BLL.Services;
 using Holy_locket.BLL.Services.Abstraction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,20 +7,20 @@ namespace Holy_locket.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpecialityController : ControllerBase
+    public class HospitalController : ControllerBase
     {
-        ISpecialityService _specialityService;
-        public SpecialityController(ISpecialityService specialityService)
+        IHospitalService _hospitalService;
+        public HospitalController(IHospitalService hospitalService)
         {
-            _specialityService = specialityService;
+            _hospitalService = hospitalService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetSpecialities()
+        public async Task<IActionResult> GetHospitals()
         {
             try
             {
-                var specialities = await _specialityService.GetAll().ConfigureAwait(false);
-                return Ok(specialities);
+                var hospitals = await _hospitalService.GetAll().ConfigureAwait(false);
+                return Ok(hospitals);
             }
             catch (Exception ex)
             {
@@ -29,12 +28,12 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSpecialtyByID(int id)
+        public async Task<IActionResult> GetHospitalByID(int id)
         {
             try
             {
-                var patient = await _specialityService.GetSpecialityById(id);
-                return Ok(patient);
+                var hospital = await _hospitalService.GetHospitalById(id);
+                return Ok(hospital);
             }
             catch (Exception ex)
             {
@@ -42,11 +41,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> PostSpetiality(SpecialityDTO speciality)
+        public async Task<IActionResult> PostHospitalt(HospitalDTO hospital)
         {
             try
             {
-                await _specialityService.CreateSpeciality(speciality);
+                await _hospitalService.CreateHospital(hospital);
                 return Ok();
             }
             catch (Exception)
@@ -55,11 +54,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> PutSpeciality(SpecialityDTO speciality)
+        public async Task<IActionResult> PutHospital(HospitalDTO hospital)
         {
             try
             {
-                await _specialityService.UpdateSpeciality(speciality);
+                await _hospitalService.UpdateHospital(hospital);
                 return Ok();
             }
             catch (Exception)
@@ -68,11 +67,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpDelete]
-        public async Task<IActionResult> DeleteSpeciality(int id)
+        public async Task<IActionResult> DeleteHospital(int id)
         {
             try
             {
-                await _specialityService.DeleteSpeciality(id);
+                await _hospitalService.DeleteHospital(id);
                 return Ok();
             }
             catch (Exception)

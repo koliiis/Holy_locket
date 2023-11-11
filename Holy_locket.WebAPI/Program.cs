@@ -12,6 +12,7 @@ builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
 builder.Services.AddTransient<IDoctorService, DoctorService>();
 builder.Services.AddTransient<IPatientService, PatientService>();
 builder.Services.AddTransient<ISpecialityService, SpecialityService>();
+builder.Services.AddTransient<IHospitalService, HospitalService>();
 builder.Services.AddAutoMapper(typeof(ConfigurationMapper));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
