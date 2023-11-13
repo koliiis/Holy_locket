@@ -54,19 +54,18 @@ const Appointment = () => {
             <div className="doctors">
                 <div className="doctor-photo">
                     <img className="appoint-photo" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"
-                         alt={`${doctorInfo.firstName} ${doctorInfo.lastName}`}
+                         alt={`${doctor.firstName} ${doctor.lastName}`}
                     />
                 </div>
                 <div className="doctor-info">
                     <h2 className="special">
-                        <p>{`Ім'я: ${doctor.firstName}`}</p>
-                        {doctorInfo.firstName} {doctorInfo.lastName}
+                        {doctor.firstName} {doctor.secondName}
                         <p>{doctorInfo.specialty}</p>
                     </h2>
                     <h3>Про лікаря:</h3>
-                    <p>Стать: {doctorInfo.gender}</p>
-                    <p>Стаж: {doctorInfo.experience}</p>
-                    <p>{doctorInfo.bio}</p>
+                    <p>Стать: {doctor.gender}</p>
+                    <p>Стаж: {doctor.experience}</p>
+                    <p>{doctor.description}</p>
                 </div>
             </div>
             <table>
