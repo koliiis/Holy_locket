@@ -40,16 +40,6 @@ const Appointment = () => {
         ));
     };
 
-    const doctorInfo = {
-        firstName: 'Степан',
-        lastName: 'Банедрович',
-        specialty: 'Стоматолог',
-        gender: 'Чоловік',
-        experience: '15 років',
-        bio: 'Доктор Иван Петров - опытный кардиолог с богатым опытом в лечении сердечных заболеваний. ' +
-            'Он посвятил свою карьеру заботе о здоровье пациентов и помог многим людям восстановить свое сердечное здоровье.'
-    };
-
     useEffect(() => {
         axios.get('https://localhost:7172/api/Speciality')
             .then(response => {
