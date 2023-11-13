@@ -11,9 +11,9 @@ namespace Holy_locket.BLL.Services.Abstraction
     public interface IAppointmentService : IDisposable
     {
         Task DeleteAppointment(int id);
-        Task UpdateAppointment(HospitalDTO hospital);
-        Task CreateAppointment(HospitalDTO hospital);
-        Task<HospitalDTO> GetAppointmentById(int id);
-        Task<ICollection<Hospital>> GetAll();
+        Task UpdateAppointment(AppointmentDTO appointment);
+        Task CreateAppointment(AppointmentDTO appointment);
+        Task<AppointmentDTO> GetAppointmentById(int id);
+        Task<ICollection<Appointment>> GetAll();
     }
 }
