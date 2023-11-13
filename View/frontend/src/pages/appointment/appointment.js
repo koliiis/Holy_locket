@@ -8,7 +8,7 @@ const Appointment = () => {
     const endTime = 18;
     const timeSlots = [];
     const location = useLocation();
-    const { doctor, specialities } = location.state;
+    const { doctor } = location.state;
 
     var iteration = 0;
     var time_slot = '';
@@ -60,7 +60,7 @@ const Appointment = () => {
                 <div className="doctor-info">
                     <h2 className="special">
                         {doctor.firstName} {doctor.secondName}
-                        <p>{specialities.name}</p>
+                        {/*<p>{specialities.name}</p>*/}
                     </h2>
                     <h3>Про лікаря:</h3>
                     <p>Стать: {doctor.gender}</p>
