@@ -32,7 +32,7 @@ function Doctors() {
             });
     }, []);
 
-    const handleNavigateToAppointment = (doctor) => {
+    const handleNavigateToAppointment = (doctor, specialities) => {
         navigate('/appointment', { state: { doctor, specialities } });
     };
 
@@ -72,7 +72,7 @@ function Doctors() {
                             <div className="info">
                                 {doctor.description}
                             </div>
-                            <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>
+                            <button className="more_info" onClick={() => handleNavigateToAppointment(doctor, specialities)}>Дізнатись</button>
                         </div>
                     </div>
                 ))}
