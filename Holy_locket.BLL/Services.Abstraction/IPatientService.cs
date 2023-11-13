@@ -14,5 +14,6 @@ namespace Holy_locket.BLL.Services.Abstraction
         Task UpdatePatient(PatientDTO patient);
         Task CreatePatient(PatientDTO patient);
         Task<PatientDTO> GetPatientById(int id);
+        Task<bool> CheckLogin(int Phone, string Password);
     }
 }

@@ -33,15 +33,21 @@ namespace Holy_locket.BLL.Services
         public async Task UpdatePatient(PatientDTO patient)
         {
             await _repository.Update(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
-
         }
         public async Task<PatientDTO> GetPatientById(int id)
         {
             var patient = await _repository.Get(id).ConfigureAwait(false);
             return _mapper.Map<PatientDTO>(patient);
         }
+
         public void Dispose()
         {
+        }
+
+        public async Task<bool> CheckLogin(int Phone, string Password)
+        {
+            var patient = _mapper.Map<PatientDTO>(await _repository.Get(Phone));
+            return patient.Password == Password;
         }
     }
 }
