@@ -6,6 +6,8 @@ const Appointment = () => {
     const startTime = 10;
     const endTime = 18;
     const timeSlots = [];
+    const location = useLocation();
+    const doctor = location.state?.doctor;
 
     var iteration = 0;
     var time_slot = '';
@@ -56,6 +58,7 @@ const Appointment = () => {
                 </div>
                 <div className="doctor-info">
                     <h2 className="special">
+                        <p>{`Ім'я: ${doctor.firstName}`}</p>
                         {doctorInfo.firstName} {doctorInfo.lastName}
                         <p>{doctorInfo.specialty}</p>
                     </h2>
