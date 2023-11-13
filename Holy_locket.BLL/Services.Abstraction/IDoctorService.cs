@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.Services.Abstraction
 {
-    public interface IDoctorService
+    public interface IDoctorService : IDisposable
     {
-        public Task<ICollection<DoctorDTO>> GetAll();
-        public Task<DoctorDTO> GetById(int id);
-        public Task Delete(int id);
-        public Task Add(DoctorDTO doctor);
-        public Task Update(DoctorDTO doctor);
+        Task<ICollection<DoctorDTO>> GetAllDoctors();
+        Task<DoctorDTO> GetDoctorById(int id);
+        Task DeleteDoctor(int id);
+        Task AddDoctor(DoctorDTO doctor);
+        Task UpdateDoctor(DoctorDTO doctor);
     }
 }
