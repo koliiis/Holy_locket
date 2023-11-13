@@ -33,7 +33,7 @@ function Doctors() {
     }, []);
 
     const handleNavigateToAppointment = (doctor) => {
-        navigate('/appointment', { state: { doctor } });
+        navigate('/appointment', { state: { doctor, specialities } });
     };
 
     return (
