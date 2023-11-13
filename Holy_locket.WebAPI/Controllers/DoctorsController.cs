@@ -23,7 +23,8 @@ namespace Holy_locket.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDoctors()
         {
-            try {
+            try 
+            {
                 var doctors = await _doctorService.GetAllDoctors().ConfigureAwait(false);
                 return Ok(doctors);
             }
