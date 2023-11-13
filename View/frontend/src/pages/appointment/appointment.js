@@ -40,16 +40,6 @@ const Appointment = () => {
         ));
     };
 
-    const doctorInfo = {
-        firstName: 'Степан',
-        lastName: 'Банедрович',
-        specialty: 'Стоматолог',
-        gender: 'Чоловік',
-        experience: '15 років',
-        bio: 'Доктор Иван Петров - опытный кардиолог с богатым опытом в лечении сердечных заболеваний. ' +
-            'Он посвятил свою карьеру заботе о здоровье пациентов и помог многим людям восстановить свое сердечное здоровье.'
-    };
-
     useEffect(() => {
         axios.get('https://localhost:7172/api/Speciality')
             .then(response => {
@@ -70,7 +60,7 @@ const Appointment = () => {
             <div className="doctors">
                 <div className="doctor-photo">
                     <img className="appoint-photo" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"
-                         alt={`${doctor.firstName} ${doctor.lastName}`}
+                         alt={`${doctor.firstName} ${doctor.secondName}`}
                     />
                 </div>
                 <div className="doctor-info">
@@ -93,9 +83,9 @@ const Appointment = () => {
                     ))}
                 </tr>
                 </thead>
-                    <tbody>
-                        {renderTimeSlots()}
-                    </tbody>
+                <tbody>
+                {renderTimeSlots()}
+                </tbody>
             </table>
         </div>
     );
