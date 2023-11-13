@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.Services.Abstraction
 {
-    public interface ISpecialityService
+    public interface ISpecialityService : IDisposable
     {
         Task DeleteSpeciality(int id);
         Task UpdateSpeciality(SpecialityDTO speciality);
