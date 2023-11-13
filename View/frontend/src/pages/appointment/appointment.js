@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./appointment.css";
 import { useLocation } from 'react-router-dom';
+import axios from "axios";
 
 const Appointment = () => {
     const daysOfWeek = ['ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ"];
     const startTime = 10;
     const endTime = 18;
     const timeSlots = [];
+    const [specialities, setSpecialities] = useState({});
     const location = useLocation();
     const { doctor } = location.state;
 
@@ -48,6 +50,20 @@ const Appointment = () => {
             'Он посвятил свою карьеру заботе о здоровье пациентов и помог многим людям восстановить свое сердечное здоровье.'
     };
 
+    useEffect(() => {
+        axios.get('https://localhost:7172/api/Speciality')
+            .then(response => {
+                const specialitiesData = {};
+                response.data.forEach(speciality => {
+                    specialitiesData[speciality.id] = speciality;
+                });
+                setSpecialities(specialitiesData);
+            })
+            .catch(error => {
+                console.error("Ошибка при получении данных о специальностях:", error);
+            });
+    }, []);
+
 
     return (
         <div className="appoint">
@@ -60,7 +76,7 @@ const Appointment = () => {
                 <div className="doctor-info">
                     <h2 className="special">
                         {doctor.firstName} {doctor.secondName}
-                        {/*<p>{specialities.name}</p>*/}
+                        {specialities[doctor.specialityId]?.name || "Специальность не найдена"}
                     </h2>
                     <h3>Про лікаря:</h3>
                     <p>Стать: {doctor.gender}</p>
