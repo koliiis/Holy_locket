@@ -66,7 +66,7 @@ const Appointment = () => {
                 <div className="doctor-info">
                     <h2 className="special">
                         {doctor.firstName} {doctor.secondName}
-                        {specialities[doctor.specialityId]?.name || "Специальность не найдена"}
+                        <p>{specialities[doctor.specialityId]?.name || "Специальность не найдена"}</p>
                     </h2>
                     <h3>Про лікаря:</h3>
                     <p>Стать: {doctor.gender}</p>
