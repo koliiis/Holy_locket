@@ -22,27 +22,30 @@ namespace Holy_locket.BLL.Services
             _doctorRepository = _unitOfWork.GetRepository<Doctor>();
             _mapper = mapper;
         }
-        public async Task Add(DoctorDTO doctor)
+        public async Task AddDoctor(DoctorDTO doctor)
         {
             await _doctorRepository.Create(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
         }
-        public async Task Delete(int id)
+        public async Task DeleteDoctor(int id)
         {
             await _doctorRepository.Delete(id).ConfigureAwait(false);
         }
-        public async Task<ICollection<DoctorDTO>> GetAll()
+        public async Task<ICollection<DoctorDTO>> GetAllDoctors()
         {
             var doctors = await _doctorRepository.Get().ConfigureAwait(false);
             return _mapper.Map<ICollection<DoctorDTO>>(doctors);
         }
-        public async Task<DoctorDTO> GetById(int id)
+        public async Task<DoctorDTO> GetDoctorById(int id)
         {
             var doctor = await _doctorRepository.Get(id).ConfigureAwait(false);
             return _mapper.Map<DoctorDTO>(doctor);
         }
-        public async Task Update(DoctorDTO doctor)
+        public async Task UpdateDoctor(DoctorDTO doctor)
         {
             await _doctorRepository.Update(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
+        }
+        public void Dispose()
+        {
         }
     }
 }
