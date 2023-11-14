@@ -13,9 +13,10 @@
     pointer-events: none;
 }
 
-.modal.active {
+.modal.acttive {
     opacity: 1;
     pointer-events: all;
+    width: 100%;
 }
 
 .modal_content {
@@ -28,6 +29,6 @@
     transition: 0.4s all;
 }
 
-.modal_content.active {
+.modal_content.acttive {
     transform: scale(1);
 }
