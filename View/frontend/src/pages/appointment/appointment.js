@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./appointment.css";
+import { useLocation } from 'react-router-dom';
+import axios from "axios";
 
 const Appointment = () => {
     const daysOfWeek = ['ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ"];
     const startTime = 10;
     const endTime = 18;
     const timeSlots = [];
+    const [specialities, setSpecialities] = useState({});
+    const location = useLocation();
+    const { doctor } = location.state;
 
     var iteration = 0;
     var time_slot = '';
@@ -35,34 +40,37 @@ const Appointment = () => {
         ));
     };
 
-    const doctorInfo = {
-        firstName: 'Степан',
-        lastName: 'Банедрович',
-        specialty: 'Стоматолог',
-        gender: 'Чоловік',
-        experience: '15 років',
-        bio: 'Доктор Иван Петров - опытный кардиолог с богатым опытом в лечении сердечных заболеваний. ' +
-            'Он посвятил свою карьеру заботе о здоровье пациентов и помог многим людям восстановить свое сердечное здоровье.'
-    };
-
+    useEffect(() => {
+        axios.get('https://localhost:7172/api/Speciality')
+            .then(response => {
+                const specialitiesData = {};
+                response.data.forEach(speciality => {
+                    specialitiesData[speciality.id] = speciality;
+                });
+                setSpecialities(specialitiesData);
+            })
+            .catch(error => {
+                console.error("Ошибка при получении данных о специальностях:", error);
+            });
+    }, []);
 
     return (
         <div className="appoint">
             <div className="doctors">
                 <div className="doctor-photo">
                     <img className="appoint-photo" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"
-                         alt={`${doctorInfo.firstName} ${doctorInfo.lastName}`}
+                         alt={`${doctor.firstName} ${doctor.secondName}`}
                     />
                 </div>
                 <div className="doctor-info">
                     <h2 className="special">
-                        {doctorInfo.firstName} {doctorInfo.lastName}
-                        <p>{doctorInfo.specialty}</p>
+                        {doctor.firstName} {doctor.secondName}
+                        <p>{specialities[doctor.specialityId]?.name || "Специальность не найдена"}</p>
                     </h2>
                     <h3>Про лікаря:</h3>
-                    <p>Стать: {doctorInfo.gender}</p>
-                    <p>Стаж: {doctorInfo.experience}</p>
-                    <p>{doctorInfo.bio}</p>
+                    <p>Стать: {doctor.gender}</p>
+                    <p>Стаж: {doctor.experience}</p>
+                    <p>{doctor.description}</p>
                 </div>
             </div>
             <table>
@@ -74,9 +82,9 @@ const Appointment = () => {
                     ))}
                 </tr>
                 </thead>
-                    <tbody>
-                        {renderTimeSlots()}
-                    </tbody>
+                <tbody>
+                {renderTimeSlots()}
+                </tbody>
             </table>
         </div>
     );

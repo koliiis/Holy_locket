@@ -3,6 +3,8 @@ import axios from 'axios';
 import './doctors.css';
 import { useNavigate } from 'react-router-dom';
 
+
+
 function Doctors() {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
@@ -29,7 +31,11 @@ function Doctors() {
                 console.error("Ошибка при получении данных о специальностях:", error);
             });
     }, []);
-  
+
+    const handleNavigateToAppointment = (doctor) => {
+        navigate('/appointment', { state: { doctor } });
+    };
+
     return (
 
         <div className="master-doctor">
@@ -66,7 +72,7 @@ function Doctors() {
                             <div className="info">
                                 {doctor.description}
                             </div>
-                            <button className="more_info" onClick={() => navigate("/appointment")}>Дізнатись</button>
+                            <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>
                         </div>
                     </div>
                 ))}
