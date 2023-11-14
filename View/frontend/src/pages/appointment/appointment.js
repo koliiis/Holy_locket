@@ -12,7 +12,7 @@ const Appointment = () => {
     const [specialities, setSpecialities] = useState({});
     const location = useLocation();
     const { doctor } = location.state;
-    const [modalActive, setModalActive] = useState(true);
+    const [modalActive, setModalActive] = useState(false);
 
     var iteration = 0;
     var time_slot = '';
@@ -88,7 +88,7 @@ const Appointment = () => {
                 {renderTimeSlots()}
                 </tbody>
             </table>
-            <Modal_Appointment active={modalActive} setActive={() => setModalActive(false)} />
+            <Modal_Appointment active={modalActive} setActive={() => setModalActive(true)} />
         </div>
     );
 };
