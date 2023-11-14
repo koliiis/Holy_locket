@@ -54,7 +54,6 @@ const Appointment = () => {
             });
     }, []);
 
-
     return (
         <div className="appoint">
             <div className="doctors">
