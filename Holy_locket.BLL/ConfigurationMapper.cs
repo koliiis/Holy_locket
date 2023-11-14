@@ -25,7 +25,6 @@ namespace Holy_locket.BLL
             CreateMap<Hospital, HospitalDTO>().ReverseMap();
             CreateMap<Patient, PatientDTO>().ReverseMap();
             CreateMap<Speciality, SpecialityDTO>().ReverseMap();
-        }
-        
+        } 
     }
 }
