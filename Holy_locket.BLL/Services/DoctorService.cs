@@ -37,7 +37,7 @@ namespace Holy_locket.BLL.Services
         }
         public async Task<DoctorDTO> GetDoctorById(int id)
         {
-            var doctor = await _doctorRepository.Get(id).ConfigureAwait(false);
+            var doctor = await _doctorRepository.GetById(id).ConfigureAwait(false);
             return _mapper.Map<DoctorDTO>(doctor);
         }
         public async Task UpdateDoctor(DoctorDTO doctor)
