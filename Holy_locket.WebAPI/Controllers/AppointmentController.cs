@@ -1,4 +1,5 @@
 ﻿using Holy_locket.BLL.DTO;
+using Holy_locket.BLL.Services;
 using Holy_locket.BLL.Services.Abstraction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,20 +8,20 @@ namespace Holy_locket.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HospitalController : ControllerBase
+    public class AppointmentController : ControllerBase
     {
-        IHospitalService _hospitalService;
-        public HospitalController(IHospitalService hospitalService)
+        IAppointmentService _appointmentService;
+        public AppointmentController(IAppointmentService appointmentService)
         {
-            _hospitalService = hospitalService;
+            _appointmentService = appointmentService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetHospitals()
+        public async Task<IActionResult> GetAllAppointments()
         {
             try
             {
-                var hospitals = await _hospitalService.GetAllHospitals().ConfigureAwait(false);
-                return Ok(hospitals);
+                var appointments = await _appointmentService.GetAllAppointments().ConfigureAwait(false);
+                return Ok(appointments);
             }
             catch (Exception ex)
             {
@@ -28,11 +29,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetHospitalByID(int id)
+        public async Task<IActionResult> GetAppointmentByID(int id)
         {
             try
             {
-                var hospital = await _hospitalService.GetHospitalById(id);
+                var hospital = await _appointmentService.GetAppointmentById(id);
                 return Ok(hospital);
             }
             catch (Exception ex)
@@ -41,11 +42,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> PostHospitalt(HospitalDTO hospital)
+        public async Task<IActionResult> PostAppointment(AppointmentDTO appointment)
         {
             try
             {
-                await _hospitalService.CreateHospital(hospital);
+                await _appointmentService.AddAppointment(appointment);
                 return Ok();
             }
             catch (Exception)
@@ -54,11 +55,11 @@ namespace Holy_locket.WebAPI.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> PutHospital(HospitalDTO hospital)
+        public async Task<IActionResult> PutAppointment(AppointmentDTO appointment)
         {
             try
             {
-                await _hospitalService.UpdateHospital(hospital);
+                await _appointmentService.UpdateAppointment(appointment);
                 return Ok();
             }
             catch (Exception)
@@ -66,12 +67,12 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteHospital(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAppointment(int id)
         {
             try
             {
-                await _hospitalService.DeleteHospital(id);
+                await _appointmentService.DeleteAppointment(id);
                 return Ok();
             }
             catch (Exception)
