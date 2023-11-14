@@ -10,7 +10,7 @@ namespace Holy_locket.DAL.Abstracts
     public interface IRepository<T> where T : TEntity
     {
         Task<ICollection<T>> Get(Expression<Func<T, bool>> filter = null);
-        Task<T> Get(int id);
+        Task<T> GetById(int id);
         Task Create(T entity, string createBody = null);
         Task Update(T entity, string modifieBody = null);
         Task Delete(int id);
