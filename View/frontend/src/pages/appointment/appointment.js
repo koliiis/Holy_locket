@@ -88,7 +88,7 @@ const Appointment = () => {
                 {renderTimeSlots()}
                 </tbody>
             </table>
-            <Modal_Appointment active = {modalActive} setActive = {setModalActive}/>
+            <Modal_Appointment active={modalActive} setActive={() => setModalActive(false)} />
         </div>
     );
 };
