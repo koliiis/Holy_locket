@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./appointment.css";
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
+import Modal_Appointment from "../../component/modal-appointment";
 
 const Appointment = () => {
     const daysOfWeek = ['ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ"];
@@ -11,6 +12,7 @@ const Appointment = () => {
     const [specialities, setSpecialities] = useState({});
     const location = useLocation();
     const { doctor } = location.state;
+    const [modalActive, setModalActive] = useState(true);
 
     var iteration = 0;
     var time_slot = '';
@@ -33,7 +35,7 @@ const Appointment = () => {
             <tr key={time}>
                 {daysOfWeek.map((day) => (
                     <td key={time}>
-                        <button className="time-btn">{time}</button>
+                        <button className="time-btn" onClick={() => setModalActive(true)}>{time}</button>
                     </td>
                 ))}
             </tr>
@@ -86,6 +88,7 @@ const Appointment = () => {
                 {renderTimeSlots()}
                 </tbody>
             </table>
+            <Modal_Appointment active = {modalActive} setActive = {setModalActive}/>
         </div>
     );
 };
