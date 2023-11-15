@@ -62,7 +62,7 @@ namespace Holy_locket.WebAPI.Controllers
                 await _appointmentService.AddAppointment(appointment);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(500, "An error occurred while processing your request.");
             }
@@ -75,7 +75,7 @@ namespace Holy_locket.WebAPI.Controllers
                 await _appointmentService.UpdateAppointment(appointment);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception )
             {
                 return StatusCode(500, "An error occurred while processing your request.");
             }

@@ -15,6 +15,7 @@ namespace Holy_locket.BLL
         public ConfigurationMapper()
         {    
             CreateMap<Appointment, AppointmentDTO>().ReverseMap();
+            CreateMap<Appointment, AppointmentInfoDTO>().ReverseMap();
             CreateMap<Doctor, DoctorDTO>().ReverseMap();
             CreateMap<Hospital, HospitalDTO>().ReverseMap();
             CreateMap<Patient, PatientDTO>().ReverseMap();
