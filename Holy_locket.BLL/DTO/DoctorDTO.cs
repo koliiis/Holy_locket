@@ -11,6 +11,7 @@ namespace Holy_locket.BLL.DTO
 {
     public class DoctorDTO
     {
+        public int Id { get; set; } 
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Description { get; set; }
