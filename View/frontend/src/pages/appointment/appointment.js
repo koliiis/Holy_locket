@@ -90,7 +90,7 @@ const Appointment = () => {
             </table>
             <Modal_Appointment active={modalActive} setActive={() => setModalActive(false)}>
                 <p>
-                    Some information to confirm shoto
+                    {doctor.firstName} {doctor.secondName}
                 </p>
             </Modal_Appointment>
 
