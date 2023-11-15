@@ -8,7 +8,6 @@ function Patientsappointments() {
     const [doctors, setDoctors] = useState([]);
     const [specialities, setSpecialities] = useState({});
 
-
     useEffect(() => {
         axios.get('https://localhost:7172/api/Doctors')
             .then(response => {
