@@ -18,8 +18,8 @@ function Patientprofile() {
     <div className="body1">
         <img className="img1" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
         <h2 className="h2">Костя Пивопив</h2> 
-        <img className="img2" onClick={() => navigate("/patientsappointments")} src={img2}/>
-        <img className="img3" onClick={() => navigate("/patientsappointments")} src={img3}/>
+        <img className="img2" src={img2}/>
+        <img className="img3" src={img3}/>
         <div className='div1'><p className='p1'>Чоловік</p><img className="img5" src={img5}/></div>
         <div className='div2'><p className='p1'>03.11.2004</p><img className="img4" src={img4}/></div>
         <div className='div2'><p className='p1'>yaloh@gmail.com</p><img className="img4" src={img6}/></div>
