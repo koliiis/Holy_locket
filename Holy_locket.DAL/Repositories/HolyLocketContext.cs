@@ -34,7 +34,6 @@ namespace Holy_locket.DAL.Repositories
                    .WithOne(a => a.Patient)
                    .HasForeignKey(a => a.PatientId)
                    .IsRequired();
-
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -48,6 +47,5 @@ namespace Holy_locket.DAL.Repositories
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
-
     }
 }

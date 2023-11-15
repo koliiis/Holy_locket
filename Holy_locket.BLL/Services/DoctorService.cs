@@ -17,7 +17,7 @@ namespace Holy_locket.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly SpecialityService specialityService;
-        public DoctorService(IMapper mapper, IUnitOfWork unitOfWork)
+        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _doctorRepository = _unitOfWork.GetRepository<Doctor>();
@@ -26,8 +26,8 @@ namespace Holy_locket.BLL.Services
         }
         public async Task<DoctorDTO> MapSpeciality(DoctorDTO doctor)
         {
-            var speciality = specialityService.GetSpecialityById(doctor.SpecialityId);
-            doctor.SpecialityName = speciality.Result.Name;
+            var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+            doctor.SpecialityName = speciality.Name;
             return doctor;
         }
         public async Task AddDoctor(DoctorDTO doctor)
@@ -42,18 +42,18 @@ namespace Holy_locket.BLL.Services
         {
             var doctors = await _doctorRepository.Get().ConfigureAwait(false);
             var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);
-            foreach (var doctor in doctorDTOs) 
+            foreach (var doctor in doctorDTOs)
             {
-                var speciality = specialityService.GetSpecialityById(doctor.SpecialityId);
-                doctor.SpecialityName = speciality.Result.Name;
+                var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+                doctor.SpecialityName = speciality.Name;
             }
             return doctorDTOs;
         }
         public async Task<DoctorDTO> GetDoctorById(int id)
         {
             var doctor = await _doctorRepository.GetById(id).ConfigureAwait(false);
-            var dto =_mapper.Map<DoctorDTO>(doctor);
-            return MapSpeciality(dto).Result;
+            var dto = _mapper.Map<DoctorDTO>(doctor);
+            return await MapSpeciality(dto);
         }
         public async Task UpdateDoctor(DoctorDTO doctor)
         {

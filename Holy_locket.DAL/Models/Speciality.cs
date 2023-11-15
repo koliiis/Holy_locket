@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Holy_locket.DAL.Models
         [MinLength(2)]
         [MaxLength(15)]
         public string Name { get; set; }
+        [NotMapped]
         public ICollection<Doctor> DoctorList{ get; set; }
     }
 }
