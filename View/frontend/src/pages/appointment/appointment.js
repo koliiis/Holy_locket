@@ -89,9 +89,10 @@ const Appointment = () => {
                 </tbody>
             </table>
             <Modal_Appointment active={modalActive} setActive={() => setModalActive(false)}>
-                <p>
-                    {doctor.firstName} {doctor.secondName}
-                </p>
+                <h3>
+                    Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName}</span> на
+                    <br/> {time}
+                </h3>
             </Modal_Appointment>
 
         </div>
