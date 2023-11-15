@@ -12,7 +12,8 @@ namespace Holy_locket.DAL.Models
     public class Appointment : TEntity
     {
         public override int Id { get; set; }
-        public DateTime Time { get; set; }
+        public string Time { get; set; }
+        public string Date { get; set; }
         [NotMapped]
         public Hospital Hospital { get; set; }
         public int HospitalId { get; set; }
