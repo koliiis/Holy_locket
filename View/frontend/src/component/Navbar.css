@@ -37,7 +37,7 @@ nav ul li {
 .btn1 {
     margin-bottom: 1px;
     font-size: 14px;
-    margin-left: 55px;
+    margin-left: 50px;
     height: 40px;
     width: auto;
     background: none;
@@ -46,10 +46,17 @@ nav ul li {
 }
 
 .btn2 {
-    font-size: 14px;
     margin-top: 30px;
-    margin-left: 25px;
+    margin-left: 90px;
     height: 40px;
+    width: auto;
+    cursor: pointer;
+}
+
+.btn2:hover {
+    margin-top: 32px;
+    margin-left: 92px;
+    height: 36px;
     width: auto;
     cursor: pointer;
 }
