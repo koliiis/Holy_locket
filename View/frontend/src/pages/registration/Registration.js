@@ -7,21 +7,17 @@ function Registration() {
     const [surname, setSurname] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const data = {
-            name,
-            surname,
-            phoneNumber,
-            email,
-        };
-
         axios.post('https://localhost:7172/api/Patient', {
-            firstName: data.name,
-            secondName: data.surname,
-            phone: data.phoneNumber,
-            email: data.email,
+            firstName: name,
+            secondName: surname,
+            phone: phoneNumber,
+            email: email,
+            password: password,
         })
 
             .then((response) => {
@@ -31,7 +27,6 @@ function Registration() {
                 console.error('Ошибка при отправке данных:', error);
             });
     }
-
 
     return (
         <div className="master">
@@ -69,6 +64,14 @@ function Registration() {
                             name="useremail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                        /><br />
+
+                        <input
+                            placeholder="Ваш пароль"
+                            type="password"
+                            name="user_password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         /><br />
 
                     </div>
