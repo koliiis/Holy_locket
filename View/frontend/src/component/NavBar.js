@@ -27,7 +27,7 @@ const NavBar = () => {
                         <button className="btn" onClick={() => navigate("/patientsappointments")}>Мої записи</button>
                     </li>
                     <button className="btn1" onClick={() => navigate("/registration")}>Зареєструватися</button>
-                <button className="btn1" onClick={() => navigate("/signin")}>Ввійти</button>
+                <button className="btn1" onClick={() => navigate("/login")}>Ввійти</button>
                 <img className="btn2" src={img1} onClick={() => navigate("/patientprofile")}></img>
                 </ul>
 

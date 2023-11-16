@@ -1,16 +1,11 @@
 
 .bodys{
-
-    /*background: url("img/back.png");*/
     background: url("./landing.jpg");
     /* background-size: 1535px; */
     background-size: cover;
     height: 655px;
 }
 
-/** {box-sizing:border-box}*/
-
-/* Slideshow container */
 .slideshow-container {
     position: relative;
     top: 95px;
@@ -46,13 +41,11 @@ img {
     height: 400px;
 }
 
-/* Position the "next button" to the right */
 .next {
     right: 0;
     border-radius: 3px 0 0 3px;
 }
 
-/* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.8);
 }
@@ -112,16 +105,8 @@ img {
     font-size: 42px;
     margin-top: -210px;
     transform: translate(90%, -475%);
-}
 
-/* Caption text */
-/* .text {
-    color: #ffffff;
-    font-family: 'Oswald';
-    font-size: 26px;
-    margin-top: 0px;
-    margin-left: 750px;
-  } */
+}
 
 .main-text{
     color: #ffffff;
@@ -129,7 +114,7 @@ img {
     font-size: 20px;
     margin-top: 0px;
     margin-right: 50px;
-    transform: translate(120%, -155%);
+    transform: translate(120%, -135%);
     line-height: 1.7;
 }
 
