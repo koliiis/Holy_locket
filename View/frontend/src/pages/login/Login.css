@@ -15,12 +15,17 @@ input[type="text"], input[type="tel"], input[type="password"] {
     font-size: 14px; /* Измените значение на нужный размер */
     /*border: 1px solid #000;*/
     /*border-radius: 20px 0 20px 0;*/
+    width: 300px;
+    height: 40px;
+    font-size: 14px;
     box-shadow:  0 3px 3px 0 #B1D3BB;
 }
 
 button[type="submit"], button[type="reset"] {
     width: 250px; /* Измените значение на нужный размер */
     height: 40px; /* Измените значение на нужный размер */
+    width: 250px;
+    height: 40px;
     opacity: 0.6;
     font-size: 16px;
     border-radius: 15px;
@@ -30,6 +35,7 @@ button[type="submit"], button[type="reset"] {
 /*button[type="submit"]{*/
 /*	padding: 0 10px 0 0 ;*/
 /*}*/
+
 
 
 input{
@@ -72,6 +78,9 @@ button:hover{
 /*.header {*/
 /*    opacity: 0.8;*/
 /*}*/
+
+
+
 
 .master_login {
     border-width: 10px;

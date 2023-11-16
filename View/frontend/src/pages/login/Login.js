@@ -53,7 +53,7 @@ function Registration() {
 
                     </div>
                     <div className="button">
-                        <button className='button_left' type="submit">Зареєструватися</button>
+                        <button className='button_left' type="submit">Увійти</button>
                     </div>
                 </div>
             </form>

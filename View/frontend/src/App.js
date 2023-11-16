@@ -29,6 +29,25 @@ const App = () => {
         </main>
       </div>
   );
+    return (
+        <div className="App">
+            <nav>
+                <NavBar />
+            </nav>
+            <main>
+                <Routes>
+                    <Route path="/registration" element={<Registration />} />
+                    <Route path="/appointment" element={<Appointment />} />
+                    <Route path="/doctors" element={<Doctor />} />
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/landing" element={<Landing />} />
+                    <Route path="/patientsappointments" element={<Patientsappointments />} />
+                    <Route path="/patientprofile" element={<Patientprofile />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </main>
+        </div>
+    );
 }
 
 export default App;

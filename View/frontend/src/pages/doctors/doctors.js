@@ -19,17 +19,6 @@ function Doctors() {
                 console.error("Ошибка при получении данных о врачах:", error);
             });
 
-        axios.get('https://localhost:7172/api/Speciality')
-            .then(response => {
-                const specialitiesData = {};
-                response.data.forEach(speciality => {
-                    specialitiesData[speciality.id] = speciality;
-                });
-                setSpecialities(specialitiesData);
-            })
-            .catch(error => {
-                console.error("Ошибка при получении данных о специальностях:", error);
-            });
     }, []);
 
     const handleNavigateToAppointment = (doctor) => {
@@ -63,7 +52,7 @@ function Doctors() {
                             <h3 className="name">
                                 {doctor.firstName} {doctor.secondName}
                                 <p className="specail-card">
-                                    {specialities[doctor.specialityId]?.name || "Специальность не найдена"}
+                                    {doctor.specialityName}
                                 </p>
                             </h3>
                             <h4 className='exp'>
