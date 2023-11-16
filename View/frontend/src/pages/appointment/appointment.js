@@ -1,19 +1,41 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import "./appointment.css";
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
+import Modal_Appointment from "../../component/modal-appointment";
 
 const Appointment = () => {
-    const daysOfWeek = ['ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ"];
-    const startTime = 10;
-    const endTime = 18;
-    const timeSlots = [];
+    const currentDay = new Date();
+    const indexDayOfWeek = currentDay.getDay();
+    const daysOfWeek = ["НЕДІЛЯ", 'ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ", "CУБОТА"];
+    const firstPartOfWeek = daysOfWeek.slice(indexDayOfWeek);
+    const secondPartOfWeek = daysOfWeek.slice(0, indexDayOfWeek);
+    const WorkWeek = [...firstPartOfWeek, ...secondPartOfWeek];
+
+    const dateObj = new Date();
+    const currentDayIndex = dateObj.getDay();
+    const currentDate = dateObj.getDate() - currentDayIndex + 4; // Текущая дата минус день недели плюс 1
+    const dateArray = [];
+
+    for (let i = 0; i < 7; i++) {  // Изменено с 7 на 5
+        const newDate = new Date();
+        newDate.setDate(currentDate + i);
+        dateArray.push(newDate);
+    }
+
     const [specialities, setSpecialities] = useState({});
     const location = useLocation();
     const { doctor } = location.state;
+    const [modalActive, setModalActive] = useState(false);
+    const [selectedTime, setSelectedTime] = useState('');
+    const [selectedDay, setSelectedDay] = useState('');
 
     var iteration = 0;
     var time_slot = '';
+    const startTime = 10;
+    const endTime = 18;
+    const timeSlots = [];
+
     for (let hour = startTime; hour <= endTime; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
             const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
@@ -23,21 +45,43 @@ const Appointment = () => {
                 timeSlots.push(time_slot);
                 time_slot = time;
                 iteration -= 1;
-            }
-            else time_slot += time;
+            } else time_slot += time;
         }
     }
 
     const renderTimeSlots = () => {
-        return timeSlots.map((time) => (
-            <tr key={time}>
-                {daysOfWeek.map((day) => (
-                    <td key={time}>
-                        <button className="time-btn">{time}</button>
-                    </td>
+        return (
+            <>
+                <tr>
+                    {WorkWeek.map((day, dayIndex) => (
+                        <th key={dayIndex}>
+                            {day}
+                            <br />
+                            {dateArray[dayIndex] && dateArray[dayIndex].toLocaleDateString('uk-UA')}
+                        </th>
+                    ))}
+                </tr>
+
+                {timeSlots.map((time, timeIndex) => (
+                    <tr key={timeIndex}>
+
+                        {WorkWeek.map((day, dayIndex) => (
+                            <td key={dayIndex}>
+                                <button className="time-btn" onClick={() => handleTimeSelection(time, day, dateArray[dayIndex])}>
+                                    {time}
+                                </button>
+                            </td>
+                        ))}
+                    </tr>
                 ))}
-            </tr>
-        ));
+            </>
+        );
+    };
+
+    const handleTimeSelection = (time, day, date) => {
+        setSelectedTime(time);
+        setSelectedDay(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`);
+        setModalActive(true);
     };
 
     useEffect(() => {
@@ -53,6 +97,24 @@ const Appointment = () => {
                 console.error("Ошибка при получении данных о специальностях:", error);
             });
     }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // axios.post('https://localhost:7172/api/Patient', {
+        //     firstName: data.name,
+        //     secondName: data.surname,
+        //     phone: data.phoneNumber,
+        //     email: data.email,
+        // })
+        //
+        //     .then((response) => {
+        //         console.log("Peremoga");
+        //     })
+        //     .catch((error) => {
+        //         console.error('Ошибка при отправке данных:', error);
+        //     });
+    }
 
     return (
         <div className="appoint">
@@ -70,22 +132,35 @@ const Appointment = () => {
                     <h3>Про лікаря:</h3>
                     <p>Стать: {doctor.gender}</p>
                     <p>Стаж: {doctor.experience}</p>
-                    <p>{doctor.description}</p>
+                    <p>{doctor.description} </p>
                 </div>
             </div>
             <table>
                 <p className="head">Записатись на прийом:</p>
                 <thead>
-                <tr className="days">
-                    {daysOfWeek.map((day) => (
-                        <th className='days-btn' key={day}>{day}</th>
-                    ))}
-                </tr>
-                </thead>
-                <tbody>
                 {renderTimeSlots()}
-                </tbody>
+                </thead>
             </table>
+
+            {modalActive && (
+                <Modal_Appointment
+                    active={modalActive}
+                    setActive={() => setModalActive(false)}
+                    time={selectedTime}
+                    day={selectedDay}>
+                    <h3>
+                        <p>
+                            Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
+                            на {selectedDay} о {selectedTime}?
+                        </p>
+                        <div>
+                            <form action="#" method="POST"  onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit">Підтвердити</button>
+                            </form>
+                        </div>
+                    </h3>
+                </Modal_Appointment>
+            )}
         </div>
     );
 };
