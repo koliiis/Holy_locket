@@ -105,7 +105,7 @@ const Appointment = () => {
             time: selectedTime,
             date: selectedDay,
             hospitalId: 1,
-            doctorId: doctor.Id,
+            doctorId: doctor.id,
             patientId: 1,
         })
 
