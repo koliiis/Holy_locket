@@ -31,7 +31,7 @@
     margin-top: -80px;
 }
 
-.img2:hover {
+.img22:hover {
     cursor: pointer;
     margin-left: 1203px;
     margin-top: -77px;
@@ -46,7 +46,7 @@
     margin-top: -95px;
 }
 
-.img3:hover {
+.img33:hover {
     cursor: pointer;
     margin-left: 1283px;
     margin-top: -92px;
@@ -57,15 +57,8 @@
 .img44 {
     width: 32px;
     height: 32px;
-    margin-left: 200px;
-    margin-top: -43px;
-}
-
-.img55 {
-    width: 32px;
-    height: 32px;
-    margin-left: 232px;
-    margin-top: -38px;
+    margin-left: 240px;
+    margin-top: -30px;
 }
 
 .div11 {
@@ -90,18 +83,6 @@
     border-radius: 50px;  
 }
 
-/* .div2:hover {
-    margin-top: 40px;
-    margin-left: 500px;
-    width: 300px;
-    height: 50px;
-    background-color: #FFFFFF;
-    border: 1px solid #E8E6E6;
-    box-shadow: 1px 3px 27px #595959;
-    border-radius: 50px;  
-    cursor: auto;
-} */
-
 .div33 {
     margin-top: -160px;
     margin-left: 900px;
@@ -113,18 +94,6 @@
     border-radius: 50px; 
     cursor: auto;  
 }
-
-/* .div3:hover {
-    margin-top: -160px;
-    margin-left: 900px;
-    width: 300px;
-    height: 50px;
-    background-color: #FFFFFF;
-    border: 1px solid #E8E6E6;
-    box-shadow: 1px 3px 27px #595959;
-    border-radius: 50px;
-    cursor: auto;   
-} */
 
 .div44 {
     margin-top: 40px;
@@ -140,7 +109,7 @@
 }
 
 .p11 {
-    margin-top: 5px;
+    margin-top: 13px;
     margin-left: 18px;
     font-family: 'Oswald';
     font-size: 20px;
