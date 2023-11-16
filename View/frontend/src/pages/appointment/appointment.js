@@ -99,6 +99,24 @@ const Appointment = () => {
             });
     }, []);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // axios.post('https://localhost:7172/api/Patient', {
+        //     firstName: data.name,
+        //     secondName: data.surname,
+        //     phone: data.phoneNumber,
+        //     email: data.email,
+        // })
+        //
+        //     .then((response) => {
+        //         console.log("Peremoga");
+        //     })
+        //     .catch((error) => {
+        //         console.error('Ошибка при отправке данных:', error);
+        //     });
+    }
+
     return (
         <div className="appoint">
             <div className="doctors">
@@ -137,7 +155,9 @@ const Appointment = () => {
                             на {selectedDay} о {selectedTime}?
                         </p>
                         <div>
-                            <button className="confirm">Підтвердити</button>
+                            <form action="#" method="POST"  onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit">Підтвердити</button>
+                            </form>
                         </div>
                     </h3>
                 </Modal_Appointment>
