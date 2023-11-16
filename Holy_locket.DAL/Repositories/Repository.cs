@@ -28,7 +28,7 @@ namespace Holy_locket.DAL.Repositories
             context.Set<T>().Add(entity);
             await context.SaveChangesAsync().ConfigureAwait(false);
         }
-        public async Task<T> Get(int id)
+        public async Task<T> GetById(int id)
         {
             return await context.Set<T>().FindAsync(id);
         }

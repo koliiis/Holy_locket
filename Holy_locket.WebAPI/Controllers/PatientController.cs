@@ -31,7 +31,7 @@ namespace Holy_locket.WebAPI.Controllers
         }
         [HttpGet()]
         [Route("login")]
-        public async Task<IActionResult> Login(int phone, string password)
+        public async Task<IActionResult> Login(string phone, string password)
         {
             try
             {

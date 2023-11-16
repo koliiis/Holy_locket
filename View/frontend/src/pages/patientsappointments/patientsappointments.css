@@ -1,10 +1,12 @@
 .body1{
-    background-color: #ffffff;
-    background-size: cover;
-    height: 655px;
+  background: rgb(232,230,230);
+  height: 655px;
+  position: relative;
 }
 
 .div1 {
+    display: inline-block;
+    left: 0;
     margin-top: 50px;
     margin-left: 250px;
     width: 980px;
@@ -13,6 +15,7 @@
     border: 1px solid #E8E6E6;
     box-shadow: 1px 3px 27px #595959;
     border-radius: 50px;
+    margin-bottom: 20px;
   }
 
 
@@ -85,8 +88,8 @@
 }
 
 .div5 {
-    margin-top: -230px;
-    margin-left: 280px;
+    margin-top: -100px;
+    margin-left: 30px;
     box-shadow: 1px 3px 27px #407C51;
     width: 160px;
     height: 160px;

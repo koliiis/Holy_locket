@@ -16,7 +16,7 @@ function Doctors() {
                 setDoctors(response.data);
             })
             .catch(error => {
-                console.error("шибка при получении данных о врачах:", error);
+                console.error("Ошибка при получении данных о врачах:", error);
             });
 
         axios.get('https://localhost:7172/api/Speciality')

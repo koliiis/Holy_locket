@@ -5,6 +5,7 @@ import Doctor from "./pages/doctors/doctors";
 import Landing from "./pages/landing/landing";
 import NavBar from "./component/NavBar";
 import Patientsappointments from "./pages/patientsappointments/patientsappointments";
+import Patientprofile from "./pages/patientprofile/patientprofile";
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
                 <Route path="/" element={<Landing />} />
                 <Route path="/landing" element={<Landing />} />
                 <Route path="/patientsappointments" element={<Patientsappointments />} />
+                <Route path="/patientprofile" element={<Patientprofile />} />
             </Routes>
         </main>
       </div>
