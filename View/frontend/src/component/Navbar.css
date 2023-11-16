@@ -13,10 +13,6 @@ nav {
 
 }
 
-.loggo {
-    /*font-family: 'Oswald', sans-serif;*/
-}
-
 .logo {
     font-size: 35px;
     margin: 0 18% 0 55px;
@@ -36,6 +32,26 @@ nav ul li {
 
 .btn {
     font-size: 14px;
+}
+
+.btn1 {
+    margin-bottom: 1px;
+    font-size: 14px;
+    margin-left: 55px;
+    height: 40px;
+    width: auto;
+    background: none;
+    color: #B1D3BB;
+    border-radius: 50px;
+}
+
+.btn2 {
+    font-size: 14px;
+    margin-top: 30px;
+    margin-left: 25px;
+    height: 40px;
+    width: auto;
+    cursor: pointer;
 }
 
 button:focus{
