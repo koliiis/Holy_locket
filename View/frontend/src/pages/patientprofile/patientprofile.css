@@ -1,11 +1,11 @@
-.body1 {
+.body11 {
     background: rgb(232,230,230);
     background-size: cover;
     height: 655px;
     position: relative;
 }
 
-.img1 {
+.img11 {
     margin-top: 70px;
     margin-left: 200px;
     box-shadow: 1px 3px 27px #407C51;
@@ -14,7 +14,7 @@
     border-radius: 100px;
 }
 
-.h2 {
+.h22 {
     margin-left: 150px;
     margin-top: -200px;
     font-family: 'Oswald';
@@ -24,7 +24,7 @@
     word-spacing: 60px;
 }
 
-.img2 {
+.img22 {
     width: 32px;
     height: 32px;
     margin-left: 1200px;
@@ -39,7 +39,7 @@
     height: 26px;
 }
 
-.img3 {
+.img33 {
     width: 32px;
     height: 32px;
     margin-left: 1280px;
@@ -54,21 +54,21 @@
     height: 26px;
 }
 
-.img4 {
+.img44 {
     width: 32px;
     height: 32px;
     margin-left: 200px;
     margin-top: -43px;
 }
 
-.img5 {
+.img55 {
     width: 32px;
     height: 32px;
     margin-left: 232px;
     margin-top: -38px;
 }
 
-.div1 {
+.div11 {
     margin-top: 0px;
     margin-left: 500px;
     width: 300px;
@@ -79,7 +79,7 @@
     border-radius: 50px;  
 }
 
-.div2 {
+.div22 {
     margin-top: 40px;
     margin-left: 500px;
     width: 300px;
@@ -90,7 +90,7 @@
     border-radius: 50px;  
 }
 
-.div2:hover {
+/* .div2:hover {
     margin-top: 40px;
     margin-left: 500px;
     width: 300px;
@@ -100,9 +100,9 @@
     box-shadow: 1px 3px 27px #595959;
     border-radius: 50px;  
     cursor: auto;
-}
+} */
 
-.div3 {
+.div33 {
     margin-top: -160px;
     margin-left: 900px;
     width: 300px;
@@ -114,7 +114,7 @@
     cursor: auto;  
 }
 
-.div3:hover {
+/* .div3:hover {
     margin-top: -160px;
     margin-left: 900px;
     width: 300px;
@@ -124,9 +124,9 @@
     box-shadow: 1px 3px 27px #595959;
     border-radius: 50px;
     cursor: auto;   
-}
+} */
 
-.div4 {
+.div44 {
     margin-top: 40px;
     margin-left: 900px;
     width: 300px;
@@ -139,7 +139,7 @@
  
 }
 
-.p1 {
+.p11 {
     margin-top: 5px;
     margin-left: 18px;
     font-family: 'Oswald';
