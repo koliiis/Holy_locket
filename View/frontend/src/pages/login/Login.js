@@ -1,58 +1,59 @@
 import React, { useState } from 'react';
 import './Login.css';
-import axios from 'axios';
+import axios from "axios";
 
-function Login() {
-    const [email, setEmail] = useState('');
+function Registration() {
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const loginData = {
-            email,
-            password,
+        const data = {
+            phone,
+            password
         };
 
-        axios
-            .post('https://localhost:7172/api/Login', {
-                email: loginData.email,
-                password: loginData.password,
-            })
+        axios.post('https://localhost:7172/api/Patient', {
+            firstName: data.name,
+            secondName: data.surname,
+            phone: data.phoneNumber,
+            email: data.email,
+        })
+
             .then((response) => {
-                console.log('Login success');
+                console.log("Peremoga");
             })
             .catch((error) => {
-                console.error('Login failed:', error);
+                console.error('Ошибка при отправке данных:', error);
             });
-    };
+    }
+
 
     return (
-        <div className="login-container">
-            <form onSubmit={handleSubmit}>
-                <div className="login-form">
+        <div className="master">
+            <form action="#" method="POST"  onSubmit={handleSubmit}>
+                <div className="master_login">
                     <h2 className="header">Увійти</h2>
                     <div className="input">
                         <input
-                            type="email"
-                            name="useremail"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Номер телефону"
+                            type="tel"
+                            name="usernumber"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                         /><br />
 
                         <input
+                            placeholder="Ваш пароль"
                             type="password"
-                            name="password"
-                            placeholder="Пароль"
+                            name="user_password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         /><br />
+
                     </div>
                     <div className="button">
-                        <button className="button_left" type="submit">
-                            Увійти
-                        </button>
+                        <button className='button_left' type="submit">Зареєструватися</button>
                     </div>
                 </div>
             </form>
@@ -60,4 +61,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Registration;

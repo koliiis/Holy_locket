@@ -9,7 +9,7 @@ h2{
     color: #595959;
 }
 
-input[type="text"], input[type="tel"], input[type="email"] {
+input[type="text"], input[type="tel"], input[type="password"] {
     width: 300px; /* Измените значение на нужный размер */
     height: 40px; /* Измените значение на нужный размер */
     font-size: 14px; /* Измените значение на нужный размер */
@@ -73,15 +73,17 @@ button:hover{
 /*    opacity: 0.8;*/
 /*}*/
 
-.master_2 {
+.master_login {
     border-width: 10px;
     border-style: solid;
     border-image: linear-gradient(to right,  rgb(232,230,230) 35%, rgb(177,211,187) 100%);
     border-image-slice: 1;
+    border-radius: 170px;
     display: inline-block;
     text-align: center;
     padding: 30px;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.4);
     background: #FAF3DF;
-
+    width: 550px;
+    height: 400px;
 }
