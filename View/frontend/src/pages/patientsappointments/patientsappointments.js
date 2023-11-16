@@ -5,46 +5,34 @@ import { useNavigate } from 'react-router-dom';
 
 function Patientsappointments() {
     const navigate = useNavigate();
-    const [doctors, setDoctors] = useState([]);
-    const [specialities, setSpecialities] = useState({});
+    const [InfoApp, setInfoApp] = useState([]);
 
     useEffect(() => {
-        axios.get('https://localhost:7172/api/Doctors')
+        axios.get('https://localhost:7172/api/Appointment/InfoPatient?id=1')
             .then(response => {
-                setDoctors(response.data);
+                setInfoApp(response.data);
             })
             .catch(error => {
-                console.error("Ошибка при получении данных о врачах:", error);
+                console.error("Ошибка при получении данных о записях:", error);
             });
 
-            axios.get('https://localhost:7172/api/Speciality')
-            .then(response => {
-                const specialitiesData = {};
-                response.data.forEach(speciality => {
-                    specialitiesData[speciality.id] = speciality;
-                });
-                setSpecialities(specialitiesData);
-            })
-            .catch(error => {
-                console.error("Ошибка при получении данных о специальностях:", error);
-            });
     }, []);
 
     return (
     <div className="body1">
 
-        {doctors.map(doctor => (
+        {InfoApp.map(infapp => (
             <div className="div1">
-                <h2 className="h21">{doctor.firstName} {doctor.secondName}</h2>
-                <p className="p1">{specialities[doctor.specialityId]?.name || "Специальность не найдена"}</p>
+                <h2 className="h21">{infapp.doctorName} {infapp.doctorSecondName}</h2>
+                <p className="p1">{infapp.specialityName}</p>
                 <h3 className="h31">Стан запису:</h3>
                 <div className="div21">ЗАКІНЧЕНО</div>
                 <button className="div3" onClick={() => navigate("/doctors")}>Записатися ще раз</button>
                 <h3 className="appdet">Деталі прийому:</h3>
                 <div className="div4">
-                    <p className="p1">Дата: 6.11.2023</p>
-                    <p className="p1">Час: 14:00</p>
-                    <p className="p1">Кабінет: 418</p>
+                    <p className="p1">Дата: {infapp.date}</p>
+                    <p className="p1">Час: {infapp.time}</p>
+                    <p className="p1">Кабінет: {infapp.hospitalId}</p>
                 </div>
         <img className="div5" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
         </div>
