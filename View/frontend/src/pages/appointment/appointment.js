@@ -12,7 +12,6 @@ const Appointment = () => {
     const secondPartOfWeek = daysOfWeek.slice(0, indexDayOfWeek);
     const WorkWeek = [...firstPartOfWeek, ...secondPartOfWeek];
 
-
     const dateObj = new Date();
     const currentDayIndex = dateObj.getDay();
     const currentDate = dateObj.getDate() - currentDayIndex + 4; // Текущая дата минус день недели плюс 1
