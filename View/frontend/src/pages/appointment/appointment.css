@@ -98,3 +98,7 @@ thead {
 .days-btn {
     padding: 7px 0 7px 0;
 }
+
+.confirm:hover {
+    background-color: #bbbbbb;
+}

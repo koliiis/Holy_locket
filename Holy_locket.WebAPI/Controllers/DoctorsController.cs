@@ -23,8 +23,9 @@ namespace Holy_locket.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDoctors()
         {
-            try {
-                var doctors = await _doctorService.GetAll().ConfigureAwait(false);
+            try 
+            {
+                var doctors = await _doctorService.GetAllDoctors().ConfigureAwait(false);
                 return Ok(doctors);
             }
             catch (Exception ex) {
@@ -36,7 +37,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var doctor = await _doctorService.GetById(id).ConfigureAwait(false);
+                var doctor = await _doctorService.GetDoctorById(id).ConfigureAwait(false);
                 return Ok(doctor);
             }
             catch (Exception ex)
@@ -49,7 +50,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _doctorService.Add(doctor).ConfigureAwait(false);
+                await _doctorService.AddDoctor(doctor).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception ex)
@@ -62,7 +63,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _doctorService.Update(doctor).ConfigureAwait(false);
+                await _doctorService.UpdateDoctor(doctor).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception ex)
@@ -76,7 +77,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {   
-                await _doctorService.Delete(id).ConfigureAwait(false);
+                await _doctorService.DeleteDoctor(id).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception ex)

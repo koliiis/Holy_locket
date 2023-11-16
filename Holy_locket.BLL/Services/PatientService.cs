@@ -6,6 +6,7 @@ using Holy_locket.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,15 +34,26 @@ namespace Holy_locket.BLL.Services
         public async Task UpdatePatient(PatientDTO patient)
         {
             await _repository.Update(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
-
         }
         public async Task<PatientDTO> GetPatientById(int id)
         {
-            var patient = await _repository.Get(id).ConfigureAwait(false);
+            var patient = await _repository.GetById(id).ConfigureAwait(false);
             return _mapper.Map<PatientDTO>(patient);
         }
+
         public void Dispose()
         {
+        }
+
+        public async Task<bool> CheckLogin(string Phone, string Password)
+        {
+            Expression<Func<Patient, bool>> filter = x => x.Phone == Phone;
+            var patient = _mapper.Map<PatientDTO>(await _repository.Get(filter));
+            if (patient == null)
+            {
+                return false;
+            }
+            return patient.Password == Password;
         }
     }
 }

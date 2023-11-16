@@ -15,7 +15,6 @@ function Patientsappointments() {
             .catch(error => {
                 console.error("Ошибка при получении данных о записях:", error);
             });
-
     }, []);
 
     return (

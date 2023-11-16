@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./appointment.css";
+import { useLocation } from 'react-router-dom';
+import axios from "axios";
+import Modal_Appointment from "../../component/modal-appointment";
 
 const Appointment = () => {
-    const daysOfWeek = ['ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ"];
+    const currentDay = new Date();
+    const indexDayOfWeek = currentDay.getDay();
+    const daysOfWeek = ["НЕДІЛЯ", 'ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ", "CУБОТА"];
+    const firstPartOfWeek = daysOfWeek.slice(indexDayOfWeek);
+    const secondPartOfWeek = daysOfWeek.slice(0, indexDayOfWeek);
+    const WorkWeek = [...firstPartOfWeek, ...secondPartOfWeek];
+
+    const dateObj = new Date();
+    const currentDayIndex = dateObj.getDay();
+    const currentDate = dateObj.getDate() - currentDayIndex + 4; // Текущая дата минус день недели плюс 1
+    const dateArray = [];
+
+    for (let i = 0; i < 7; i++) {  // Изменено с 7 на 5
+        const newDate = new Date();
+        newDate.setDate(currentDate + i);
+        dateArray.push(newDate);
+    }
+
+    const [specialities, setSpecialities] = useState({});
+    const location = useLocation();
+    const { doctor } = location.state;
+    const [modalActive, setModalActive] = useState(false);
+    const [selectedTime, setSelectedTime] = useState('');
+    const [selectedDay, setSelectedDay] = useState('');
+
+    var iteration = 0;
+    var time_slot = '';
     const startTime = 10;
     const endTime = 18;
     const timeSlots = [];
 
-    var iteration = 0;
-    var time_slot = '';
     for (let hour = startTime; hour <= endTime; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
             const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
@@ -18,68 +45,124 @@ const Appointment = () => {
                 timeSlots.push(time_slot);
                 time_slot = time;
                 iteration -= 1;
-            }
-            else time_slot += time;
+            } else time_slot += time;
         }
     }
 
     const renderTimeSlots = () => {
-        return timeSlots.map((time) => (
-            <tr key={time}>
-                {daysOfWeek.map((day) => (
-                    <td key={time}>
-                        <button className="time-btn">{time}</button>
-                    </td>
+        return (
+            <>
+                <tr>
+                    {WorkWeek.map((day, dayIndex) => (
+                        <th key={dayIndex}>
+                            {day}
+                            <br />
+                            {dateArray[dayIndex] && dateArray[dayIndex].toLocaleDateString('uk-UA')}
+                        </th>
+                    ))}
+                </tr>
+
+                {timeSlots.map((time, timeIndex) => (
+                    <tr key={timeIndex}>
+
+                        {WorkWeek.map((day, dayIndex) => (
+                            <td key={dayIndex}>
+                                <button className="time-btn" onClick={() => handleTimeSelection(time, day, dateArray[dayIndex])}>
+                                    {time}
+                                </button>
+                            </td>
+                        ))}
+                    </tr>
                 ))}
-            </tr>
-        ));
+            </>
+        );
     };
 
-    const doctorInfo = {
-        firstName: 'Степан',
-        lastName: 'Банедрович',
-        specialty: 'Стоматолог',
-        gender: 'Чоловік',
-        experience: '15 років',
-        bio: 'Доктор Иван Петров - опытный кардиолог с богатым опытом в лечении сердечных заболеваний. ' +
-            'Он посвятил свою карьеру заботе о здоровье пациентов и помог многим людям восстановить свое сердечное здоровье.'
+    const handleTimeSelection = (time, day, date) => {
+        setSelectedTime(time);
+        setSelectedDay(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`);
+        setModalActive(true);
     };
 
+    useEffect(() => {
+        axios.get('https://localhost:7172/api/Speciality')
+            .then(response => {
+                const specialitiesData = {};
+                response.data.forEach(speciality => {
+                    specialitiesData[speciality.id] = speciality;
+                });
+                setSpecialities(specialitiesData);
+            })
+            .catch(error => {
+                console.error("Ошибка при получении данных о специальностях:", error);
+            });
+    }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        axios.post('https://localhost:7172/api/Appointment', {
+            time: selectedTime,
+            date: selectedDay,
+            hospitalId: 1,
+            doctorId: doctor.id,
+            patientId: 1,
+        })
+
+            .then((response) => {
+                console.log("Peremoga");
+            })
+            .catch((error) => {
+                console.error('Ошибка при отправке данных:', error);
+            });
+    }
 
     return (
         <div className="appoint">
             <div className="doctors">
                 <div className="doctor-photo">
                     <img className="appoint-photo" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"
-                         alt={`${doctorInfo.firstName} ${doctorInfo.lastName}`}
+                         alt={`${doctor.firstName} ${doctor.secondName}`}
                     />
                 </div>
                 <div className="doctor-info">
                     <h2 className="special">
-                        {doctorInfo.firstName} {doctorInfo.lastName}
-                        <p>{doctorInfo.specialty}</p>
+                        {doctor.firstName} {doctor.secondName}
+                        <p>{specialities[doctor.specialityId]?.name || "Специальность не найдена"}</p>
                     </h2>
                     <h3>Про лікаря:</h3>
-                    <p>Стать: {doctorInfo.gender}</p>
-                    <p>Стаж: {doctorInfo.experience}</p>
-                    <p>{doctorInfo.bio}</p>
+                    <p>Стать: {doctor.gender}</p>
+                    <p>Стаж: {doctor.experience}</p>
+                    <p>{doctor.description} </p>
                 </div>
             </div>
             <table>
                 <p className="head">Записатись на прийом:</p>
                 <thead>
-                <tr className="days">
-                    {daysOfWeek.map((day) => (
-                        <th className='days-btn' key={day}>{day}</th>
-                    ))}
-                </tr>
+                {renderTimeSlots()}
                 </thead>
-                    <tbody>
-                        {renderTimeSlots()}
-                    </tbody>
             </table>
+
+            {modalActive && (
+                <Modal_Appointment
+                    active={modalActive}
+                    setActive={() => setModalActive(false)}
+                    time={selectedTime}
+                    day={selectedDay}>
+                    <h3>
+                        <p>
+                            Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
+                            на {selectedDay} о {selectedTime}?
+                        </p>
+                        <div>
+                            <form action="#" method="POST"  onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit">Підтвердити</button>
+                            </form>
+                        </div>
+                    </h3>
+                </Modal_Appointment>
+            )}
         </div>
     );
 };
-
 export default Appointment;

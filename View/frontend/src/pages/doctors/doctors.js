@@ -3,6 +3,8 @@ import axios from 'axios';
 import './doctors.css';
 import { useNavigate } from 'react-router-dom';
 
+
+
 function Doctors() {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
@@ -17,19 +19,12 @@ function Doctors() {
                 console.error("Ошибка при получении данных о врачах:", error);
             });
 
-        axios.get('https://localhost:7172/api/Speciality')
-            .then(response => {
-                const specialitiesData = {};
-                response.data.forEach(speciality => {
-                    specialitiesData[speciality.id] = speciality;
-                });
-                setSpecialities(specialitiesData);
-            })
-            .catch(error => {
-                console.error("Ошибка при получении данных о специальностях:", error);
-            });
     }, []);
-  
+
+    const handleNavigateToAppointment = (doctor) => {
+        navigate('/appointment', { state: { doctor } });
+    };
+
     return (
 
         <div className="master-doctor">
@@ -57,7 +52,7 @@ function Doctors() {
                             <h3 className="name">
                                 {doctor.firstName} {doctor.secondName}
                                 <p className="specail-card">
-                                    {specialities[doctor.specialityId]?.name || "Специальность не найдена"}
+                                    {doctor.specialityName}
                                 </p>
                             </h3>
                             <h4 className='exp'>
@@ -66,7 +61,7 @@ function Doctors() {
                             <div className="info">
                                 {doctor.description}
                             </div>
-                            <button className="more_info" onClick={() => navigate("/appointment")}>Дізнатись</button>
+                            <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>
                         </div>
                     </div>
                 ))}

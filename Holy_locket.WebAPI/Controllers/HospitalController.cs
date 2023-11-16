@@ -19,7 +19,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var hospitals = await _hospitalService.GetAll().ConfigureAwait(false);
+                var hospitals = await _hospitalService.GetAllHospitals().ConfigureAwait(false);
                 return Ok(hospitals);
             }
             catch (Exception ex)

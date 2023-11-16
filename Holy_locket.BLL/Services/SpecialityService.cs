@@ -37,7 +37,7 @@ namespace Holy_locket.BLL.Services
         }
         public async Task<SpecialityDTO> GetSpecialityById(int id)
         {
-            var speciality = await _repository.Get(id).ConfigureAwait(false);
+            var speciality = await _repository.GetById(id).ConfigureAwait(false);
             return _mapper.Map<SpecialityDTO>(speciality);
         }
         public async Task<ICollection<Speciality>> GetAll()

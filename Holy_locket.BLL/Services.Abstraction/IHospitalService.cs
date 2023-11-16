@@ -14,6 +14,6 @@ namespace Holy_locket.BLL.Services.Abstraction
         Task UpdateHospital(HospitalDTO hospital);
         Task CreateHospital(HospitalDTO hospital);
         Task<HospitalDTO> GetHospitalById(int id);
-        Task<ICollection<Hospital>> GetAll();
+        Task<ICollection<Hospital>> GetAllHospitals();
     }
 }
