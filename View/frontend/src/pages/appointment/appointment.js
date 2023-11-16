@@ -104,8 +104,8 @@ const Appointment = () => {
         axios.post('https://localhost:7172/api/Appointment', {
             time: selectedTime,
             date: selectedDay,
-            hospitalId: 1,
-            doctorId: doctor.Id,
+            hospitalId: 2,
+            doctorId: doctor.id,
             patientId: 1,
         })
 
@@ -152,7 +152,7 @@ const Appointment = () => {
                     <h3>
                         <p>
                             Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
-                            на {selectedDay} о {selectedTime}?
+                            на {selectedDay} о {selectedTime}? {doctor.id}
                         </p>
                         <div>
                             <form action="#" method="POST"  onSubmit={handleSubmit}>
@@ -165,5 +165,4 @@ const Appointment = () => {
         </div>
     );
 };
-
 export default Appointment;
