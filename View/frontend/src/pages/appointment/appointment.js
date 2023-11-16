@@ -101,19 +101,20 @@ const Appointment = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // axios.post('https://localhost:7172/api/Patient', {
-        //     firstName: data.name,
-        //     secondName: data.surname,
-        //     phone: data.phoneNumber,
-        //     email: data.email,
-        // })
-        //
-        //     .then((response) => {
-        //         console.log("Peremoga");
-        //     })
-        //     .catch((error) => {
-        //         console.error('Ошибка при отправке данных:', error);
-        //     });
+        axios.post('https://localhost:7172/api/Appointment', {
+            time: selectedTime,
+            date: selectedDay,
+            hospitalId: 1,
+            doctorId: doctor.id,
+            patientId: 1,
+        })
+
+            .then((response) => {
+                console.log("Peremoga");
+            })
+            .catch((error) => {
+                console.error('Ошибка при отправке данных:', error);
+            });
     }
 
     return (
@@ -164,5 +165,4 @@ const Appointment = () => {
         </div>
     );
 };
-
 export default Appointment;
