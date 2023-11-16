@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './landing.css'; // Импортируйте ваш стилевой файл
+import './landing.css';
 
 function Landing() {
     const [currentSlide, setCurrentSlide] = useState(1);
 
-    // Функция для переключения слайдов
     function plusSlides(n) {
         showSlides(currentSlide + n);
     }
 
-    // Функция для отображения слайдов
     function showSlides(n) {
         const slides = document.querySelectorAll('.mySlides');
         let dots = document.querySelectorAll('.dot');
@@ -31,12 +29,11 @@ function Landing() {
         setCurrentSlide(n);
     }
 
-    // Эффект для автоматической смены слайдов
     useEffect(() => {
-        showSlides(currentSlide); // При загрузке страницы отобразить текущий слайд
+        showSlides(currentSlide);
         const timer = setInterval(() => {
             plusSlides(1);
-        }, 4000); // Измените интервал переключения, если необходимо
+        }, 4000);
 
         return () => {
             clearInterval(timer);
@@ -74,7 +71,7 @@ function Landing() {
                 <span className={`dot ${currentSlide === 3 ? 'active' : ''}`} onClick={() => showSlides(3)}></span>
             </div>
             <h2 className="headerr">НАША ЛІКАРНЯ</h2>
-            <p className="main-text">Avenir Light is a clean and stylish font favored by designers. It's easy on the eyes and a great go-to font for titles, paragraphs & more. SKkxsmxkmxkmskxlxm,m m m mm mmkcmcdmdxx,xllllllll m kclmldcmld ldc,c;/.</p>
+            <p className="main-text">Елітна приватна лікарня в Києві - сучасний заклад у престижному районі з високотехнологічним обладнанням. Індивідуальні палати, комфорт та конфіденційність. Кваліфікований медперсонал, широкий спектр послуг, включаючи косметологію та антивікову медицину. Підвищений рівень обслуговування та уваги до пацієнтів </p>
         </div>
         </div>
     );

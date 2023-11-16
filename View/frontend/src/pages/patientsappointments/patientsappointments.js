@@ -13,13 +13,12 @@ function Patientsappointments() {
                 setInfoApp(response.data);
             })
             .catch(error => {
-                console.error("Ошибка при получении данных о записях:", error);
+                console.error("Помилка при отриманні даних:", error);
             });
     }, []);
 
     return (
     <div className="body1">
-
         {InfoApp.map(infapp => (
             <div className="div1">
                 <h2 className="h21">{infapp.doctorName} {infapp.doctorSecondName}</h2>
@@ -36,10 +35,7 @@ function Patientsappointments() {
         <img className="div5" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
         </div>
         ))}
-
     </div>
-
-    
     );
 }
 

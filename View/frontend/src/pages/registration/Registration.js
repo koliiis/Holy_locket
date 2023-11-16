@@ -7,7 +7,6 @@ function Registration() {
     const [surname, setSurname] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
-    const [registrationData, setRegistrationData] = useState(null);
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -17,7 +16,6 @@ function Registration() {
             phoneNumber,
             email,
         };
-        setRegistrationData(data);
 
         axios.post('https://localhost:7172/api/Patient', {
             firstName: data.name,
@@ -80,15 +78,6 @@ function Registration() {
                     </div>
                 </div>
             </form>
-            {registrationData && (
-                <div className="registration-data">
-                    <h3>Дані реєстрації:</h3>
-                    <p>Ім'я: {registrationData.name}</p>
-                    <p>Прізвище: {registrationData.surname}</p>
-                    <p>Номер телефону: {registrationData.phoneNumber}</p>
-                    <p>Email: {registrationData.email}</p>
-                </div>
-            )}
         </div>
     );
 }

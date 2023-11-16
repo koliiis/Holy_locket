@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 function Doctors() {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
-    const [specialities, setSpecialities] = useState({});
 
     useEffect(() => {
         axios.get('https://localhost:7172/api/Doctors')
