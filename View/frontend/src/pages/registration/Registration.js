@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import './Registration.css';
 import axios from "axios";
 
@@ -31,7 +30,6 @@ function Registration() {
                 console.log("Peremoga");
             })
             .catch((error) => {
-                // Обработка ошибки, если запрос не удался
                 console.error('Ошибка при отправке данных:', error);
             });
     }
