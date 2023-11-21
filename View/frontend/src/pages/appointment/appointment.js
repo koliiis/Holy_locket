@@ -13,17 +13,15 @@ const Appointment = () => {
     const WorkWeek = [...firstPartOfWeek, ...secondPartOfWeek];
 
     const dateObj = new Date();
-    const currentDayIndex = dateObj.getDay();
-    const currentDate = dateObj.getDate() - currentDayIndex + 4; // Текущая дата минус день недели плюс 1
+    const currentDate = dateObj.getDate();
     const dateArray = [];
 
-    for (let i = 0; i < 7; i++) {  // Изменено с 7 на 5
+    for (let i = 0; i < 8; i++) {  // Изменено с 7 на 5
         const newDate = new Date();
         newDate.setDate(currentDate + i);
         dateArray.push(newDate);
     }
 
-    const [specialities, setSpecialities] = useState({});
     const location = useLocation();
     const { doctor } = location.state;
     const [modalActive, setModalActive] = useState(false);
@@ -64,7 +62,6 @@ const Appointment = () => {
 
                 {timeSlots.map((time, timeIndex) => (
                     <tr key={timeIndex}>
-
                         {WorkWeek.map((day, dayIndex) => (
                             <td key={dayIndex}>
                                 <button className="time-btn" onClick={() => handleTimeSelection(time, day, dateArray[dayIndex])}>
@@ -83,20 +80,6 @@ const Appointment = () => {
         setSelectedDay(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`);
         setModalActive(true);
     };
-
-    useEffect(() => {
-        axios.get('https://localhost:7172/api/Speciality')
-            .then(response => {
-                const specialitiesData = {};
-                response.data.forEach(speciality => {
-                    specialitiesData[speciality.id] = speciality;
-                });
-                setSpecialities(specialitiesData);
-            })
-            .catch(error => {
-                console.error("Ошибка при получении данных о специальностях:", error);
-            });
-    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -128,7 +111,7 @@ const Appointment = () => {
                 <div className="doctor-info">
                     <h2 className="special">
                         {doctor.firstName} {doctor.secondName}
-                        <p>{specialities[doctor.specialityId]?.name || "Специальность не найдена"}</p>
+                        <p>{doctor.specialityName || "Специальность не найдена"}</p>
                     </h2>
                     <h3>Про лікаря:</h3>
                     <p>Стать: {doctor.gender}</p>
