@@ -27,7 +27,7 @@ function Patientprofile() {
     return (
     <div className="body11">
         {InfoPage.map(infpage => (
-            <><img className="img11" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
+            <div className='qwe'><img className="img11" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
             <h2 className="h22">{infpage.firstName} {infpage.secondName}</h2>
             <img className="img22" src={img2}/>
             <img className="img33" src={img3}/>
@@ -36,7 +36,7 @@ function Patientprofile() {
             <div className='div22'><p className='p11'>{infpage.email}</p><img className="img44" src={img6}/></div>
             <div className='div33'><p className='p11'>Україна, Київ</p><img className="img44" src={img7}/></div>
             <div className='div44'><p className='p11'>{infpage.phone}</p><img className="img44" src={img8}/></div>
-            <div className='div44'><p className='p11'>1234567890</p><img className="img44" src={img9}/></div></>
+            <div className='div44'><p className='p11'>1234567890</p><img className="img44" src={img9}/></div></div>
         ))}
     </div>
    );
