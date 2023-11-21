@@ -17,15 +17,11 @@ function Login() {
                 password: password,
             });
 
-            // После успешного входа получаем токен
             const jwtToken = response.data.token;
 
-            // Сохраняем токен в сессию
             sessionStorage.setItem('jwtToken', jwtToken);
 
-            // Далее можно выполнить перенаправление на другую страницу
-            // Например, на страницу профиля
-            navigate('/profile');
+            navigate('/landing');
 
             console.log('Успешный вход, JWT токен:', jwtToken);
         } catch (error) {
