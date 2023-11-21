@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
 import './Login.css';
-import axios from "axios";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function Registration() {
+function Login() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {
-            phone,
-            password
-        };
-
-        axios.post('https://localhost:7172/api/Patient', {
-            firstName: data.name,
-            secondName: data.surname,
-            phone: data.phoneNumber,
-            email: data.email,
-        })
-
-            .then((response) => {
-                console.log("Peremoga");
-            })
-            .catch((error) => {
-                console.error('Ошибка при отправке данных:', error);
+        try {
+            const response = await axios.post('https://localhost:7172/api/Patient/login', {
+                phone: phone,
+                password: password,
             });
-    }
 
+            const jwtToken = response.data.token;
+
+            sessionStorage.setItem('jwtToken', jwtToken);
+
+            navigate('/landing');
+
+            console.log('Успешный вход, JWT токен:', jwtToken);
+        } catch (error) {
+            console.error('Ошибка при входе:', error);
+        }
+    };
 
     return (
         <div className="master">
-            <form action="#" method="POST"  onSubmit={handleSubmit}>
+            <form action="#" method="POST" onSubmit={handleSubmit}>
                 <div className="master_login">
                     <h2 className="header">Увійти</h2>
                     <div className="input">
@@ -50,7 +50,6 @@ function Registration() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         /><br />
-
                     </div>
                     <div className="button">
                         <button className='button_left' type="submit">Увійти</button>
@@ -61,4 +60,4 @@ function Registration() {
     );
 }
 
-export default Registration;
+export default Login;

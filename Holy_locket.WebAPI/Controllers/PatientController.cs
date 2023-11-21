@@ -35,7 +35,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                return Ok(_patientService.CheckLogin(phone, password));
+                return Ok(await _patientService.CheckLogin(phone, password));
             }
             catch (Exception ex)
             {
