@@ -13,7 +13,6 @@ import img9 from './img9.png';
 
 function Patientprofile() {
     const navigate = useNavigate();
-
     return (
     <div className="body11">
         <img className="img11" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
