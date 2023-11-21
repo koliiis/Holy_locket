@@ -14,10 +14,8 @@ function Registration() {
         };
 
         axios.post('https://localhost:7172/api/Patient', {
-            firstName: data.name,
-            secondName: data.surname,
-            phone: data.phoneNumber,
-            email: data.email,
+            phone: data.phone,
+            password: password
         })
 
             .then((response) => {
