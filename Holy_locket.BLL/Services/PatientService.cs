@@ -3,8 +3,11 @@ using Holy_locket.BLL.DTO;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -41,19 +44,20 @@ namespace Holy_locket.BLL.Services
             return _mapper.Map<PatientDTO>(patient);
         }
 
-        public void Dispose()
-        {
-        }
-
-        public async Task<bool> CheckLogin(string Phone, string Password)
+        public async Task<JwtSecurityTokenHandler> CheckLogin(string Phone, string Password)
         {
             Expression<Func<Patient, bool>> filter = x => x.Phone == Phone;
             var patient = _mapper.Map<PatientDTO>(await _repository.Get(filter));
             if (patient == null)
             {
-                return false;
+                return  ;
             }
-            return patient.Password == Password;
+            //return patient.Password == Password;
         }
+       
+        public void Dispose()
+        {
+        }
+  
     }
 }

@@ -4,6 +4,9 @@ using Holy_locket.BLL.Services;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Models;
 using Holy_locket.BLL.DTO;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace Holy_locket.WebAPI.Controllers
 {
@@ -12,9 +15,11 @@ namespace Holy_locket.WebAPI.Controllers
     public class PatientController : ControllerBase
     {
         IPatientService _patientService;
-        public PatientController(IPatientService patientService)
+        IConfiguration _config;
+        public PatientController(IPatientService patientService, IConfiguration config)
         {
             _patientService = patientService;
+            _config = config;
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPatientByID(int id) 
@@ -42,6 +47,8 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+        
+
         [HttpPost]
         public async Task<IActionResult> PostPatient(PatientDTO patient)
         {
