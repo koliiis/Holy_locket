@@ -12,7 +12,7 @@ function Registration() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [nameError, setNameError] = useState('');
+    const [error, setError] = useState('');
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,22 +26,22 @@ function Registration() {
         let hasResponse = false;
 
         if (name.length < 2 || name.length > 15) {
-            setNameError('Неправильно введено ім`я');
+            setError('Неправильно введено ім`я');
             hasErrors = true;
         } else if (surname.length < 7 || surname.length > 20) {
-            setNameError('Неправильно введено прізвище');
+            setError('Неправильно введено прізвище');
             hasErrors = true;
         } else if (phoneNumber.length < 6) {
-            setNameError('Неправильно введено телефон');
+            setError('Неправильно введено телефон');
             hasErrors = true;
         } else if (!validateEmail(email)) {
-            setNameError('Неправильно введений email');
+            setError('Неправильно введений email');
             hasErrors = true;
         } else if (password.length < 5) {
-            setNameError('Пароль має бути як мінімум 6 знаків!');
+            setError('Пароль має бути як мінімум 6 знаків!');
             hasErrors = true;
         } else {
-            setNameError('');
+            setError('');
             hasResponse = true;
         }
 
@@ -152,7 +152,7 @@ function Registration() {
                     <div>
                         <h3>При заповненні форми виникли помилки:</h3>
                         <ul className='qwe'>
-                            {nameError && <li>{nameError}</li>}
+                            {error && <li>{error}</li>}
                         </ul>
                     </div>
                     <div>
