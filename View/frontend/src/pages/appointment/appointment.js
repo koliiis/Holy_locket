@@ -16,7 +16,7 @@ const Appointment = () => {
     const currentDate = dateObj.getDate();
     const dateArray = [];
 
-    for (let i = 0; i < 8; i++) {  // Изменено с 7 на 5
+    for (let i = 0; i < 7; i++) {  // Изменено с 7 на 5
         const newDate = new Date();
         newDate.setDate(currentDate + i);
         dateArray.push(newDate);
@@ -47,6 +47,12 @@ const Appointment = () => {
         }
     }
 
+    const [visibleTimeSlots, setVisibleTimeSlots] = useState(timeSlots.slice(0, 6)); // Первоначально отображаем только первые 10 таймслотов
+
+    const showMoreTimeSlots = () => {
+        setVisibleTimeSlots(timeSlots); // Показываем все таймслоты
+    };
+
     const renderTimeSlots = () => {
         return (
             <>
@@ -60,7 +66,7 @@ const Appointment = () => {
                     ))}
                 </tr>
 
-                {timeSlots.map((time, timeIndex) => (
+                {visibleTimeSlots.map((time, timeIndex) => (
                     <tr key={timeIndex}>
                         {WorkWeek.map((day, dayIndex) => (
                             <td key={dayIndex}>
@@ -71,6 +77,9 @@ const Appointment = () => {
                         ))}
                     </tr>
                 ))}
+                <button className="btn_show_more" onClick={showMoreTimeSlots} style={{ display: visibleTimeSlots.length === timeSlots.length ? 'none' : 'block' }}>
+                    Show more
+                </button>
             </>
         );
     };
