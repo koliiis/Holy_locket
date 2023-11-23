@@ -50,11 +50,6 @@ function Registration() {
             return;
           }
 
-          if (hasResponse) {
-            setModalSuccessActive(true);
-            return;
-          }
-
         axios.post('https://localhost:7172/api/Patient', {
             firstName: name,
             secondName: surname,
