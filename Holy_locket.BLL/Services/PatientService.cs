@@ -65,6 +65,5 @@ namespace Holy_locket.BLL.Services
         public void Dispose()
         {
         }
-  
     }
 }
