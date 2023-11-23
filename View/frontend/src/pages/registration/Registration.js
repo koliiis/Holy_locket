@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './Registration.css';
 import axios from "axios";
+import Modal_Registration from "../../component/modal-registration";
 
 function Registration() {
+    const [modalActive, setModalActive] = useState(false);
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -76,11 +78,27 @@ function Registration() {
 
                     </div>
                     <div className="button">
-                        <button className='button_left' type="submit">Зареєструватися</button>
+                        <button className='button_left' type="submit" onClick={() => setModalActive(true)}>Зареєструватися</button>
                         <button className='button_right' type="reset">Уже маю аккаунт</button>
                     </div>
                 </div>
             </form>
+            {modalActive && (
+                <Modal_Registration
+                    active={modalActive}
+                    setActive={() => setModalActive(false)}>
+                    <h3>
+                        <p>
+                            Реєстрація успішна!!
+                        </p>
+                        <div>
+                            <form action="#" method="POST"  onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit" onClick={() => setModalActive(false)}>Підтвердити</button>
+                            </form>
+                        </div>
+                    </h3>
+                </Modal_Registration>
+            )}
         </div>
     );
 }

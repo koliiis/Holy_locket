@@ -85,3 +85,7 @@ border-width: 10px;
     background: #FAF3DF;
 
 }
+
+.confirm:hover {
+    background-color: #bbbbbb;
+}
