@@ -15,7 +15,7 @@ function Patientprofile() {
     const [InfoPage, setInfoPage] = useState([]);
 
     useEffect(() => {
-        axios.get('https://localhost:7172/api/Patient/2')
+        axios.get('https://localhost:7172/api/Patient/1')
             .then(response => {
                 setInfoPage(response.data);
             })
