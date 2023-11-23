@@ -63,13 +63,13 @@ function Registration() {
             password: password,
         })
 
-            .then((response) => {
-                console.log("Peremoga");
-                setModalSuccessActive(true);
-            })
-            .catch((error) => {
-                console.error('Ошибка при отправке данных:', error);
-            });
+        .then((response) => {
+            console.log("Peremoga");
+            setModalSuccessActive(true);
+        })
+        .catch((error) => {
+            console.error('Ошибка при отправке данных:', error);
+        });
     }
 
     return (
@@ -121,59 +121,48 @@ function Registration() {
 
                     </div>
                     <div className="button">
-                        <button className='button_left' type="submit" >Зареєструватися</button>
+                        <button className='button_left' type="submit">Зареєструватися</button>
                         <button className='button_right' type="reset">Уже маю аккаунт</button>
                     </div>
                 </div>
             </form>
 
-            {/* Модальное окно для успешной регистрации */}
             {modalSuccessActive && (
-        <Modal_Appointment
-          active={modalSuccessActive}
-          setActive={() => setModalSuccessActive(false)}
-        >
-            <div>
+                <Modal_Appointment
+                    active={modalSuccessActive}
+                    setActive={() => setModalSuccessActive(false)}>
                 <div>
-          <h3 className='suc'>Успішна реєстрація!!</h3>
-          </div>
-          
-          <div>
-            <p>
-          <form action="#" method="POST"  onSubmit={handleSubmit}>
-                                <button className="confirm" type="submit" onClick={() => setModalSuccessActive(false)}>Підтвердити</button>
-                            </form>
-                            </p>
-                            </div>
-                            </div>
-        </Modal_Appointment>
-      )}
+                    <div>
+                        <h3 className='suc'>Успішна реєстрація!!</h3>
+                    </div>
+                    <div>
+                        <p>
+                            <button className="confirm" type="submit" onClick={() => setModalSuccessActive(false)}>Підтвердити</button>
+                        </p>
+                    </div>
+                </div>
+                </Modal_Appointment>
+            )}
 
-      {/* Модальное окно с ошибками ввода */}
-      {modalErrorActive && (
-        <Modal_Appointment
-          active={modalErrorActive}
-          setActive={() => setModalErrorActive(false)}
-        >
-            <div>
+            {modalErrorActive && (
+                <Modal_Appointment
+                    active={modalErrorActive}
+                    setActive={() => setModalErrorActive(false)}>
                 <div>
-          <h3>При заповненні форми виникли помилки:</h3>
-          <ul className='qwe'>
-            {nameError && <li>{nameError}</li>}
-            {/* Добавьте аналогичные строки для других ошибок */}
-          </ul>
-          </div>
-          
-          <div>
-            <p>
-          <form action="#" method="POST"  onSubmit={handleSubmit}>
-                                <button className="confirm" type="submit" onClick={() => setModalErrorActive(false)}>Підтвердити</button>
-                            </form>
-                            </p>
-                            </div>
-                            </div>
-        </Modal_Appointment>
-      )}
+                    <div>
+                        <h3>При заповненні форми виникли помилки:</h3>
+                        <ul className='qwe'>
+                            {nameError && <li>{nameError}</li>}
+                        </ul>
+                    </div>
+                    <div>
+                        <p>
+                            <button className="confirm" type="submit" onClick={() => setModalErrorActive(false)}>Підтвердити</button>
+                        </p>
+                    </div>
+                </div>
+                </Modal_Appointment>
+            )}
         </div>
     );
 }
