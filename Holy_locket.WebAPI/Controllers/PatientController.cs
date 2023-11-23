@@ -34,7 +34,7 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-        [HttpGet()]
+        [HttpPost()]
         [Route("login")]
         public async Task<IActionResult> Login(string phone, string password)
         {
