@@ -60,7 +60,6 @@ namespace Holy_locket.BLL.Services
                 var token = AuthService.GenerateJSONWebToken(_config);
                 return token;
             }
-            //return patient.Password == Password;
         }
        
         public void Dispose()
