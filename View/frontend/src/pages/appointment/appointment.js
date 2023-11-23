@@ -16,7 +16,7 @@ const Appointment = () => {
     const currentDate = dateObj.getDate();
     const dateArray = [];
 
-    for (let i = 0; i < 7; i++) {  // Изменено с 7 на 5
+    for (let i = 0; i < 7; i++) {
         const newDate = new Date();
         newDate.setDate(currentDate + i);
         dateArray.push(newDate);
