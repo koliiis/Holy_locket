@@ -64,6 +64,11 @@ th, td {
     background: red;
 }
 
+.time-btn:hover {
+    color: #ffff;
+    border-color: #ffff;
+}
+
 .time-btn {
     background: #ffff;
     font-size: 16px;
@@ -101,4 +106,12 @@ thead {
 
 .confirm:hover {
     background-color: #bbbbbb;
+}
+
+.btn_show_more {
+    font-size: 22px;
+    margin-left: 605px;
+    padding: 5px 17px;
+    border: 2px solid darkturquoise;
+    border-radius: 15px;
 }
