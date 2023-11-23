@@ -4,6 +4,7 @@ using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repositories;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Holy_locket.BLL.Services
         private readonly PatientService patientService;
         private readonly DoctorService doctorService;
         private readonly IRepository<Appointment> _repository;
+        private readonly IConfiguration config;
 
         public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -29,7 +31,7 @@ namespace Holy_locket.BLL.Services
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
             _mapper = mapper;
             specialityService = new SpecialityService(_unitOfWork, _mapper);
-            patientService = new PatientService(_unitOfWork, _mapper);
+            patientService = new PatientService(_unitOfWork, _mapper, config);
             doctorService = new DoctorService(_unitOfWork, _mapper);
             _repository = unitOfWork.GetRepository<Appointment>();
         }

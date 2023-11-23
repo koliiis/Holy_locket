@@ -28,17 +28,6 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
     .AllowAnyHeader();
 }));
 
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
    .AddJwtBearer(options =>
    {
@@ -54,7 +43,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
        };
    });
 builder.Services.AddMvc();
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
 app.UseAuthentication();
+
 
 app.MapControllers();
 
