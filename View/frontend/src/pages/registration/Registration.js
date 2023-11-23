@@ -1,18 +1,59 @@
 import React, { useState } from 'react';
 import './Registration.css';
 import axios from "axios";
-import Modal_Registration from "../../component/modal-registration";
+import Modal_Appointment from "../../component/modal-appointment";
 
 function Registration() {
-    const [modalActive, setModalActive] = useState(false);
+    const [modalSuccessActive, setModalSuccessActive] = useState(false);
+    const [modalErrorActive, setModalErrorActive] = useState(false);
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [nameError, setNameError] = useState('');
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        let hasErrors = false;
+        let hasResponse = false;
+
+        if (name.length < 2 || name.length > 15) {
+            setNameError('Неправильно введено ім`я');
+            hasErrors = true;
+        } else if (surname.length < 7 || surname.length > 20) {
+            setNameError('Неправильно введено прізвище');
+            hasErrors = true;
+        } else if (phoneNumber.length < 6) {
+            setNameError('Неправильно введено телефон');
+            hasErrors = true;
+        } else if (!validateEmail(email)) {
+            setNameError('Неправильно введений email');
+            hasErrors = true;
+        } else if (password.length < 5) {
+            setNameError('Пароль має бути як мінімум 6 знаків!');
+            hasErrors = true;
+        } else {
+            setNameError('');
+            hasResponse = true;
+        }
+
+          if (hasErrors) {
+            setModalErrorActive(true);
+            return;
+          }
+
+          if (hasResponse) {
+            setModalSuccessActive(true);
+            return;
+          }
 
         axios.post('https://localhost:7172/api/Patient', {
             firstName: name,
@@ -24,6 +65,7 @@ function Registration() {
 
             .then((response) => {
                 console.log("Peremoga");
+                setModalSuccessActive(true);
             })
             .catch((error) => {
                 console.error('Ошибка при отправке данных:', error);
@@ -42,7 +84,8 @@ function Registration() {
                             name="username"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                        /><br />
+                        />
+                        <br />
 
                         <input
                             placeholder="Прізвище"
@@ -78,27 +121,59 @@ function Registration() {
 
                     </div>
                     <div className="button">
-                        <button className='button_left' type="submit" onClick={() => setModalActive(true)}>Зареєструватися</button>
+                        <button className='button_left' type="submit" >Зареєструватися</button>
                         <button className='button_right' type="reset">Уже маю аккаунт</button>
                     </div>
                 </div>
             </form>
-            {modalActive && (
-                <Modal_Registration
-                    active={modalActive}
-                    setActive={() => setModalActive(false)}>
-                    <h3>
-                        <p>
-                            Реєстрація успішна!!
-                        </p>
-                        <div>
-                            <form action="#" method="POST"  onSubmit={handleSubmit}>
-                                <button className="confirm" type="submit" onClick={() => setModalActive(false)}>Підтвердити</button>
+
+            {/* Модальное окно для успешной регистрации */}
+            {modalSuccessActive && (
+        <Modal_Appointment
+          active={modalSuccessActive}
+          setActive={() => setModalSuccessActive(false)}
+        >
+            <div>
+                <div>
+          <h3 className='suc'>Успішна реєстрація!!</h3>
+          </div>
+          
+          <div>
+            <p>
+          <form action="#" method="POST"  onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit" onClick={() => setModalSuccessActive(false)}>Підтвердити</button>
                             </form>
-                        </div>
-                    </h3>
-                </Modal_Registration>
-            )}
+                            </p>
+                            </div>
+                            </div>
+        </Modal_Appointment>
+      )}
+
+      {/* Модальное окно с ошибками ввода */}
+      {modalErrorActive && (
+        <Modal_Appointment
+          active={modalErrorActive}
+          setActive={() => setModalErrorActive(false)}
+        >
+            <div>
+                <div>
+          <h3>При заповненні форми виникли помилки:</h3>
+          <ul className='qwe'>
+            {nameError && <li>{nameError}</li>}
+            {/* Добавьте аналогичные строки для других ошибок */}
+          </ul>
+          </div>
+          
+          <div>
+            <p>
+          <form action="#" method="POST"  onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit" onClick={() => setModalErrorActive(false)}>Підтвердити</button>
+                            </form>
+                            </p>
+                            </div>
+                            </div>
+        </Modal_Appointment>
+      )}
         </div>
     );
 }

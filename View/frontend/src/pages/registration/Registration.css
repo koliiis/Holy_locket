@@ -86,6 +86,23 @@ border-width: 10px;
 
 }
 
+.confirm {
+    margin: 0 auto;
+    display: block;
+}
+
 .confirm:hover {
     background-color: #bbbbbb;
+}
+
+.qwe {
+    color: #595959;
+    padding: 25px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.suc {
+    text-align: center;
+    padding: 25px;
 }
