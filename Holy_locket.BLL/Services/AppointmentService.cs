@@ -40,6 +40,8 @@ namespace Holy_locket.BLL.Services
         {
             var appointments = await _appointmentRepository.Get();
             var timeSlots = new List<List<AppointmentDTO>>();
+            List<string> dates = new List<string>() {"12:00-12:30","12:30-13:00","14:00-14:30","14:30-15:00", "15:00-15:30", 
+                                                    "15:30-16:00", "16:00-16:30", "16:30-17:00", "76:00 - 17:30", "17:30 - 18:00" };
 
             foreach (var appointment in appointments)
             {
