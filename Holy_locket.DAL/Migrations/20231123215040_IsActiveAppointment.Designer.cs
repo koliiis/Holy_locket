@@ -4,6 +4,7 @@ using Holy_locket.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Holy_locket.DAL.Migrations
 {
     [DbContext(typeof(HolyLocketContext))]
-    partial class HolyLocketContextModelSnapshot : ModelSnapshot
+    [Migration("20231123215040_IsActiveAppointment")]
+    partial class IsActiveAppointment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace Holy_locket.DAL.Migrations
                     b.Property<int>("HospitalId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Inactive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<int>("PatientId")
@@ -72,13 +75,10 @@ namespace Holy_locket.DAL.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<bool>("Gender")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Inactive")
-                        .HasMaxLength(15)
                         .HasColumnType("bit");
 
                     b.Property<string>("Phone")
@@ -113,9 +113,6 @@ namespace Holy_locket.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<bool>("Inactive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -152,9 +149,6 @@ namespace Holy_locket.DAL.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<bool>("Inactive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -184,9 +178,6 @@ namespace Holy_locket.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Inactive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

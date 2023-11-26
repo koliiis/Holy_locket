@@ -12,6 +12,7 @@ namespace Holy_locket.BLL.Services.Abstraction
         Task<ICollection<AppointmentDTO>> GetAllAppointments();
         Task<AppointmentDTO> GetAppointmentById(int id);
         Task DeleteAppointment(int id);
+        Task SoftDeleteAppointment(int id);
         Task AddAppointment(AppointmentDTO doctor);
         Task UpdateAppointment(AppointmentDTO doctor);
         Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(int id);

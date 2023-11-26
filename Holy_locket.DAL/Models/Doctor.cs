@@ -17,6 +17,7 @@ namespace Holy_locket.DAL.Models
         [Required]
         [MaxLength(15)]
         [MinLength(4)]
+        public override bool Inactive { get; set; }
         public string FirstName { get; set; }
         [Required]
         [MaxLength(15)]

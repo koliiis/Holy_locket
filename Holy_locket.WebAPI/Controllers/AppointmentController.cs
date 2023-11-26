@@ -75,7 +75,7 @@ namespace Holy_locket.WebAPI.Controllers
                 await _appointmentService.UpdateAppointment(appointment);
                 return Ok();
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return StatusCode(500, "An error occurred while processing your request.");
             }
@@ -86,6 +86,20 @@ namespace Holy_locket.WebAPI.Controllers
             try
             {
                 await _appointmentService.DeleteAppointment(id);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+        [HttpDelete]
+        [Route("SoftDelete")]
+        public async Task<IActionResult> SoftDeleteAppointment(int id)
+        {
+            try
+            {
+                await _appointmentService.SoftDeleteAppointment(id);
                 return Ok();
             }
             catch (Exception)

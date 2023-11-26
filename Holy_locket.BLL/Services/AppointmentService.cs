@@ -77,6 +77,10 @@ namespace Holy_locket.BLL.Services
         {
             await _appointmentRepository.Update(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);
         }
+        public async Task SoftDeleteAppointment(int id) 
+        {
+            await _appointmentRepository.SoftDelete(id).ConfigureAwait(false);
+        }
         public void Dispose()
         {
         }

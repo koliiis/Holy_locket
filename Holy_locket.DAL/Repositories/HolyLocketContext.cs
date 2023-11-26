@@ -39,7 +39,7 @@ namespace Holy_locket.DAL.Repositories
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-K7HFUB0\HOLY_LOCKET;Database=Holy_LocketDB;Trusted_Connection=True;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer(@"Server=DESKTOP-O252DHK\SQLEXPRESS;Database=Holy_LocketDB;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
         public DbSet<Appointment> Appointments { get; set; }
