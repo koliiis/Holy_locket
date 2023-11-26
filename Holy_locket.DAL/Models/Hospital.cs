@@ -12,6 +12,8 @@ namespace Holy_locket.DAL.Models
     public class Hospital : TEntity
     {
         public override int Id { get; set; }
+        public override bool Inactive { get; set; }
+
         [Required]
         [MaxLength(15)]
         [MinLength(4)]

@@ -9,5 +9,6 @@ namespace Holy_locket.DAL.Abstracts
     public abstract class TEntity
     {
         public virtual int Id { get; set; }
+        public virtual bool Inactive { get; set; }
     }
 }
