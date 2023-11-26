@@ -61,26 +61,3 @@ app.MapControllers();
 app.UseCors("MyPolicy");
 
 app.Run();
-var Date = "27.11.2023";
-var Time = "00:00-01:00";
-DateTime date = DateTime.ParseExact(Date, "dd/MM/yyyy", null);
-DateTime currentDateTime = DateTime.Now;
-if (currentDateTime.Date > date || (currentDateTime.Date > date && CheckTime(Time) >= 0))
-{
-    Console.WriteLine(true);
-}
-static int CheckTime(string timeRangeString)
-{
-    string[] parts = timeRangeString.Split('-');
-    try
-    {
-        var endTime = DateTime.ParseExact(parts[1], "HH:mm", null); ;
-        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-        return currentTime.CompareTo(endTime.TimeOfDay);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-        return 0;
-    }
-}
