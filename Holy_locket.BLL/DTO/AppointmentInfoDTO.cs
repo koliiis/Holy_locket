@@ -17,6 +17,7 @@ namespace Holy_locket.BLL.DTO
         public string DoctorName { get; set; }
         public string DoctorSecondName { get; set; }
         public string SpecialityName { get; set; }
-        public bool isActive { get; set; }
+        public bool Inactive { get; set; }
+        public bool Irrelevant { get; set; }
     }
 }
