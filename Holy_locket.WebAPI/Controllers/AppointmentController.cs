@@ -54,6 +54,19 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+        [HttpGet()]
+        [Route("TimeSlots")]
+        public async Task<IActionResult> GetTimeAppointmentsSlots()
+        {
+            try
+            {
+                return Ok(await _appointmentService.GetTimeSlots());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> PostAppointment(AppointmentDTO appointment)
         {

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Holy_locket.BLL;
 using Holy_locket.BLL.Services;
 using Holy_locket.BLL.Services.Abstraction;
@@ -5,6 +6,7 @@ using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -59,5 +61,13 @@ app.UseAuthentication();
 app.MapControllers();
 
 app.UseCors("MyPolicy");
+
+var contextOptions = new DbContextOptionsBuilder<HolyLocketContext>()
+                .UseSqlServer(@"Server=DESKTOP-K7HFUB0\HOLY_LOCKET;Database=Holy_LocketDB;Trusted_Connection=True;TrustServerCertificate=True;")
+                .Options;
+using var context = new HolyLocketContext(contextOptions);
+IMapper mapper = new MapperConfiguration(c => c.AddProfile<ConfigurationMapper>()).CreateMapper();
+UnitOfWork unitOfWork = new UnitOfWork(context);
+AppointmentService doctorService = new AppointmentService(mapper, unitOfWork);
 
 app.Run();

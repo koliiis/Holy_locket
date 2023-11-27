@@ -6,7 +6,9 @@ using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
@@ -36,6 +38,55 @@ namespace Holy_locket.BLL.Services
             doctorService = new DoctorService(_unitOfWork, _mapper);
             _repository = unitOfWork.GetRepository<Appointment>();
         }
+
+        public async Task<List<List<string>>> GetTimeSlots()
+        {
+            var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
+            var timeSlots = new List<List<string>>();
+            List<string> times = new List<string>() {"12:00-12:30","12:30-13:00","13:00-13:30","13:30-14:00","14:00-14:30","14:30-15:00", "15:00-15:30",
+                                                    "15:30-16:00", "16:00-16:30", "16:30-17:00", "17:00-17:30", "17:30-18:00"};
+            int counter = 0;
+            DateTime temp = DateTime.Today;
+            const int DAYS_COUNT = 7;
+            appointments.Sort();
+
+            for (int i = 0; i < DAYS_COUNT; i++)
+            {
+                List<string> tempList = new List<string>();
+                for (int j = 0; j < times.Count; j++)
+                {
+                    tempList.Add(times[j]);
+                    if (j == times.Count - 1)
+                        timeSlots.Add(tempList);
+                }
+            }
+
+            foreach (var item in appointments)
+            {
+                if (DateTime.Parse(item.Date) == DateTime.Today)
+                {
+                    timeSlots[counter].Remove(item.Time);
+                }
+                else if(temp < DateTime.Parse(item.Date))
+                {
+                    counter += (DateTime.Parse(item.Date) - temp).Days;
+                    timeSlots[counter].Remove(item.Time);
+                    temp = DateTime.Parse(item.Date);
+                }
+            }
+
+            for (int i = 0; i < timeSlots.Count; i++)
+            {
+                for (int j = 0; j < timeSlots[i].Count; j++)
+                {
+                    Console.WriteLine(timeSlots[i][j]);
+                }
+                Console.WriteLine();
+            }
+
+            return timeSlots;
+        }
+
         public async Task<AppointmentInfoDTO> MapInfo(AppointmentInfoDTO info)
         {
             var doctor = await doctorService.GetDoctorById(info.DoctorId);
@@ -70,31 +121,38 @@ namespace Holy_locket.BLL.Services
         {
             await _appointmentRepository.Create(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);
         }
+
         public async Task DeleteAppointment(int id)
         {
             await _appointmentRepository.Delete(id).ConfigureAwait(false);
         }
+
         public async Task<ICollection<AppointmentDTO>> GetAllAppointments()
         {
             var appointment = await _appointmentRepository.Get().ConfigureAwait(false);
             return _mapper.Map<ICollection<AppointmentDTO>>(appointment);
         }
+
         public async Task<AppointmentDTO> GetAppointmentById(int id)
         {
             var appointment = await _appointmentRepository.GetById(id).ConfigureAwait(false);
             return _mapper.Map<AppointmentDTO>(appointment);
         }
+
         public async Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(int id)
         {
             Expression<Func<Appointment, bool>> filter = x => x.PatientId == id;
             var appointments = _mapper.Map<ICollection<AppointmentInfoDTO>>(await _repository.Get(filter));
             List<AppointmentInfoDTO> info = new List<AppointmentInfoDTO>();
+
             foreach (var appointment in appointments)
             {
                 info.Add(await MapInfo(appointment));
             }
+
             return info;
         }
+
         public async Task UpdateAppointment(AppointmentDTO appointment)
         {
             await _appointmentRepository.Update(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);
