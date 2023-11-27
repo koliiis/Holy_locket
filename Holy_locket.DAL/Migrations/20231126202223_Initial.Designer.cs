@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Holy_locket.DAL.Migrations
 {
     [DbContext(typeof(HolyLocketContext))]
-    [Migration("20231113191951_added-password")]
-    partial class addedpassword
+    [Migration("20231126202223_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,25 +33,27 @@ namespace Holy_locket.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<int>("HospitalId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("HospitalId");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
                 });
@@ -73,10 +75,13 @@ namespace Holy_locket.DAL.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Inactive")
+                        .HasMaxLength(15)
                         .HasColumnType("bit");
 
                     b.Property<string>("Phone")
@@ -96,8 +101,6 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecialityId");
-
                     b.ToTable("Doctors");
                 });
 
@@ -113,6 +116,9 @@ namespace Holy_locket.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -149,6 +155,9 @@ namespace Holy_locket.DAL.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -179,6 +188,9 @@ namespace Holy_locket.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -187,56 +199,6 @@ namespace Holy_locket.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specialities");
-                });
-
-            modelBuilder.Entity("Holy_locket.DAL.Models.Appointment", b =>
-                {
-                    b.HasOne("Holy_locket.DAL.Models.Doctor", null)
-                        .WithMany("AppointmentList")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Holy_locket.DAL.Models.Hospital", null)
-                        .WithMany("AppointmentList")
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Holy_locket.DAL.Models.Patient", null)
-                        .WithMany("AppointmentList")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Holy_locket.DAL.Models.Doctor", b =>
-                {
-                    b.HasOne("Holy_locket.DAL.Models.Speciality", null)
-                        .WithMany("DoctorList")
-                        .HasForeignKey("SpecialityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Holy_locket.DAL.Models.Doctor", b =>
-                {
-                    b.Navigation("AppointmentList");
-                });
-
-            modelBuilder.Entity("Holy_locket.DAL.Models.Hospital", b =>
-                {
-                    b.Navigation("AppointmentList");
-                });
-
-            modelBuilder.Entity("Holy_locket.DAL.Models.Patient", b =>
-                {
-                    b.Navigation("AppointmentList");
-                });
-
-            modelBuilder.Entity("Holy_locket.DAL.Models.Speciality", b =>
-                {
-                    b.Navigation("DoctorList");
                 });
 #pragma warning restore 612, 618
         }
