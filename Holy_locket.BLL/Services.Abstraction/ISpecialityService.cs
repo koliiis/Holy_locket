@@ -14,6 +14,6 @@ namespace Holy_locket.BLL.Services.Abstraction
         Task UpdateSpeciality(SpecialityDTO speciality);
         Task CreateSpeciality (SpecialityDTO speciality);
         Task<SpecialityDTO> GetSpecialityById(int id);
-        Task<ICollection<Speciality>> GetAll();
+        Task<ICollection<SpecialityDTO>> GetAll();
     }
 }
