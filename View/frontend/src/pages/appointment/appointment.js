@@ -41,7 +41,7 @@ const Appointment = () => {
 
     }, []);
 
-    let timeSlots = time_slots.length > 0 ? time_slots[0] : [];
+    let timeSlots = time_slots.length > 0 ? time_slots[1] : [];
 
     const [visibleTimeSlots, setVisibleTimeSlots] = useState([]);
 
@@ -94,7 +94,7 @@ const Appointment = () => {
 
     const handleTimeSelection = (time, day, date) => {
         setSelectedTime(time);
-        setSelectedDay(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`);
+        setSelectedDay(`${date.getDate().toString().padStart(2, '0')}.${date.getMonth() + 1}.${date.getFullYear()}`);
         setModalActive(true);
     };
 
