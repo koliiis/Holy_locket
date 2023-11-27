@@ -7,6 +7,7 @@ using Holy_locket.DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -42,7 +43,28 @@ namespace Holy_locket.BLL.Services
             info.SpecialityName = speciality.Name;
             info.DoctorName = doctor.FirstName;
             info.DoctorSecondName = doctor.SecondName;
+            DateTime date = DateTime.ParseExact(info.Date, "dd/MM/yyyy", null);
+            DateTime currentDateTime = DateTime.Now;
+            if (currentDateTime.Date > date ||(currentDateTime.Date == date && CheckTime(info.Time)>=0)) 
+            {
+                info.Irrelevant = true;
+            }
             return info;
+        }
+        static int CheckTime(string timeRangeString)
+        {
+            string[] parts = timeRangeString.Split('-');
+            try
+            {
+                var endTime = DateTime.ParseExact(parts[1], "HH:mm", null);
+                TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                return currentTime.CompareTo(endTime.TimeOfDay);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
         }
         public async Task AddAppointment(AppointmentDTO appointment)
         {
