@@ -44,5 +44,11 @@ namespace Holy_locket.DAL.Repositories
             context.Remove(entity);
             await context.SaveChangesAsync();
         }
+        public async Task SoftDelete(int id)
+        {
+            T entity = await context.Set<T>().FindAsync(id).ConfigureAwait(false);
+            entity.Inactive = true;
+            await context.SaveChangesAsync();
+        }
     }
 }

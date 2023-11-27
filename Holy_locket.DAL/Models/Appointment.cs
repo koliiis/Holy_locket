@@ -12,6 +12,7 @@ namespace Holy_locket.DAL.Models
     public class Appointment : TEntity
     {
         public override int Id { get; set; }
+        public override bool Inactive { get; set; }
         public string Time { get; set; }
         public string Date { get; set; }
         [NotMapped]
