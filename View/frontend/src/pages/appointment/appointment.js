@@ -6,6 +6,7 @@ import Modal_Appointment from "../../component/modal-appointment";
 
 const Appointment = () => {
     const currentDay = new Date();
+    const [time_slots, setTime_slots] = useState([]);
     const indexDayOfWeek = currentDay.getDay();
     const daysOfWeek = ["НЕДІЛЯ", 'ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ", "CУБОТА"];
     const firstPartOfWeek = daysOfWeek.slice(indexDayOfWeek);
@@ -28,29 +29,36 @@ const Appointment = () => {
     const [selectedTime, setSelectedTime] = useState('');
     const [selectedDay, setSelectedDay] = useState('');
 
-    var iteration = 0;
-    var time_slot = '';
-    const startTime = 10;
-    const endTime = 18;
-    const timeSlots = [];
+    useEffect(() => {
+        axios.get('https://localhost:7172/api/Appointment/TimeSlots')
+            .then(response => {
+                setTime_slots(response.data);
+                console.log("Peremoga")
+            })
+            .catch(error => {
+                console.error("Ошибка при получении данных о врачах:", error);
+            });
 
-    for (let hour = startTime; hour <= endTime; hour++) {
-        for (let minute = 0; minute < 60; minute += 30) {
-            const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-            iteration += 1;
-            if (iteration === 2) {
-                time_slot = `${time_slot}-${time}`;
-                timeSlots.push(time_slot);
-                time_slot = time;
-                iteration -= 1;
-            } else time_slot += time;
+    }, []);
+
+    let timeSlots = time_slots.length > 0 ? time_slots[0] : [];
+
+    const [visibleTimeSlots, setVisibleTimeSlots] = useState([]);
+
+    useEffect(() => {
+        if (timeSlots.length > 0) {
+            setVisibleTimeSlots(timeSlots.slice(0, 4));
         }
-    }
-
-    const [visibleTimeSlots, setVisibleTimeSlots] = useState(timeSlots.slice(0, 6)); // Первоначально отображаем только первые 10 таймслотов
+    }, [timeSlots]);
 
     const showMoreTimeSlots = () => {
-        setVisibleTimeSlots(timeSlots); // Показываем все таймслоты
+        setVisibleTimeSlots((prevVisibleTimeSlots) => {
+            if (prevVisibleTimeSlots.length === timeSlots.length) {
+                return prevVisibleTimeSlots;
+            }
+
+            return timeSlots;
+        });
     };
 
     const renderTimeSlots = () => {
