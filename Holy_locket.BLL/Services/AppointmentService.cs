@@ -6,7 +6,9 @@ using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -24,7 +26,7 @@ namespace Holy_locket.BLL.Services
         private readonly DoctorService doctorService;
         private readonly IRepository<Appointment> _repository;
         private readonly IConfiguration config;
-        
+
         public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -36,22 +38,52 @@ namespace Holy_locket.BLL.Services
             _repository = unitOfWork.GetRepository<Appointment>();
         }
 
-        public async Task<List<List<AppointmentDTO>>> GetTimeSlots()
+        public async Task<List<List<string>>> GetTimeSlots()
         {
-            var appointments = await _appointmentRepository.Get();
-            var timeSlots = new List<List<AppointmentDTO>>();
-            List<string> dates = new List<string>() {"12:00-12:30","12:30-13:00","14:00-14:30","14:30-15:00", "15:00-15:30", 
-                                                    "15:30-16:00", "16:00-16:30", "16:30-17:00", "76:00 - 17:30", "17:30 - 18:00" };
+            var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
+            var timeSlots = new List<List<string>>();
+            List<string> times = new List<string>() {"12:00-12:30","12:30-13:00","13:00-13:30","13:30-14:00","14:00-14:30","14:30-15:00", "15:00-15:30",
+                                                    "15:30-16:00", "16:00-16:30", "16:30-17:00", "17:00-17:30", "17:30-18:00"};
+            int counter = 0;
+            DateTime temp = DateTime.Today;
+            const int DAYS_COUNT = 7;
+            appointments.Sort();
 
-            foreach (var appointment in appointments)
+            for (int i = 0; i < DAYS_COUNT; i++)
             {
-                if (DateTime.Parse(appointment.Date) >= DateTime.Today)
+                List<string> tempList = new List<string>();
+                for (int j = 0; j < times.Count; j++)
                 {
-
+                    tempList.Add(times[j]);
+                    if (j == times.Count - 1)
+                        timeSlots.Add(tempList);
                 }
             }
 
-            return null;
+            foreach (var item in appointments)
+            {
+                if (DateTime.Parse(item.Date) == DateTime.Today)
+                {
+                    timeSlots[counter].Remove(item.Time);
+                }
+                else if(temp < DateTime.Parse(item.Date))
+                {
+                    counter += (DateTime.Parse(item.Date) - temp).Days;
+                    timeSlots[counter].Remove(item.Time);
+                    temp = DateTime.Parse(item.Date);
+                }
+            }
+
+            for (int i = 0; i < timeSlots.Count; i++)
+            {
+                for (int j = 0; j < timeSlots[i].Count; j++)
+                {
+                    Console.WriteLine(timeSlots[i][j]);
+                }
+                Console.WriteLine();
+            }
+
+            return timeSlots;
         }
 
         public async Task<AppointmentInfoDTO> MapInfo(AppointmentInfoDTO info)
