@@ -116,3 +116,12 @@
     color: #595959;
     text-align: left;
 }
+
+button[type="submit"], button[type="reset"] {
+    width: 250px; /* Измените значение на нужный размер */
+    height: 40px; /* Измените значение на нужный размер */
+    opacity: 0.6;
+    font-size: 16px;
+    border-radius: 15px;
+    box-shadow:  0 10px 10px 0 #000;
+}

@@ -13,6 +13,14 @@ import img9 from './img9.png';
 
 function Patientprofile() {
     const [InfoPage, setInfoPage] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedFirstName, setEditedFirstName] = useState('');
+    const hasData = Object.keys(InfoPage).length > 0;
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     useEffect(() => {
         axios.get('https://localhost:7172/api/Patient/1')
@@ -24,36 +32,84 @@ function Patientprofile() {
             });
     }, []);
 
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleSaveClick = () => {
+        setIsEditing(false);
+    };
+
+    const handleFirstNameChange = (event) => {
+        setEditedFirstName(event.target.value);
+    };
+
     return (
         <div className="body11">
             <img className="img11" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
-                <h2 className="h22">{InfoPage.firstName} {InfoPage.secondName}</h2>
+                <h2 className="h22">{isEditing ? (
+                    <input
+                    placeholder="Ім'я"
+                    type="text"
+                    name="username"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                ) : (
+                    InfoPage.firstName
+                )} {InfoPage.secondName}</h2>
                 <img className="img22" src={img2}/>
-                <img className="img33" src={img3}/>
+                <img className="img33" src={img3} onClick={handleEditClick}/>
                 <div className='div11'>
-                    <p className='p11'>Чоловік</p>
-                    <img className="img44" src={img5}/>
+                    <p className='p11'></p>
+                    {hasData ? (
+                        <img className="img44" src={img5}/>
+                    ) : (
+                        <img className="img44" src={img5} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
+                    )}
                 </div>
                 <div className='div22'>
                     <p className='p11'>{InfoPage.birthday}</p>
-                    <img className="img44" src={img4}/>
+                    {hasData ? (
+                        <img className="img44" src={img4}/>
+                    ) : (
+                        <img className="img44" src={img4} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
+                    )}
                 </div>
                 <div className='div22'>
                     <p className='p11'>{InfoPage.email}</p>
-                    <img className="img44" src={img6}/>
+                    {hasData ? (
+                        <img className="img44" src={img6}/>
+                    ) : (
+                        <img className="img44" src={img6} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
+                    )}
                 </div>
                 <div className='div33'>
-                    <p className='p11'>Україна, Київ</p>
-                    <img className="img44" src={img7}/>
+                    <p className='p11'></p>
+                    {hasData ? (
+                        <img className="img44" src={img7}/>
+                    ) : (
+                        <img className="img44" src={img7} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
+                    )}
                 </div>
                 <div className='div44'>
                     <p className='p11'>{InfoPage.phone}</p>
-                    <img className="img44" src={img8}/>
+                    {hasData ? (
+                        <img className="img44" src={img8}/>
+                    ) : (
+                        <img className="img44" src={img8} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
+                    )}
                 </div>
                 <div className='div44'>
-                    <p className='p11'>1234567890</p>
-                    <img className="img44" src={img9}/>
+                    <p className='p11'></p>
+                    {hasData ? (
+                        <img className="img44" src={img9}/>
+                    ) : (
+                        <img className="img44" src={img9} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
+                    )}
                 </div>
+                {isEditing && (
+                <button onClick={handleSaveClick}>Зберегти</button>)}
             </div>
     );
 }
