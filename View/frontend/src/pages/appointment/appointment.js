@@ -41,29 +41,19 @@ const Appointment = () => {
 
     }, []);
 
-    let timeSlots = time_slots.length > 0 ? time_slots[1] : [];
-
-    const [visibleTimeSlots, setVisibleTimeSlots] = useState([]);
-
-    useEffect(() => {
-        if (timeSlots.length > 0) {
-            setVisibleTimeSlots(timeSlots.slice(0, 4));
-        }
-    }, [timeSlots]);
+    const [visibleRows, setVisibleRows] = useState(4);
 
     const showMoreTimeSlots = () => {
-        setVisibleTimeSlots((prevVisibleTimeSlots) => {
-            if (prevVisibleTimeSlots.length === timeSlots.length) {
-                return prevVisibleTimeSlots;
-            }
-
-            return timeSlots;
-        });
+        // Показываем все строки таймслотов
+        if (time_slots[2]) {
+            setVisibleRows(time_slots[2].length);
+        }
     };
 
     const renderTimeSlots = () => {
         return (
             <>
+                <thead>
                 <tr>
                     {WorkWeek.map((day, dayIndex) => (
                         <th key={dayIndex}>
@@ -73,24 +63,37 @@ const Appointment = () => {
                         </th>
                     ))}
                 </tr>
-
-                {visibleTimeSlots.map((time, timeIndex) => (
-                    <tr key={timeIndex}>
-                        {WorkWeek.map((day, dayIndex) => (
-                            <td key={dayIndex}>
-                                <button className="time-btn" onClick={() => handleTimeSelection(time, day, dateArray[dayIndex])}>
-                                    {time}
-                                </button>
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-                <button className="btn_show_more" onClick={showMoreTimeSlots} style={{ display: visibleTimeSlots.length === timeSlots.length ? 'none' : 'block' }}>
-                    Show more
-                </button>
+                </thead>
+                <tbody>
+                {time_slots.length > 0 && (
+                    time_slots[2]?.slice(0, visibleRows).map((time, timeIndex) => (
+                        <tr key={timeIndex}>
+                            {time_slots.map((slots, dayIndex) => (
+                                <td key={dayIndex}>
+                                    {slots[timeIndex] && (
+                                        <button className="time-btn" onClick={() => handleTimeSelection(slots[timeIndex], WorkWeek[dayIndex], dateArray[dayIndex])}>
+                                            {slots[timeIndex]}
+                                        </button>
+                                    )}
+                                </td>
+                            ))}
+                        </tr>
+                    ))
+                )}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colSpan={WorkWeek.length}>
+                        <button className="btn_show_more" onClick={showMoreTimeSlots} style={{ display: visibleRows === (time_slots[2]?.length || 0) ? 'none' : 'block' }}>
+                            Show more
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
             </>
         );
     };
+
 
     const handleTimeSelection = (time, day, date) => {
         setSelectedTime(time);
@@ -138,9 +141,7 @@ const Appointment = () => {
             </div>
             <table>
                 <p className="head">Записатись на прийом:</p>
-                <thead>
                 {renderTimeSlots()}
-                </thead>
             </table>
 
             {modalActive && (
