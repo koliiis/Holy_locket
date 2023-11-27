@@ -16,11 +16,6 @@ function Patientprofile() {
     const [isEditing, setIsEditing] = useState(false);
     const [editedFirstName, setEditedFirstName] = useState('');
     const hasData = Object.keys(InfoPage).length > 0;
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
     useEffect(() => {
         axios.get('https://localhost:7172/api/Patient/1')
@@ -37,7 +32,19 @@ function Patientprofile() {
     };
 
     const handleSaveClick = () => {
-        setIsEditing(false);
+        // Виконуємо HTTP-запит для збереження відредагованого імені на сервері
+        axios.put('https://localhost:7172/api/Patient/1', {
+            firstName: editedFirstName,
+            // Додайте інші дані, якщо потрібно
+        })
+            .then(response => {
+                console.log("Дані успішно збережено:", response.data);
+                setIsEditing(false); // Зупиняємо режим редагування
+            })
+            .catch(error => {
+                console.error("Помилка при оновленні даних:", error);
+                setIsEditing(false);
+            });
     };
 
     const handleFirstNameChange = (event) => {
@@ -52,8 +59,8 @@ function Patientprofile() {
                     placeholder="Ім'я"
                     type="text"
                     name="username"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={editedFirstName}
+                    onChange={handleFirstNameChange}
                 />
                 ) : (
                     InfoPage.firstName
