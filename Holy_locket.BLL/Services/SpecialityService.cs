@@ -40,10 +40,10 @@ namespace Holy_locket.BLL.Services
             var speciality = await _repository.GetById(id).ConfigureAwait(false);
             return _mapper.Map<SpecialityDTO>(speciality);
         }
-        public async Task<ICollection<Speciality>> GetAll()
+        public async Task<ICollection<SpecialityDTO>> GetAll()
         {
             var specialities = await _repository.Get().ConfigureAwait(false);
-            return _mapper.Map<ICollection<Speciality>>(specialities);
+            return _mapper.Map<ICollection<SpecialityDTO>>(specialities);
         }
         public void Dispose()
         {
