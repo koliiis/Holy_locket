@@ -36,8 +36,14 @@ function Patientprofile() {
     };
 
     const handleSaveClick = () => {
-        axios.post('https://localhost:7172/api/Patient/1', {
+        axios.put('https://localhost:7172/api/Patient', {
+            id: 1,
             firstName: editedFirstName,
+            secondName: InfoPage.secondName,
+            phone: InfoPage.phone,
+            email: InfoPage.email,
+            password: InfoPage.password,
+            birthday: InfoPage.birthday,
         })
             .then(response => {
                 console.log("Дані успішно збережено:", response.data);
