@@ -12,7 +12,7 @@ import img8 from './img8.png';
 import img9 from './img9.png';
 
 function Patientprofile() {
-    const [InfoPage, setInfoPage] = useState([]);
+    const [InfoPage, setInfoPage] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [editedFirstName, setEditedFirstName] = useState('');
     const hasData = Object.keys(InfoPage).length > 0;
@@ -31,11 +31,13 @@ function Patientprofile() {
         setIsEditing(true);
     };
 
+    const handleCancelClick = () => {
+        setIsEditing(false);
+    };
+
     const handleSaveClick = () => {
-        // Виконуємо HTTP-запит для збереження відредагованого імені на сервері
-        axios.put('https://localhost:7172/api/Patient/1', {
+        axios.post('https://localhost:7172/api/Patient/1', {
             firstName: editedFirstName,
-            // Додайте інші дані, якщо потрібно
         })
             .then(response => {
                 console.log("Дані успішно збережено:", response.data);
@@ -116,7 +118,9 @@ function Patientprofile() {
                     )}
                 </div>
                 {isEditing && (
-                <button onClick={handleSaveClick}>Зберегти</button>)}
+                <div><button onClick={handleSaveClick}>Зберегти</button>
+                <button onClick={handleCancelClick}>Відмінити</button></div>)}
+                
             </div>
     );
 }
