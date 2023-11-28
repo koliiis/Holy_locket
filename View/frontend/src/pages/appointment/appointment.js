@@ -42,13 +42,7 @@ const Appointment = () => {
     }, []);
 
     const [visibleRows, setVisibleRows] = useState(4);
-
-    const showMoreTimeSlots = () => {
-        // Показываем все строки таймслотов
-        if (time_slots[2]) {
-            setVisibleRows(time_slots[2].length);
-        }
-    };
+    const [showAllSlots, setShowAllSlots] = useState(false);
 
     const renderTimeSlots = () => {
         return (
@@ -66,12 +60,17 @@ const Appointment = () => {
                 </thead>
                 <tbody>
                 {time_slots.length > 0 && (
-                    time_slots[2]?.slice(0, visibleRows).map((time, timeIndex) => (
-                        <tr key={timeIndex}>
+                    // Используем map для прохода по всем временным слотам в виде строки
+                    Array.from({ length: Math.max(...time_slots.map(slots => slots.length)) }).map((_, timeIndex) => (
+                        <tr key={timeIndex} style={{ display: showAllSlots || timeIndex < visibleRows ? 'table-row' : 'none' }}>
+                            {/* Для каждой колонки показываем таймслот, если он есть */}
                             {time_slots.map((slots, dayIndex) => (
                                 <td key={dayIndex}>
                                     {slots[timeIndex] && (
-                                        <button className="time-btn" onClick={() => handleTimeSelection(slots[timeIndex], WorkWeek[dayIndex], dateArray[dayIndex])}>
+                                        <button
+                                            className="time-btn"
+                                            onClick={() => handleTimeSelection(slots[timeIndex], WorkWeek[dayIndex], dateArray[dayIndex])}
+                                        >
                                             {slots[timeIndex]}
                                         </button>
                                     )}
@@ -84,8 +83,12 @@ const Appointment = () => {
                 <tfoot>
                 <tr>
                     <td colSpan={WorkWeek.length}>
-                        <button className="btn_show_more" onClick={showMoreTimeSlots} style={{ display: visibleRows === (time_slots[2]?.length || 0) ? 'none' : 'block' }}>
-                            Show more
+                        <button
+                            className="btn_show_more"
+                            onClick={() => setShowAllSlots(!showAllSlots)}
+                            style={{ display: visibleRows === 12 ? 'none' : 'block' }}
+                        >
+                            {showAllSlots ? 'Show less' : 'Show more'}
                         </button>
                     </td>
                 </tr>
@@ -93,7 +96,6 @@ const Appointment = () => {
             </>
         );
     };
-
 
     const handleTimeSelection = (time, day, date) => {
         setSelectedTime(time);
@@ -149,15 +151,18 @@ const Appointment = () => {
                     active={modalActive}
                     setActive={() => setModalActive(false)}
                     time={selectedTime}
-                    day={selectedDay}>
+                    day={selectedDay}
+                >
                     <h3>
                         <p>
                             Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
                             на {selectedDay} о {selectedTime}?
                         </p>
                         <div>
-                            <form action="#" method="POST"  onSubmit={handleSubmit}>
-                                <button className="confirm" type="submit">Підтвердити</button>
+                            <form action="#" method="POST" onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit">
+                                    Підтвердити
+                                </button>
                             </form>
                         </div>
                     </h3>
@@ -166,4 +171,5 @@ const Appointment = () => {
         </div>
     );
 };
+
 export default Appointment;
