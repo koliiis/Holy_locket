@@ -11,7 +11,7 @@ namespace Holy_locket.BLL.Services
 {
     public class AuthService
     {
-        internal static string GenerateJSONWebToken(IConfiguration config)
+        public static string GenerateJSONWebToken(IConfiguration config)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -23,6 +23,12 @@ namespace Holy_locket.BLL.Services
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        public static void  GenerateJSONWebToken(string strToken)
+        {
+            var handler = new JwtSecurityTokenHandler(); 
+            var token = handler.ReadToken(strToken);
+            Console.WriteLine(token.SecurityKey);
         }
     }
 }
