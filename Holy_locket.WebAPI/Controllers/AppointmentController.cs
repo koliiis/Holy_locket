@@ -33,7 +33,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var hospital = await _appointmentService.GetAppointmentById(id);
+                var hospital = await _appointmentService.GetAppointmentById(id).ConfigureAwait(false);
                 return Ok(hospital);
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                return Ok(await _appointmentService.GetAppointmentInfo(id));
+                return Ok(await _appointmentService.GetAppointmentInfo(id).ConfigureAwait(false));
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                return Ok(await _appointmentService.GetTimeSlots());
+                return Ok(await _appointmentService.GetTimeSlots().ConfigureAwait(false));
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _appointmentService.AddAppointment(appointment);
+                await _appointmentService.AddAppointment(appointment).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception ex)
@@ -85,7 +85,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _appointmentService.UpdateAppointment(appointment);
+                await _appointmentService.UpdateAppointment(appointment).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -98,7 +98,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _appointmentService.DeleteAppointment(id);
+                await _appointmentService.DeleteAppointment(id).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -112,7 +112,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _appointmentService.SoftDeleteAppointment(id);
+                await _appointmentService.SoftDeleteAppointment(id).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)

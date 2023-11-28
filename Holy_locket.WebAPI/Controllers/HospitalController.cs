@@ -32,7 +32,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var hospital = await _hospitalService.GetHospitalById(id);
+                var hospital = await _hospitalService.GetHospitalById(id).ConfigureAwait(false);
                 return Ok(hospital);
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _hospitalService.CreateHospital(hospital);
+                await _hospitalService.CreateHospital(hospital).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -58,7 +58,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _hospitalService.UpdateHospital(hospital);
+                await _hospitalService.UpdateHospital(hospital).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -71,10 +71,10 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _hospitalService.DeleteHospital(id);
+                await _hospitalService.DeleteHospital(id).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception)s
             {
                 return StatusCode(500, "An error occurred while processing your request.");
             }
