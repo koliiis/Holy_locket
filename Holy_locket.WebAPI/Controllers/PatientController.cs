@@ -26,8 +26,8 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var patient = await _patientService.GetPatientById(id);
-                return Ok(patient);
+                var patient = await _patientService.GetPatientById(id).ConfigureAwait(false);
+                return patient == null ? Unauthorized() : Ok(patient);
             }
             catch (Exception ex)
             {
