@@ -48,50 +48,50 @@ const Appointment = () => {
         return (
             <>
                 <thead>
-                <tr>
-                    {WorkWeek.map((day, dayIndex) => (
-                        <th key={dayIndex}>
-                            {day}
-                            <br />
-                            {dateArray[dayIndex] && dateArray[dayIndex].toLocaleDateString('uk-UA')}
-                        </th>
-                    ))}
-                </tr>
+                    <tr>
+                        {WorkWeek.map((day, dayIndex) => (
+                            <th key={dayIndex}>
+                                {day}
+                                <br />
+                                {dateArray[dayIndex] && dateArray[dayIndex].toLocaleDateString('uk-UA')}
+                            </th>
+                        ))}
+                    </tr>
                 </thead>
                 <tbody>
-                {time_slots.length > 0 && (
-                    // Используем map для прохода по всем временным слотам в виде строки
-                    Array.from({ length: Math.max(...time_slots.map(slots => slots.length)) }).map((_, timeIndex) => (
-                        <tr key={timeIndex} style={{ display: showAllSlots || timeIndex < visibleRows ? 'table-row' : 'none' }}>
-                            {/* Для каждой колонки показываем таймслот, если он есть */}
-                            {time_slots.map((slots, dayIndex) => (
-                                <td key={dayIndex}>
-                                    {slots[timeIndex] && (
-                                        <button
-                                            className="time-btn"
-                                            onClick={() => handleTimeSelection(slots[timeIndex], WorkWeek[dayIndex], dateArray[dayIndex])}
-                                        >
-                                            {slots[timeIndex]}
-                                        </button>
-                                    )}
-                                </td>
-                            ))}
-                        </tr>
-                    ))
-                )}
+                    {time_slots.length > 0 && (
+                        // Используем map для прохода по всем временным слотам в виде строки
+                        Array.from({ length: Math.max(...time_slots.map(slots => slots.length)) }).map((_, timeIndex) => (
+                            <tr key={timeIndex} style={{ display: showAllSlots || timeIndex < visibleRows ? 'table-row' : 'none' }}>
+                                {/* Для каждой колонки показываем таймслот, если он есть */}
+                                {time_slots.map((slots, dayIndex) => (
+                                    <td key={dayIndex}>
+                                        {slots[timeIndex] && (
+                                            <button
+                                                className="time-btn"
+                                                onClick={() => handleTimeSelection(slots[timeIndex], WorkWeek[dayIndex], dateArray[dayIndex])}
+                                            >
+                                                {slots[timeIndex]}
+                                            </button>
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    )}
                 </tbody>
                 <tfoot>
-                <tr>
-                    <td colSpan={WorkWeek.length}>
-                        <button
-                            className="btn_show_more"
-                            onClick={() => setShowAllSlots(!showAllSlots)}
-                            style={{ display: visibleRows === 12 ? 'none' : 'block' }}
-                        >
-                            {showAllSlots ? 'Show less' : 'Show more'}
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colSpan={WorkWeek.length}>
+                            <button
+                                className="btn_show_more"
+                                onClick={() => setShowAllSlots(!showAllSlots)}
+                                style={{ display: visibleRows === 12 ? 'none' : 'block' }}
+                            >
+                                {showAllSlots ? 'Show less' : 'Show more'}
+                            </button>
+                        </td>
+                    </tr>
                 </tfoot>
             </>
         );
