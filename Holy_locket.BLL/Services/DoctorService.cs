@@ -16,17 +16,17 @@ namespace Holy_locket.BLL.Services
         private readonly IRepository<Doctor> _doctorRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly SpecialityService specialityService;
-        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly ISpecialityService _specialityService;
+        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper, ISpecialityService specialityService)
         {
             _unitOfWork = unitOfWork;
             _doctorRepository = _unitOfWork.GetRepository<Doctor>();
             _mapper = mapper;
-            specialityService = new SpecialityService(_unitOfWork, _mapper);
+            _specialityService = specialityService;
         }
         public async Task<DoctorDTO> MapSpeciality(DoctorDTO doctor)
         {
-            var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+            var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
             doctor.SpecialityName = speciality.Name;
             return doctor;
         }
@@ -44,7 +44,7 @@ namespace Holy_locket.BLL.Services
             var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);
             foreach (var doctor in doctorDTOs)
             {
-                var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+                var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
                 doctor.SpecialityName = speciality.Name;
             }
             return doctorDTOs;
