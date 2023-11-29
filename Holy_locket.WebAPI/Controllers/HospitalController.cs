@@ -74,7 +74,7 @@ namespace Holy_locket.WebAPI.Controllers
                 await _hospitalService.DeleteHospital(id).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)s
+            catch (Exception)
             {
                 return StatusCode(500, "An error occurred while processing your request.");
             }
