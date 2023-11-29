@@ -63,7 +63,7 @@ namespace Holy_locket.BLL.Services
         {
         }
 
-        public async Task<IEnumerable<DoctorDTO>> Filtration(int minimumExpirience = 0, int specialityId = 0, string? gender = null)
+        public async Task<IEnumerable<DoctorDTO>> GetFiltered(int minimumExpirience = 0, int specialityId = 0, string? gender = null)
         {
             var doctors = await _doctorRepository.Get().ConfigureAwait(false);
             var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);

@@ -21,14 +21,15 @@ namespace Holy_locket.WebAPI.Controllers
             _doctorService = doctorService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetDoctors()
+        public async Task<IActionResult> GetDoctors(int minimumExpirience, int specialityId, string? gender)
         {
             try
             {
-                var doctors = await _doctorService.GetAllDoctors().ConfigureAwait(false);
-                return Ok(doctors);
+                var list = await _doctorService.GetFiltered(minimumExpirience, specialityId, gender);
+                return Ok(list);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
@@ -79,20 +80,6 @@ namespace Holy_locket.WebAPI.Controllers
             {
                 await _doctorService.DeleteDoctor(id).ConfigureAwait(false);
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred while processing your request.");
-            }
-        }
-        [HttpGet]
-        [Route("Filtration")]
-        public async Task<IActionResult> GetFilteredDoctors(int minimumExpirience, int specialityId, string? gender)
-        {
-            try
-            {
-                var list = await _doctorService.Filtration(minimumExpirience, specialityId, gender);
-                return Ok(list);
             }
             catch (Exception ex)
             {
