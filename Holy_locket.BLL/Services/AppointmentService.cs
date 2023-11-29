@@ -66,22 +66,14 @@ namespace Holy_locket.BLL.Services
                 if (DateTime.Parse(item.Date) == DateTime.Today)
                 {
                     timeSlots[counter].Remove(item.Time);
-                }
-                else if (temp <= DateTime.Parse(item.Date) && temp != DateTime.Today)
+                    temp = DateTime.Parse(item.Date);
+
+                else if(temp <= DateTime.Parse(item.Date))
                 {
                     counter += (DateTime.Parse(item.Date) - temp).Days;
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
-            }
-
-            for (int i = 0; i < timeSlots.Count; i++)
-            {
-                for (int j = 0; j < timeSlots[i].Count; j++)
-                {
-                    Console.WriteLine(timeSlots[i][j]);
-                }
-                Console.WriteLine();
             }
 
             return timeSlots;

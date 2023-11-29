@@ -26,7 +26,7 @@ function Patientprofile() {
 
     return (
         <div className="body11">
-            <div className='qwe'><img className="img11" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
+            <img className="img11" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
                 <h2 className="h22">{InfoPage.firstName} {InfoPage.secondName}</h2>
                 <img className="img22" src={img2}/>
                 <img className="img33" src={img3}/>
@@ -55,7 +55,6 @@ function Patientprofile() {
                     <img className="img44" src={img9}/>
                 </div>
             </div>
-        </div>
     );
 }
 
