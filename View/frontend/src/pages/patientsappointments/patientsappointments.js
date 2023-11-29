@@ -17,8 +17,8 @@ function Patientsappointments() {
             });
     }, []);
 
-    const handleCance = (id) => {
-        axios.delete(`https://localhost:7172/api/Appointment/SoftDelete?id=${id}`, {id:id})
+    const handleCancel = (id) => {
+        axios.delete(`https://localhost:7172/api/Appointment/SoftDelete?id=${id}`, { id: id })
             .then((response) => {
                 console.log("Peremoga");
             })
@@ -36,7 +36,9 @@ function Patientsappointments() {
                     <h3 className="h31">Стан запису:</h3>
                     <div className="div21">{infapp.inactive ? 'Cancel' : 'In action'}</div>
                     <button className="div3" onClick={() => navigate("/doctors")}>Записатися ще раз</button>
-                    <button className="cancel-btn" onClick={() => handleCance(infapp.id)}>Відмінити запис</button>
+                    {!infapp.inactive && (
+                        <button className="cancel-btn" onClick={() => handleCancel(infapp.id)}>Відмінити запис</button>
+                    )}
                     <h3 className="appdet">Деталі прийому:</h3>
                     <div className="div4">
                         <p className="p1">Дата: {infapp.date}</p>
