@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Holy_locket.BLL.Services.Abstraction;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -16,11 +17,11 @@ namespace Holy_locket.BLL.Services
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
+  
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
               config["Jwt:Audience"],
               null,
-              expires: DateTime.Now.AddMinutes(1),
+              expires: DateTime.Now.AddMinutes(30),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
