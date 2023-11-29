@@ -15,6 +15,6 @@ namespace Holy_locket.BLL.Services.Abstraction
         Task DeleteDoctor(int id);
         Task AddDoctor(DoctorDTO doctor);
         Task UpdateDoctor(DoctorDTO doctor);
-        //Task<ICollection<DoctorDTO>> Filtration();
+        Task<IEnumerable<DoctorDTO>> Filtration(int minimumExpirience, int specialityId, string gender);
     }
 }

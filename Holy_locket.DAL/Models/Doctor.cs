@@ -24,7 +24,7 @@ namespace Holy_locket.DAL.Models
         [MinLength(2)]
         public string SecondName { get; set; }
         public string Description { get; set; }
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
         public string Phone { get; set; }
         public int Experience { get; set; }
         public string? Photo { get; set; }
