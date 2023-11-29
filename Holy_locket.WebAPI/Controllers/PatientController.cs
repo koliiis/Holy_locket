@@ -26,7 +26,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var patient = await _patientService.GetPatientById(id);
+                var patient = await _patientService.GetPatientById(id).ConfigureAwait(false);
                 return Ok(patient);
             }
             catch (Exception ex)
@@ -40,8 +40,8 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var result = await _patientService.CheckLogin(phone, password);
-                return await _patientService.CheckLogin(phone, password) == null ? Unauthorized() : Ok(result);
+                var result = await _patientService.CheckLogin(phone, password).ConfigureAwait(false);
+                return result == null ? Unauthorized() : Ok(result);
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _patientService.CreatePatient(patient);
+                await _patientService.CreatePatient(patient).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -67,7 +67,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _patientService.UpdatePatient(patient);
+                await _patientService.UpdatePatient(patient).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -80,7 +80,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _patientService.DeletePatient(id);
+                await _patientService.DeletePatient(id).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
