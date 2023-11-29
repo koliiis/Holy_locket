@@ -34,9 +34,9 @@ function Patientsappointments() {
                     <h2 className="h21">{infapp.doctorName} {infapp.doctorSecondName}</h2>
                     <p className="p1">{infapp.specialityName}</p>
                     <h3 className="h31">Стан запису:</h3>
-                    <div className="div21">{infapp.inactive ? 'Cancel' : 'In action'}</div>
+                    <div className="div21">{infapp.inactive ? 'Canceled' : infapp.irrelevant ? 'Irrelevant' : 'In action'}</div>
                     <button className="div3" onClick={() => navigate("/doctors")}>Записатися ще раз</button>
-                    {!infapp.inactive && (
+                    {!infapp.inactive && !infapp.irrelevant && (
                         <button className="cancel-btn" onClick={() => handleCancel(infapp.id)}>Відмінити запис</button>
                     )}
                     <h3 className="appdet">Деталі прийому:</h3>
