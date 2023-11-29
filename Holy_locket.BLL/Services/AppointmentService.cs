@@ -22,20 +22,20 @@ namespace Holy_locket.BLL.Services
         private readonly IRepository<Appointment> _appointmentRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly SpecialityService specialityService;
-        private readonly PatientService patientService;
-        private readonly DoctorService doctorService;
+        private readonly ISpecialityService _specialityService;
+        private readonly IPatientService _patientService;
+        private readonly IDoctorService _doctorService;
         private readonly IRepository<Appointment> _repository;
         private readonly IConfiguration config;
 
-        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork)
+        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork,ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
             _mapper = mapper;
-            specialityService = new SpecialityService(_unitOfWork, _mapper);
-            patientService = new PatientService(_unitOfWork, _mapper, config);
-            doctorService = new DoctorService(_unitOfWork, _mapper);
+            _specialityService = specialityService;
+            _patientService = patientService;
+            _doctorService = doctorService;
             _repository = unitOfWork.GetRepository<Appointment>();
         }
 
@@ -81,8 +81,8 @@ namespace Holy_locket.BLL.Services
 
         public async Task<AppointmentInfoDTO> MapInfo(AppointmentInfoDTO info)
         {
-            var doctor = await doctorService.GetDoctorById(info.DoctorId);
-            var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+            var doctor = await _doctorService.GetDoctorById(info.DoctorId);
+            var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
             info.SpecialityName = speciality.Name;
             info.DoctorName = doctor.FirstName;
             info.DoctorSecondName = doctor.SecondName;
