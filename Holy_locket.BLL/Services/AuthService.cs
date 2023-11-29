@@ -20,7 +20,7 @@ namespace Holy_locket.BLL.Services
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
               config["Jwt:Audience"],
               null,
-              expires: DateTime.Now.AddMinutes(30),
+              expires: DateTime.Now.AddMinutes(1),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
