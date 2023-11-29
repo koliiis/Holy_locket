@@ -62,5 +62,24 @@ namespace Holy_locket.BLL.Services
         public void Dispose()
         {
         }
+
+        public async Task<IEnumerable<DoctorDTO>> GetFiltered(int minimumExpirience = 0, int specialityId = 0, string? gender = null)
+        {
+            var doctors = await _doctorRepository.Get().ConfigureAwait(false);
+            var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);
+            foreach (var doctor in doctorDTOs)
+            {
+                var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
+                doctor.SpecialityName = speciality.Name;
+            }
+            var filteredList = doctorDTOs
+                .Where(doctor =>
+                    (specialityId == 0 || doctor.SpecialityId == specialityId) &&
+                    (gender == null || doctor.Gender == gender) &&
+                    (minimumExpirience == 0 || doctor.Experience > minimumExpirience)
+                );
+
+            return filteredList;
+        }
     }
 }
