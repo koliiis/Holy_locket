@@ -33,7 +33,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var patient = await _specialityService.GetSpecialityById(id);
+                var patient = await _specialityService.GetSpecialityById(id).ConfigureAwait(false);
                 return Ok(patient);
             }
             catch (Exception ex)
@@ -46,7 +46,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _specialityService.CreateSpeciality(speciality);
+                await _specialityService.CreateSpeciality(speciality).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -59,7 +59,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _specialityService.UpdateSpeciality(speciality);
+                await _specialityService.UpdateSpeciality(speciality).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
@@ -72,7 +72,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _specialityService.DeleteSpeciality(id);
+                await _specialityService.DeleteSpeciality(id).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception)
