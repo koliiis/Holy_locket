@@ -67,7 +67,7 @@ namespace Holy_locket.BLL.Services
                 {
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
-                }
+
                 else if(temp <= DateTime.Parse(item.Date))
                 {
                     counter += (DateTime.Parse(item.Date) - temp).Days;
@@ -88,7 +88,7 @@ namespace Holy_locket.BLL.Services
             info.DoctorSecondName = doctor.SecondName;
             DateTime date = DateTime.ParseExact(info.Date, "dd/MM/yyyy", null);
             DateTime currentDateTime = DateTime.Now;
-            if (currentDateTime.Date > date ||(currentDateTime.Date == date && CheckTime(info.Time)>=0)) 
+            if (currentDateTime.Date > date || (currentDateTime.Date == date && CheckTime(info.Time) >= 0))
             {
                 info.Irrelevant = true;
             }
@@ -149,7 +149,7 @@ namespace Holy_locket.BLL.Services
         {
             await _appointmentRepository.Update(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);
         }
-        public async Task SoftDeleteAppointment(int id) 
+        public async Task SoftDeleteAppointment(int id)
         {
             await _appointmentRepository.SoftDelete(id).ConfigureAwait(false);
         }
