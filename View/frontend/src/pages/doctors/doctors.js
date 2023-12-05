@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './doctors.css';
+import './doctors.scss';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -44,28 +44,33 @@ function Doctors() {
                     </li>
                 </ul>
 
-                {doctors.map(doctor => (
-                    <div className="card-container" key={doctor.id}>
-                        <div className="cards">
-                            <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
-                            <h3 className="name">
-                                {doctor.firstName} {doctor.secondName}
-                                <p className="specail-card">
-                                    {doctor.specialityName}
-                                </p>
-                            </h3>
-                            <h4 className='exp'>
-                                Працює понад {doctor.experience} років
-                            </h4>
-                            <div className="info">
-                                {doctor.description}
+
+                <div className="container-md">
+                    <div className="row row-cols-3 rowchik">
+                        {doctors.map(doctor => (
+                            <div className="col card-container" key={doctor.id}>
+                                <div className="cards">
+                                    <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
+                                    <h3 className="name">
+                                        {doctor.firstName} {doctor.secondName}
+                                        <p className="specail-card">
+                                            {doctor.specialityName}
+                                        </p>
+                                    </h3>
+                                    <h4 className='exp'>
+                                        Працює понад {doctor.experience} років
+                                    </h4>
+                                    <div className="info">
+                                        {doctor.description}
+                                    </div>
+                                    <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>
+                                </div>
                             </div>
-                            <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>
-                        </div>
+                        ))}
                     </div>
-                ))}
+                </div>
             </div>
-        </div>
+            </div>
     );
 }
 export default Doctors;

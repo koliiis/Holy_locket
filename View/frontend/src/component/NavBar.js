@@ -7,7 +7,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     return (
-        <Navbar className="navchik" variant="dark" expand="md">
+        <Navbar className="navchik" variant="dark" expand="lg">
             <Navbar.Brand onClick={() => navigate("/landing")} className="logo">HOLY Locket</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" className='custom-collapse'>

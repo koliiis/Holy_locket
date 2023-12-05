@@ -68,7 +68,7 @@ function Registration() {
     }
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto cont">
             <form action="#" method="POST"  onSubmit={handleSubmit}>
                 <div className="master_2">
                     <h2 className="header">Реєстрація</h2>
