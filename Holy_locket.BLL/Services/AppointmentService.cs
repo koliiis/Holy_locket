@@ -67,8 +67,9 @@ namespace Holy_locket.BLL.Services
                 {
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
+                }
 
-                else if(temp <= DateTime.Parse(item.Date))
+                else if (temp <= DateTime.Parse(item.Date))
                 {
                     counter += (DateTime.Parse(item.Date) - temp).Days;
                     timeSlots[counter].Remove(item.Time);
