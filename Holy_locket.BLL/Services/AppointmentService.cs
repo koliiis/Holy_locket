@@ -28,7 +28,7 @@ namespace Holy_locket.BLL.Services
         private readonly IRepository<Appointment> _repository;
         private readonly IConfiguration config;
 
-        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork,ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
+        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
@@ -67,15 +67,14 @@ namespace Holy_locket.BLL.Services
                 {
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
-
-                else if(temp <= DateTime.Parse(item.Date))
+                }
+                else if (temp <= DateTime.Parse(item.Date))
                 {
                     counter += (DateTime.Parse(item.Date) - temp).Days;
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
             }
-
             return timeSlots;
         }
 
