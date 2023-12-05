@@ -22,12 +22,11 @@ namespace Holy_locket.WebAPI.Controllers
             _config = config;
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPatientByID(int id)
+        public async Task<IActionResult> GetPatientByID(int id, string token)
         {
             try
             {
-                var patient = await _patientService.GetPatientById(id).ConfigureAwait(false);
-                return Ok(patient);
+                var patient = await _patientService.GetPatientById(new LoginInfoDTO(id, token)).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -41,7 +40,7 @@ namespace Holy_locket.WebAPI.Controllers
             try
             {
                 var result = await _patientService.CheckLogin(phone, password).ConfigureAwait(false);
-                return result == null ? Unauthorized() : Ok(result);
+                return result.token == null ? Unauthorized() : Ok(result);
             }
             catch (Exception ex)
             {
