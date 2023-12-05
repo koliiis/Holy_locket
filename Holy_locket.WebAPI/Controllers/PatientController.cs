@@ -27,6 +27,7 @@ namespace Holy_locket.WebAPI.Controllers
             try
             {
                 var patient = await _patientService.GetPatientById(new LoginInfoDTO(id, token)).ConfigureAwait(false);
+                return Ok(patient);
             }
             catch (Exception ex)
             {
