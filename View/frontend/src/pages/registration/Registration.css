@@ -9,45 +9,37 @@ h2{
     color: #595959;
 }
 
-input[type="text"], input[type="tel"], input[type="email"] {
+.input[type="text"], input[type="tel"], input[type="email"] {
     width: 300px; /* Измените значение на нужный размер */
     height: 40px; /* Измените значение на нужный размер */
     font-size: 14px; /* Измените значение на нужный размер */
     /*border: 1px solid #000;*/
     /*border-radius: 20px 0 20px 0;*/
-    box-shadow:  0 3px 3px 0 #B1D3BB;
+    box-shadow:  0 5px 5px 0 #B1D3BB;
 }
 
-button[type="submit"], button[type="reset"] {
-    width: 250px; /* Измените значение на нужный размер */
-    height: 40px; /* Измените значение на нужный размер */
-    opacity: 0.6;
-    font-size: 16px;
-    border-radius: 15px;
-    box-shadow:  0 10px 10px 0 #000;
-}
+
 
 /*button[type="submit"]{*/
 /*	padding: 0 10px 0 0 ;*/
 /*}*/
 
 
-input{
+input, .form-control{
     padding-left: 25px;
     margin: 0 0 10px 0;
     border-radius: 15px;
     background: #BCE4D1;
 }
 
-input:focus{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+.form-control:focus {
+    background-color: #BCE4D1;
+    box-shadow: #BCE4D1;
 }
 
-button{
-    margin: 0 0 40px 0;
-    background: #B1D3BB;
-    margin-top: 30px;
-    transition: 0.5s;
+
+input:focus,  .form-control{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 button:hover{
@@ -58,28 +50,24 @@ button:hover{
     margin-right: 30px;
 }
 
-.master {
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
+    max-width: 100%;
     background: url("regisrt.png") round;
     /* Permalink - use to edit and share this gradient. Постійне посилання - використовуйте для редагування та обміну цим градієнтом: https://colorzilla.com/gradient-editor/#b1d3bb+15,e8e6e6+100 */
     /*background: linear-gradient(to right,  rgb(177,211,187) 15%,rgb(232,230,230) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
 
 }
 
-/*.header {*/
-/*    opacity: 0.8;*/
-/*}*/
-
 .master_2 {
-border-width: 10px;
+    border-width: 10px;
     border-style: solid;
     border-image: linear-gradient(to right,  rgb(232,230,230) 35%, rgb(177,211,187) 100%);
     border-image-slice: 1;
-    display: inline-block;
-    text-align: center;
+
     padding: 30px;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.4);
     background: #FAF3DF;

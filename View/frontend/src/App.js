@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Registration from './pages/registration/Registration';
 import Appointment from "./pages/appointment/appointment";
 import Doctor from "./pages/doctors/doctors";

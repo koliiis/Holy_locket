@@ -16,15 +16,15 @@ const NavBar = () => {
             <nav>
                 <ul className="choose">
                     <li>
-                        <button className="btn" onClick={() => navigate("/landing")}>ГОЛОВНА</button>
+                        <button className="button-dane" onClick={() => navigate("/landing")}>ГОЛОВНА</button>
                     </li>
 
                     <li>
-                        <button className="btn" onClick={() => navigate("/doctors")}>Лікарі</button>
+                        <button className="btn-success" onClick={() => navigate("/doctors")}>Лікарі</button>
                     </li>
 
                     <li>
-                        <button className="btn" onClick={() => navigate("/patientsappointments")}>Мої записи</button>
+                        <button className="btn-success" onClick={() => navigate("/patientsappointments")}>Мої записи</button>
                     </li>
                     <button className="btn1" onClick={() => navigate("/registration")}>Зареєструватися</button>
                 <button className="btn1" onClick={() => navigate("/login")}>Ввійти</button>

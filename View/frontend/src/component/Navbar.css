@@ -14,7 +14,7 @@ nav {
 }
 
 .logo {
-    font-size: 35px;
+    font-size: 30px;
     margin: 0 18% 0 55px;
     color: #B1D3BB;
     font-family: 'Times New Roman', sans-serif;
@@ -30,7 +30,7 @@ nav ul li {
     height: 75px;
 }
 
-.btn {
+.btn-success{
     font-size: 14px;
 }
 
