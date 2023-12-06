@@ -36,9 +36,10 @@ table {
     color: #1F292A;
 }
 
-p {
+.info-ab-doc {
     font-size: 17px;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 .special {
@@ -113,4 +114,8 @@ thead {
     padding: 5px 17px;
     border: 2px solid darkturquoise;
     border-radius: 15px;
+}
+
+.confirm-text {
+    font-size: 25px;
 }

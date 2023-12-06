@@ -133,12 +133,12 @@ const Appointment = () => {
                 <div className="doctor-info">
                     <h2 className="special">
                         {doctor.firstName} {doctor.secondName}
-                        <p>{doctor.specialityName || "Специальность не найдена"}</p>
+                        <p className="info-ab-doc">{doctor.specialityName || "Специальность не найдена"}</p>
                     </h2>
                     <h3>Про лікаря:</h3>
-                    <p>Стать: {doctor.gender}</p>
-                    <p>Стаж: {doctor.experience}</p>
-                    <p>{doctor.description} </p>
+                    <p className="info-ab-doc">Стать: {doctor.gender}</p>
+                    <p className="info-ab-doc">Стаж: {doctor.experience}</p>
+                    <p className="info-ab-doc">{doctor.description} </p>
                 </div>
             </div>
             <table>
@@ -154,7 +154,7 @@ const Appointment = () => {
                     day={selectedDay}
                 >
                     <h3>
-                        <p>
+                        <p className="confirm-text">
                             Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
                             на {selectedDay} о {selectedTime}?
                         </p>
