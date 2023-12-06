@@ -25,8 +25,7 @@ function Doctors() {
     };
 
     return (
-
-        <div className="master-doctor">
+        <div className="row container-fluid justify-content-center master-doctor" aria-expanded='md'>
             <div className="filters">
                 <p className="filt">Фільтр</p>
                 <ul className="many">
@@ -43,13 +42,12 @@ function Doctors() {
                         <button className='filt-btn'>Оцінка</button>
                     </li>
                 </ul>
-
-
-                <div className="container-md">
-                    <div className="row row-cols-3 rowchik">
+            </div>
+                    <div className="col-xxl-10 col-md-8 roww">
+                        <div className="row justify-content-center card-container">
                         {doctors.map(doctor => (
-                            <div className="col card-container" key={doctor.id}>
-                                <div className="cards">
+                                <div className="cards" key={doctor.id}>
+                                    <div className="block">
                                     <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
                                     <h3 className="name">
                                         {doctor.firstName} {doctor.secondName}
@@ -63,13 +61,13 @@ function Doctors() {
                                     <div className="info">
                                         {doctor.description}
                                     </div>
+                                    </div>
                                     <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>
                                 </div>
-                            </div>
+
                         ))}
-                    </div>
+                        </div>
                 </div>
-            </div>
             </div>
     );
 }
