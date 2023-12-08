@@ -28,7 +28,7 @@ namespace Holy_locket.BLL.Services
         private readonly IRepository<Appointment> _repository;
         private readonly IConfiguration config;
 
-        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork,ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
+        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
@@ -39,7 +39,7 @@ namespace Holy_locket.BLL.Services
             _repository = unitOfWork.GetRepository<Appointment>();
         }
 
-        public async Task<List<List<string>>> GetTimeSlots()
+        public async Task<List<List<string>>> GetTimeSlots(int doctorId)
         {
             var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
             var timeSlots = new List<List<string>>();
@@ -55,21 +55,27 @@ namespace Holy_locket.BLL.Services
                 List<string> tempList = new List<string>();
                 for (int j = 0; j < times.Count; j++)
                 {
-                    tempList.Add(times[j]);
-                    if (j == times.Count - 1)
-                        timeSlots.Add(tempList);
+                    string[] startTime = times[j].Split('-');
+                    temp = DateTime.Parse(startTime[0]);
+                    if (DateTime.Now < temp)
+                    {
+                        tempList.Add(times[j]);
+                        if (j == times.Count - 1)
+                            timeSlots.Add(tempList);
+                    }
+
                 }
             }
 
             foreach (var item in appointments)
             {
-                if (DateTime.Parse(item.Date) == DateTime.Today)
+                if (DateTime.Parse(item.Date) == DateTime.Today && item.DoctorId == doctorId)
                 {
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
 
-                else if (temp <= DateTime.Parse(item.Date))
+                else if (temp <= DateTime.Parse(item.Date) && item.DoctorId == doctorId)
                 {
                     counter += (DateTime.Parse(item.Date) - temp).Days;
                     timeSlots[counter].Remove(item.Time);
