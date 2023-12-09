@@ -38,7 +38,7 @@
 }
 
 .many li:not(:last-child) {
-    margin-bottom: -30px; /* Измените значение, чтобы установить нужный отступ */
+    margin-bottom: -30px;
 }
 
 .card-container {
@@ -110,7 +110,16 @@
         margin-left: 5px;
     }
 }
-
+@media screen and (max-width: 1700px) {
+    .card-container {
+        .ded {
+            transform: translate(-45%, 20%);
+        }
+        .more_info {
+            transform: translate(-50%, 60%);
+        }
+    }
+}
 
 @media screen and (max-width: 1450px) {
     .card-container {
@@ -132,10 +141,10 @@
             width: 250px;
         }
         .ded {
-            transform: translate(-75%, 20%);
+            transform: translate(-55%, 20%);
         }
         .more_info {
-            transform: translate(-75%, 60%);
+            transform: translate(-65%, 60%);
         }
     }
 }
