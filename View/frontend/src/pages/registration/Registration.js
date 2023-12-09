@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Registration.css';
+import './Registration.scss';
 import axios from "axios";
 import Modal_Appointment from "../../component/modal-appointment";
 
@@ -71,7 +71,7 @@ function Registration() {
         <div className="container mx-auto cont">
             <form action="#" method="POST"  onSubmit={handleSubmit}>
                 <div className="master_2">
-                    <h2 className="header">Реєстрація</h2>
+                    <h2 className="header_regist">Реєстрація</h2>
                     <div className="input">
                         <input
                             className="form-control mx-auto my-3"
@@ -117,7 +117,7 @@ function Registration() {
                         />
 
                     </div>
-                    <div className="md-mx-auto">
+                    <div className="md-mx-auto btn-reg">
                         <button className='button_left' type="submit">Зареєструватися</button>
                         <button className='button_right' type="reset">Уже маю аккаунт</button>
                     </div>

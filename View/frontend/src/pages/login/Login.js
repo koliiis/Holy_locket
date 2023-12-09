@@ -30,12 +30,13 @@ function Login() {
     };
 
     return (
-        <div className="master">
+        <div className="container-fluid mx-auto master">
             <form action="#" method="POST" onSubmit={handleSubmit}>
                 <div className="master_login">
-                    <h2 className="header">Увійти</h2>
+                    <h2 className="header_log">Увійти</h2>
                     <div className="input">
                         <input
+                            className="ent-log"
                             placeholder="Номер телефону"
                             type="tel"
                             name="usernumber"
@@ -44,6 +45,7 @@ function Login() {
                         /><br />
 
                         <input
+                            className="ent-log"
                             placeholder="Ваш пароль"
                             type="password"
                             name="user_password"
@@ -52,7 +54,7 @@ function Login() {
                         /><br />
                     </div>
                     <div className="button">
-                        <button className='button_left' type="submit">Увійти</button>
+                        <button className='button_log' type="submit">Увійти</button>
                     </div>
                 </div>
             </form>

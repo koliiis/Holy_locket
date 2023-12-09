@@ -11,7 +11,7 @@ const NavBar = () => {
             <Navbar.Brand onClick={() => navigate("/landing")} className="logo">HOLY Locket</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" className='custom-collapse'>
-                <Nav className="mr-auto horizontal_nav">
+                <Nav className="mr-auto align-content-center horizontal_nav">
                     <Nav.Link onClick={() => navigate("/landing")} className="child">ГОЛОВНА</Nav.Link>
                     <Nav.Link onClick={() => navigate("/doctors")} className="child">Лікарі</Nav.Link>
                     <Nav.Link onClick={() => navigate("/patientsappointments")} className="child">Мої записи</Nav.Link>
