@@ -19,12 +19,15 @@
 .filt {
     font-size: 22px;
     color: #1F292A;
+
 }
 
 .filt-btn {
     background: none;
     font-size: 17px;
     color: #595959;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .filt-btn:hover {
@@ -72,10 +75,14 @@
 
     .name {
         color: #1F292A;
+        padding-left: 15px;
     }
 
     .info {
         font-size: 17px;
+        max-width: 270px;
+        margin-top: 15px;
+        margin-left: -115px;
     }
 
     .exp {
@@ -85,6 +92,8 @@
 
     .specail-card {
         margin-left: 15px;
+        font-size: 19px;
+        color: #595959;
     }
 
     .more_info {
@@ -110,16 +119,6 @@
         margin-left: 5px;
     }
 }
-@media screen and (max-width: 1700px) {
-    .card-container {
-        .ded {
-            transform: translate(-45%, 20%);
-        }
-        .more_info {
-            transform: translate(-50%, 60%);
-        }
-    }
-}
 
 @media screen and (max-width: 1450px) {
     .card-container {
@@ -141,10 +140,10 @@
             width: 250px;
         }
         .ded {
-            transform: translate(-55%, 20%);
+            transform: translate(-57%, 20%);
         }
         .more_info {
-            transform: translate(-65%, 60%);
+            transform: translate(-57%, 60%);
         }
     }
 }

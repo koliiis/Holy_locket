@@ -3,7 +3,15 @@ import axios from 'axios';
 import './doctors.scss';
 import { useNavigate } from 'react-router-dom';
 
-
+function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+        return text;
+    } else {
+        const truncatedText = text.substring(0, maxLength);
+        const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+        return truncatedText.substring(0, lastSpaceIndex) + '...';
+    }
+}
 
 function Doctors() {
     const navigate = useNavigate();
@@ -28,6 +36,7 @@ function Doctors() {
         <div className="row container-fluid justify-content-center master-doctor" aria-expanded='md'>
             <div className="filters">
                 <p className="filt">Фільтр</p>
+
                 <ul className="many">
                     <li>
                         <button className='filt-btn'>Стать</button>
@@ -59,7 +68,7 @@ function Doctors() {
                                         Працює понад {doctor.experience} років
                                     </h4>
                                     <div className="info">
-                                        {doctor.description}
+                                        {truncateText(doctor.description, 100)}
                                     </div>
                                     </div>
                                     <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>

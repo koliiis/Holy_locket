@@ -40,6 +40,10 @@ button:hover {
     margin-right: 30px;
 }
 
+.btn-reg {
+    margin: 45px 0 20px 0;
+}
+
 .cont {
     display: flex;
     justify-content: center;
@@ -93,12 +97,13 @@ button:hover {
     .cont {
         .btn-reg{
             padding-left: 50px;
-
+            margin-top: 25px;
             .button_right, .button_left {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 width: 200px;
+                margin-bottom: 20px;
             }
         }
     }
