@@ -63,13 +63,15 @@ namespace Holy_locket.BLL.Services
 
             foreach (var item in appointments)
             {
+                TimeSpan timeDifference = DateTime.Parse($"{item.Date} {item.Time}") - temp;
+
                 if (DateTime.Parse(item.Date) == DateTime.Today)
                 {
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
 
-                else if (temp <= DateTime.Parse(item.Date))
+                else if (temp <= DateTime.Parse(item.Date) && item.Inactive == false && timeDifference.TotalHours > 24)
                 {
                     counter += (DateTime.Parse(item.Date) - temp).Days;
                     timeSlots[counter].Remove(item.Time);
