@@ -54,14 +54,13 @@ namespace Holy_locket.BLL.Services
                 List<string> tempList = new List<string>();
                 for (int j = 0; j < times.Count; j++)
                 {
-                    string[] startTime = times[j].Split('-');
-                    temp = DateTime.Parse(startTime[0]);
-                    if (DateTime.Now < temp || i == 0)
+                    if (DateTime.Parse(times[j].Split("-")[0]).TimeOfDay>DateTime.Now.TimeOfDay || i !=0) 
                     {
                         tempList.Add(times[j]);
                         if (j == times.Count - 1)
                             timeSlots.Add(tempList);
                     }
+                    
                 }
             }
 
