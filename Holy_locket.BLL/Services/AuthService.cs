@@ -28,7 +28,7 @@ namespace Holy_locket.BLL.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        public async static Task<bool> CheckToken(IConfiguration config, LoginInfoDTO loginInfo)
+        public async static Task<bool> CheckToken(IConfiguration config, TokenInfoDTO loginInfo)
         {
             var handler = new JwtSecurityTokenHandler();
             var validationParametrs = await GetValidationParameters(config).ConfigureAwait(false);
