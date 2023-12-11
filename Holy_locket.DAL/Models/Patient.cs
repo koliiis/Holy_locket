@@ -38,5 +38,7 @@ namespace Holy_locket.DAL.Models
         public string?  Photo { get; set; } = "";
         [NotMapped]
         public ICollection<Appointment>? AppointmentList { get; set; }
+        [NotMapped]
+        public ICollection<Rating> RatingList { get; set; }
     }
 }

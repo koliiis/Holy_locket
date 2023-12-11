@@ -33,5 +33,7 @@ namespace Holy_locket.DAL.Models
         public Speciality Speciality { get; set; }
         [NotMapped]
         public ICollection<Appointment> AppointmentList { get; set; }
+        [NotMapped]
+        public ICollection<Rating> RatingList { get; set; }
     }
 }
