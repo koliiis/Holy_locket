@@ -1,4 +1,4 @@
-import cReact, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./appointment.scss";
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
@@ -30,7 +30,7 @@ const Appointment = () => {
     const [selectedDay, setSelectedDay] = useState('');
 
     useEffect(() => {
-        axios.get('https://localhost:7172/api/Appointment/TimeSlots')
+        axios.get(`https://localhost:7172/api/Appointment/TimeSlots?DoctorId=${doctor.id}`)
             .then(response => {
                 setTime_slots(response.data);
                 console.log("Peremoga")
