@@ -56,11 +56,11 @@ namespace Holy_locket.WebAPI.Controllers
         }
         [HttpGet()]
         [Route("TimeSlots")]
-        public async Task<IActionResult> GetTimeAppointmentsSlots()
+        public async Task<IActionResult> GetTimeAppointmentsSlots(int DoctorId)
         {
             try
             {
-                return Ok(await _appointmentService.GetTimeSlots().ConfigureAwait(false));
+                return Ok(await _appointmentService.GetTimeSlots(DoctorId).ConfigureAwait(false));
             }
             catch (Exception ex)
             {
