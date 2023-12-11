@@ -41,13 +41,14 @@ const Appointment = () => {
 
     }, []);
 
-    if (time_slots.length < 7)
-        WorkWeek.shift();
-        dateArray.shift();
-
     const [visibleRows, setVisibleRows] = useState(4);
     const [showAllSlots, setShowAllSlots] = useState(false);
 
+    if (time_slots.length > 0 && time_slots[0] && time_slots[0][0] === undefined) {
+        time_slots[0][0] = "Немає вільних слотів";
+    }
+
+    console.log(time_slots[2])
     const renderTimeSlots = () => {
         return (
             <>
