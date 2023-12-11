@@ -32,6 +32,12 @@ function Doctors() {
         navigate('/appointment', { state: { doctor } });
     };
 
+    const [selectedValue, setSelectedValue] = useState(null);
+
+    const handleSelect = (value) => {
+        setSelectedValue(value);
+    };
+
     return (
         <div className="row container-fluid justify-content-center master-doctor" aria-expanded='md'>
             <div className="filters">
@@ -39,24 +45,40 @@ function Doctors() {
 
                 <ul className="many">
                     <li>
+                        <div className="dropdown filt-btn">
+                            <a className="btn btn-secondary dropdown-toggle" href="#" role="button"
+                               id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                {selectedValue || 'Спеціалізація'}
+                            </a>
+
+                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a className="dropdown-item" onClick={() => handleSelect('Action')}>Action</a></li>
+                                <br/>
+                                <li><a className="dropdown-item" onClick={() => handleSelect('Another action')}>Another
+                                    action</a></li>
+                                <br/>
+                                <li><a className="dropdown-item" onClick={() => handleSelect('Something else here')}>Something
+                                    else here</a></li>
+                                <br/>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
                         <button className='filt-btn'>Стать</button>
                     </li>
                     <li>
                         <button className='filt-btn'>Стаж</button>
                     </li>
                     <li>
-                        <button className='filt-btn'>Спеціалізація</button>
-                    </li>
-                    <li>
                         <button className='filt-btn'>Оцінка</button>
                     </li>
                 </ul>
             </div>
-                    <div className="col-xxl-10 col-md-8 roww">
-                        <div className="row justify-content-center card-container">
-                        {doctors.map(doctor => (
-                                <div className="cards" key={doctor.id}>
-                                    <div className="block">
+            <div className="col-xxl-10 col-md-8 roww">
+                <div className="row justify-content-center card-container">
+                    {doctors.map(doctor => (
+                        <div className="cards" key={doctor.id}>
+                        <div className="block">
                                     <img className="ded" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
                                     <h3 className="name">
                                         {doctor.firstName} {doctor.secondName}
