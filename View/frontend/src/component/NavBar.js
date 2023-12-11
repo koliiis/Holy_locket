@@ -1,38 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Navbar.css';
-
-import img1 from "./img1.png";
+import { Navbar, Nav } from 'react-bootstrap';
+import './Navbar.scss';
 
 const NavBar = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="main">
-            <div className="logo">
-                <strong className="loggo">HOLY Locket</strong>
-            </div>
-
-            <nav>
-                <ul className="choose">
-                    <li>
-                        <button className="btn" onClick={() => navigate("/landing")}>ГОЛОВНА</button>
-                    </li>
-
-                    <li>
-                        <button className="btn" onClick={() => navigate("/doctors")}>Лікарі</button>
-                    </li>
-
-                    <li>
-                        <button className="btn" onClick={() => navigate("/patientsappointments")}>Мої записи</button>
-                    </li>
-                    <button className="btn1" onClick={() => navigate("/registration")}>Зареєструватися</button>
-                <button className="btn1" onClick={() => navigate("/login")}>Ввійти</button>
-                <img className="btn2" src={img1} onClick={() => navigate("/patientprofile")}></img>
-                </ul>
-
-            </nav>
-        </div>
+        <Navbar className="navchik" variant="dark" expand="lg">
+            <Navbar.Brand onClick={() => navigate("/landing")} className="logo">HOLY Locket</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+            <Navbar.Collapse id="basic-navbar-nav" className='custom-collapse'>
+                <Nav className="mr-auto align-content-center horizontal_nav">
+                    <Nav.Link onClick={() => navigate("/landing")} className="child">ГОЛОВНА</Nav.Link>
+                    <Nav.Link onClick={() => navigate("/doctors")} className="child">Лікарі</Nav.Link>
+                    <Nav.Link onClick={() => navigate("/patientsappointments")} className="child">Мої записи</Nav.Link>
+                    <Nav.Link onClick={() => navigate("/registration")} className="child">Зареєструватися</Nav.Link>
+                    <Nav.Link onClick={() => navigate("/login")} className="child">Ввійти</Nav.Link>
+                    <Nav.Link onClick={() => navigate("/patientprofile")} className="child">Мій профіль</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
     );
 };
 
