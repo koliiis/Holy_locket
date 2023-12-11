@@ -73,7 +73,7 @@ namespace Holy_locket.BLL.Services
             {
                 if (DateTime.Parse(item.Date) >= DateTime.Today.Date)
                 {
-                    counter = (DateTime.Parse(item.Date) - DateTime.Today.Date).Days;
+                    counter = (DateTime.Parse(item.Date) - DateTime.Today).Days;
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
