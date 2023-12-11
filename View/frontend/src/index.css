@@ -21,7 +21,6 @@ html, body{
     width: 100%;
     font-style: 100%;
     line-height: 1;
-    font-style: 14px;
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
@@ -41,4 +40,9 @@ h1,h2, h3, h4, h5, h6{font-style: inherit; font-weight: 400;}
 
 *{
     font-family: 'Oswald', sans-serif;
+}
+
+button {
+    background: #B1D3BB;
+    transition: 0.5s;
 }
