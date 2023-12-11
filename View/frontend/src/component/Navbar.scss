@@ -1,0 +1,25 @@
+@import url('https://fonts.cdnfonts.com/css/anton');
+
+nav {
+    background: #1F292A;
+}
+
+.logo {
+    font-size: 30px;
+    margin: 0 20% 0 55px;
+    color: #B1D3BB;
+    font-family: 'Anton', sans-serif;
+}
+
+.horizontal_nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .child {
+        margin-right: 15px;
+        color: #B1D3BB;
+    }
+}
+

@@ -1,5 +1,5 @@
 import cReact, { useEffect, useState } from 'react';
-import "./appointment.css";
+import "./appointment.scss";
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
 import Modal_Appointment from "../../component/modal-appointment";
@@ -123,22 +123,24 @@ const Appointment = () => {
     }
 
     return (
-        <div className="appoint">
+        <div className="container-fluid appoint">
             <div className="doctors">
-                <div className="doctor-photo">
+                <div>
                     <img className="appoint-photo" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"
                          alt={`${doctor.firstName} ${doctor.secondName}`}
                     />
                 </div>
                 <div className="doctor-info">
-                    <h2 className="special">
+                    <h2 className="name_appoint">
                         {doctor.firstName} {doctor.secondName}
-                        <p>{doctor.specialityName || "Специальность не найдена"}</p>
+                        <p className="info-ab-doc_spec">{doctor.specialityName || "Специальность не найдена"}</p>
                     </h2>
-                    <h3>Про лікаря:</h3>
-                    <p>Стать: {doctor.gender}</p>
-                    <p>Стаж: {doctor.experience}</p>
-                    <p>{doctor.description} </p>
+                    <div className="ab-doc">
+                        <h3 className="ab-doc-head">Про лікаря:</h3>
+                        <p className="info-ab-doc_gen">Стать: {doctor.gender}</p>
+                        <p className="info-ab-doc_exp">Стаж: працює понад {doctor.experience}</p>
+                        <p className="info-ab-doc_desc"><span className="fw-bolder">Опис лікаря:</span> {doctor.description} </p>
+                    </div>
                 </div>
             </div>
             <table>
@@ -154,7 +156,7 @@ const Appointment = () => {
                     day={selectedDay}
                 >
                     <h3>
-                        <p>
+                        <p className="confirm-text">
                             Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
                             на {selectedDay} о {selectedTime}?
                         </p>

@@ -148,7 +148,7 @@ namespace Holy_locket.BLL.Services
             {
                 info.Add(await MapInfo(appointment));
             }
-
+            info.Reverse();
             return info;
         }
 

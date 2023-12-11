@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Registration.css';
+import './Registration.scss';
 import axios from "axios";
 import Modal_Appointment from "../../component/modal-appointment";
 
@@ -68,54 +68,56 @@ function Registration() {
     }
 
     return (
-        <div className="master">
+        <div className="container mx-auto cont">
             <form action="#" method="POST"  onSubmit={handleSubmit}>
                 <div className="master_2">
-                    <h2 className="header">Реєстрація</h2>
+                    <h2 className="header_regist">Реєстрація</h2>
                     <div className="input">
                         <input
+                            className="form-control mx-auto my-3"
                             placeholder="Ім'я"
                             type="text"
                             name="username"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
-                        <br />
 
                         <input
+                            className="form-control mx-auto my-3"
                             placeholder="Прізвище"
                             type="text"
                             name="surname"
                             value={surname}
                             onChange={(e) => setSurname(e.target.value)}
-                        /><br />
+                        />
 
                         <input
+                            className="form-control mx-auto my-3"
                             placeholder="Номер телефону"
                             type="tel"
                             name="usernumber"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
-                        /><br />
+                        />
 
                         <input
+                            className="form-control mx-auto my-3"
                             placeholder="Вам email"
                             type="email"
                             name="useremail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                        /><br />
+                        />
 
                         <input
                             placeholder="Ваш пароль"
                             type="password"
-                            name="user_password"
-                            value={password}
+                            className="form-control mx-auto my-3"
                             onChange={(e) => setPassword(e.target.value)}
-                        /><br />
+                        />
 
                     </div>
-                    <div className="button">
+                    <div className="md-mx-auto btn-reg">
                         <button className='button_left' type="submit">Зареєструватися</button>
                         <button className='button_right' type="reset">Уже маю аккаунт</button>
                     </div>
