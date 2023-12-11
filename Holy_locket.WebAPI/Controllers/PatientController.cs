@@ -26,7 +26,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var patient = await _patientService.GetPatientById(new LoginInfoDTO(id, token)).ConfigureAwait(false);
+                var patient = await _patientService.GetPatientById(new TokenInfoDTO(id, token)).ConfigureAwait(false);
                 return Ok(patient);
             }
             catch (Exception ex)
@@ -36,11 +36,11 @@ namespace Holy_locket.WebAPI.Controllers
         }
         [HttpPost()]
         [Route("login")]
-        public async Task<IActionResult> Login(string phone, string password)
+        public async Task<IActionResult> Login(LoginInfoDTO login)
         {
             try
             {
-                var result = await _patientService.CheckLogin(phone, password).ConfigureAwait(false);
+                var result = await _patientService.CheckLogin(login.phone, login.password).ConfigureAwait(false);
                 return result.token == null ? Unauthorized() : Ok(result);
             }
             catch (Exception ex)
