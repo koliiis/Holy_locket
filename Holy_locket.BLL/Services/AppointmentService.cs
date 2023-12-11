@@ -60,12 +60,6 @@ namespace Holy_locket.BLL.Services
                         if (j == times.Count - 1)
                             timeSlots.Add(tempList);
                     }
-                    else 
-                    {
-                        tempList.Add("");
-                        if (j == times.Count - 1)
-                            timeSlots.Add(tempList);
-                    }
                     
                 }
             }
