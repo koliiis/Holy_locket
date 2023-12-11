@@ -51,7 +51,7 @@ namespace Holy_locket.BLL.Services
 
             for (int i = 0; i < DAYS_COUNT; i++)
             {
-                List<string> tempList = new List<string>();
+                var tempList = new List<string>();
                 for (int j = 0; j < times.Count; j++)
                 {
                     if (DateTime.Parse(times[j].Split("-")[0]).TimeOfDay>DateTime.Now.TimeOfDay || i !=0) 
@@ -60,10 +60,15 @@ namespace Holy_locket.BLL.Services
                         if (j == times.Count - 1)
                             timeSlots.Add(tempList);
                     }
+                    else 
+                    {
+                        tempList.Add("");
+                        if (j == times.Count - 1)
+                            timeSlots.Add(tempList);
+                    }
                     
                 }
             }
-
             foreach (var item in appointments)
             {
                 if (DateTime.Parse(item.Date) == DateTime.Today && item.DoctorId == doctorId)
