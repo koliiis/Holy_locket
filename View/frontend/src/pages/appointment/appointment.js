@@ -41,10 +41,6 @@ const Appointment = () => {
 
     }, []);
 
-    console.log(time_slots[0])
-    if (time_slots[0] === null)
-        WorkWeek.shift();
-        dateArray.shift();
     const [visibleRows, setVisibleRows] = useState(4);
     const [showAllSlots, setShowAllSlots] = useState(false);
 

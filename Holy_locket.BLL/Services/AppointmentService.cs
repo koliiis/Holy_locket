@@ -60,11 +60,10 @@ namespace Holy_locket.BLL.Services
                         if (j == times.Count - 1)
                             timeSlots.Add(tempList);
                     }
-                    else 
+                    else
                     {
-                        tempList.Add(null);
                         if (j == times.Count - 1)
-                            timeSlots.Add(tempList);
+                            timeSlots.Add(new List<string>());
                     }
                     
                 }
@@ -77,6 +76,11 @@ namespace Holy_locket.BLL.Services
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
+            }
+            for (int i = 0; i < DAYS_COUNT; i++)
+            {
+                if (timeSlots[i].Count == 0) timeSlots[i].Add("Немає вільних слотів");
+                
             }
             return timeSlots;
         }
