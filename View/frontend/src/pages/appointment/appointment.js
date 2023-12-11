@@ -30,7 +30,7 @@ const Appointment = () => {
     const [selectedDay, setSelectedDay] = useState('');
 
     useEffect(() => {
-        axios.get('https://localhost:7172/api/Appointment/TimeSlots')
+        axios.get(`https://localhost:7172/api/Appointment/TimeSlots?DoctorId=${doctor.id}`)
             .then(response => {
                 setTime_slots(response.data);
                 console.log("Peremoga")
