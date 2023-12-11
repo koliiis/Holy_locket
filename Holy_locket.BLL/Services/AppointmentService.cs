@@ -48,7 +48,6 @@ namespace Holy_locket.BLL.Services
             int counter = 0;
             DateTime temp = DateTime.Today;
             const int DAYS_COUNT = 7;
-            appointments.Sort();
 
             for (int i = 0; i < DAYS_COUNT; i++)
             {
@@ -57,13 +56,12 @@ namespace Holy_locket.BLL.Services
                 {
                     string[] startTime = times[j].Split('-');
                     temp = DateTime.Parse(startTime[0]);
-                    if (DateTime.Now < temp)
+                    if (DateTime.Now < temp || i == 0)
                     {
                         tempList.Add(times[j]);
                         if (j == times.Count - 1)
                             timeSlots.Add(tempList);
                     }
-
                 }
             }
 

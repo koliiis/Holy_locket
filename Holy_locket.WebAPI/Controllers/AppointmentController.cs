@@ -25,7 +25,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpGet("{id}")]
@@ -38,7 +38,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpGet()]
@@ -58,14 +58,14 @@ namespace Holy_locket.WebAPI.Controllers
         [Route("TimeSlots")]
         public async Task<IActionResult> GetTimeAppointmentsSlots(int DoctorId)
         {
-            try
-            {
+            //try
+            //{
                 return Ok(await _appointmentService.GetTimeSlots(DoctorId).ConfigureAwait(false));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred while processing your request.");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
         [HttpPost]
         public async Task<IActionResult> PostAppointment(AppointmentDTO appointment)
@@ -77,7 +77,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpPut]
@@ -88,9 +88,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _appointmentService.UpdateAppointment(appointment).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpDelete("{id}")]
@@ -101,9 +101,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _appointmentService.DeleteAppointment(id).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpDelete]
@@ -115,9 +115,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _appointmentService.SoftDeleteAppointment(id).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
     }
