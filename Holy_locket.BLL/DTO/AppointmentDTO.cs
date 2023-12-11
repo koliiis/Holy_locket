@@ -16,7 +16,7 @@ namespace Holy_locket.BLL.DTO
         public int HospitalId { get; set; }
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
-
+        public bool Inactive { get; set; }
         public int CompareTo(AppointmentDTO? b)
         {
             DateTime d1 = DateTime.Parse(this.Date);
