@@ -23,11 +23,11 @@ namespace Holy_locket.WebAPI.Controllers
             _specialityService = specialityService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetDoctors(int minimumExpirience, int specialityId, string? gender, int rating)
+        public async Task<IActionResult> GetDoctors(int minimumExpirience, string? specialityName, string? gender, int rating)
         {
             try
             {
-                var list = await _doctorService.GetFiltered(minimumExpirience, specialityId, gender, rating);
+                var list = await _doctorService.GetFiltered(minimumExpirience, specialityName, gender, rating);
                 return Ok(list);
             }
             catch (Exception ex)
@@ -37,11 +37,11 @@ namespace Holy_locket.WebAPI.Controllers
         }
         [HttpGet]
         [Route("DoctorsPage")]
-        public async Task<IActionResult> GetDoctorsPage(int minimumExpirience, int specialityId, string? gender, int rating)
+        public async Task<IActionResult> GetDoctorsPage(int minimumExpirience, string? specialityName, string? gender, int rating)
         {
             try
             {
-                var doctors = await _doctorService.GetFiltered(minimumExpirience, specialityId, gender, rating);
+                var doctors = await _doctorService.GetFiltered(minimumExpirience, specialityName, gender, rating);
                 var specialityNames = (await _specialityService.GetAll()).Select(x => x.Name).ToList();
                 var result = new
                 {
