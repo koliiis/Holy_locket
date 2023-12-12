@@ -28,6 +28,7 @@ namespace Holy_locket.WebAPI.Controllers
             try
             {
                 var list = await _doctorService.GetFiltered(minimumExpirience, specialityName, gender, rating);
+
                 return Ok(list);
             }
             catch (Exception ex)
