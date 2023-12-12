@@ -48,41 +48,40 @@ namespace Holy_locket.BLL.Services
             int counter = 0;
             DateTime temp = DateTime.Today;
             const int DAYS_COUNT = 7;
-            appointments.Sort();
 
             for (int i = 0; i < DAYS_COUNT; i++)
             {
-                List<string> tempList = new List<string>();
+                var tempList = new List<string>();
                 for (int j = 0; j < times.Count; j++)
                 {
-                    string[] startTime = times[j].Split('-');
-                    temp = DateTime.Parse(startTime[0]);
-                    if (DateTime.Now < temp)
+                    if (DateTime.Parse(times[j].Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay || i != 0)
                     {
                         tempList.Add(times[j]);
                         if (j == times.Count - 1)
                             timeSlots.Add(tempList);
                     }
-
+                    else
+                    {
+                        if (j == times.Count - 1)
+                            timeSlots.Add(new List<string>());
+                    }
+                    
                 }
             }
-
             foreach (var item in appointments)
             {
-                if (DateTime.Parse(item.Date) == DateTime.Today && item.DoctorId == doctorId)
+                if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || (DateTime.Parse(item.Date) - DateTime.Today).Hours < 24))
                 {
-                    timeSlots[counter].Remove(item.Time);
-                    temp = DateTime.Parse(item.Date);
-                }
-
-                else if (temp <= DateTime.Parse(item.Date) && item.DoctorId == doctorId)
-                {
-                    counter += (DateTime.Parse(item.Date) - temp).Days;
+                    counter = (DateTime.Parse(item.Date) - DateTime.Today).Days;
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
             }
-
+            for (int i = 0; i < DAYS_COUNT; i++)
+            {
+                if (timeSlots[i].Count == 0) timeSlots[i].Add("Немає вільних слотів");
+                
+            }
             return timeSlots;
         }
 

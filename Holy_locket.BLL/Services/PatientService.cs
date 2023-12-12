@@ -41,7 +41,7 @@ namespace Holy_locket.BLL.Services
         {
             await _repository.Update(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
         }
-        public async Task<PatientDTO> GetPatientById(LoginInfoDTO loginInfo)
+        public async Task<PatientDTO> GetPatientById(TokenInfoDTO loginInfo)
         {
           
             if (await AuthService.CheckToken(_config, loginInfo).ConfigureAwait(false))
@@ -53,23 +53,23 @@ namespace Holy_locket.BLL.Services
                 return null;
         }
 
-        public async Task<LoginInfoDTO> CheckLogin(string Phone, string Password)
+        public async Task<TokenInfoDTO> CheckLogin(string Phone, string Password)
         {
             Expression<Func<Patient, bool>> filter = x => x.Phone == Phone;
             var result = await _repository.Get(filter);
             var patient = _mapper.Map<PatientDTO>(result.FirstOrDefault());
             if (patient == null)
             {
-                return new LoginInfoDTO(0, null);
+                return new TokenInfoDTO(0, null);
             }
             else if (patient.Password != Password)
             {
-                return new LoginInfoDTO(0, null);
+                return new TokenInfoDTO(0, null);
             }
             else
             {
                 var token = await AuthService.GenerateJSONWebToken(_config, patient.Id).ConfigureAwait(false);
-                return new LoginInfoDTO(patient.Id,token);
+                return new TokenInfoDTO(patient.Id,token);
             }
         }
 

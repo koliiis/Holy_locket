@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ namespace Holy_locket.DAL.Repositories
                    .WithOne(a => a.Doctor)
                    .HasForeignKey(a => a.DoctorId)
                    .IsRequired();
+            modelBuilder.Entity<Doctor>()
+                   .HasMany(a => a.RatingList)
+                   .WithOne(a => a.Doctor)
+                   .HasForeignKey(a => a.DoctorId)
+                   .IsRequired();
             modelBuilder.Entity<Hospital>()
                    .HasMany(h => h.AppointmentList)
                    .WithOne(a => a.Hospital)
@@ -34,12 +40,18 @@ namespace Holy_locket.DAL.Repositories
                    .WithOne(a => a.Patient)
                    .HasForeignKey(a => a.PatientId)
                    .IsRequired();
+            modelBuilder.Entity<Patient>()
+                   .HasMany(p => p.RatingList)
+                   .WithOne(a => a.Patient)
+                   .HasForeignKey(a => a.PatientId)
+                   .IsRequired();
+           
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=holy_db;Trusted_Connection=True;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-O252DHK\\SQLEXPRESS;Database=Holy_locketDB;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
         public DbSet<Appointment> Appointments { get; set; }
@@ -47,5 +59,6 @@ namespace Holy_locket.DAL.Repositories
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }

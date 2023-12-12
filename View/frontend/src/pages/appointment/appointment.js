@@ -44,6 +44,10 @@ const Appointment = () => {
     const [visibleRows, setVisibleRows] = useState(4);
     const [showAllSlots, setShowAllSlots] = useState(false);
 
+    const block_timeslots = "Немає вільних слотів";
+
+
+    console.log(time_slots[2])
     const renderTimeSlots = () => {
         return (
             <>
@@ -66,13 +70,16 @@ const Appointment = () => {
                                 {/* Для каждой колонки показываем таймслот, если он есть */}
                                 {time_slots.map((slots, dayIndex) => (
                                     <td key={dayIndex}>
-                                        {slots[timeIndex] && (
+                                        {slots[timeIndex] && slots[timeIndex] != block_timeslots &&(
                                             <button
                                                 className="time-btn"
                                                 onClick={() => handleTimeSelection(slots[timeIndex], WorkWeek[dayIndex], dateArray[dayIndex])}
                                             >
                                                 {slots[timeIndex]}
                                             </button>
+                                        )}
+                                        {slots[timeIndex] && slots[timeIndex] === block_timeslots &&(
+                                            <button>{slots[timeIndex]}</button>
                                         )}
                                     </td>
                                 ))}

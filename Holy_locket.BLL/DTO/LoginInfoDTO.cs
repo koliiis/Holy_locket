@@ -8,13 +8,12 @@ namespace Holy_locket.BLL.DTO
 {
     public class LoginInfoDTO
     {
-        public LoginInfoDTO(int Id,string Token) 
-        { 
-            id = Id;
-            token= Token;
+        public LoginInfoDTO(string phone, string password) 
+        {
+            this.phone = phone;
+            this.password = password;
         }
-
-        public int id { get; set; }
-        public string token { get; set; }
+        public string phone { get; set; }
+        public string password { get; set; }    
     }
 }
