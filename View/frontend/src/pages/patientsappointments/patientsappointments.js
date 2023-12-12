@@ -47,6 +47,7 @@ function Patientsappointments() {
                         <p className="p1">Кабінет: {infapp.hospitalId}</p>
                     </div>
                     <img className="div5" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
+
                 </div>
             ))}
         </div>

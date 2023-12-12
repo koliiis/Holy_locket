@@ -46,8 +46,6 @@ const Appointment = () => {
 
     const block_timeslots = "Немає вільних слотів";
 
-
-    console.log(time_slots[2])
     const renderTimeSlots = () => {
         return (
             <>
