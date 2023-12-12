@@ -1,4 +1,4 @@
-import cReact, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./appointment.scss";
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
