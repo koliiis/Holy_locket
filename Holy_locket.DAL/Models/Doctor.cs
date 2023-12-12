@@ -28,6 +28,7 @@ namespace Holy_locket.DAL.Models
         public string Phone { get; set; }
         public int Experience { get; set; }
         public string? Photo { get; set; }
+        public double Rating { get; set; }
         public int SpecialityId { get; set; }
         [NotMapped]
         public Speciality Speciality { get; set; }

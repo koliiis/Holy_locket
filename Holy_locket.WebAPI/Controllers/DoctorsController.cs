@@ -16,17 +16,39 @@ namespace Holy_locket.WebAPI.Controllers
     public class DoctorsController : ControllerBase
     {
         IDoctorService _doctorService;
-        public DoctorsController(IDoctorService doctorService)
+        ISpecialityService _specialityService;
+        public DoctorsController(IDoctorService doctorService, ISpecialityService specialityService)
         {
             _doctorService = doctorService;
+            _specialityService = specialityService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetDoctors(int minimumExpirience, int specialityId, string? gender)
+        public async Task<IActionResult> GetDoctors(int minimumExpirience, int specialityId, string? gender, int rating)
         {
             try
             {
-                var list = await _doctorService.GetFiltered(minimumExpirience, specialityId, gender);
+                var list = await _doctorService.GetFiltered(minimumExpirience, specialityId, gender, rating);
                 return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+        [HttpGet]
+        [Route("DoctorsPage")]
+        public async Task<IActionResult> GetDoctorsPage(int minimumExpirience, int specialityId, string? gender, int rating)
+        {
+            try
+            {
+                var doctors = await _doctorService.GetFiltered(minimumExpirience, specialityId, gender, rating);
+                var specialityNames = (await _specialityService.GetAll()).Select(x => x.Name).ToList();
+                var result = new
+                {
+                    Doctors = doctors,
+                    SpecialityNames = specialityNames
+                };
+                return Ok(result);
             }
             catch (Exception ex)
             {

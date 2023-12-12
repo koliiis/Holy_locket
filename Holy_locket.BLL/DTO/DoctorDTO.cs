@@ -21,5 +21,6 @@ namespace Holy_locket.BLL.DTO
         public int Experience { get; set; }
         public int SpecialityId { get; set; }
         public string SpecialityName { get; set; }
+        public double Rating { get; set; }
     }
 }
