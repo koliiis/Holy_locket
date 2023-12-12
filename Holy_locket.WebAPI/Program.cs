@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+Console.WriteLine((int)DateTime.Now.DayOfWeek);
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<HolyLocketContext>();
