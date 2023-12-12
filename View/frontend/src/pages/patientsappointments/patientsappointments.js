@@ -8,7 +8,9 @@ function Patientsappointments() {
     const [InfoApp, setInfoApp] = useState([]);
 
     useEffect(() => {
-        axios.get('https://localhost:7172/api/Appointment/InfoPatient?id=1')
+        const idUser = sessionStorage.getItem('idUser');
+
+        axios.get(`https://localhost:7172/api/Appointment/InfoPatient?id=${idUser}`)
             .then(response => {
                 setInfoApp(response.data);
             })

@@ -70,7 +70,7 @@ namespace Holy_locket.BLL.Services
             }
             foreach (var item in appointments)
             {
-                if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || (DateTime.Parse(item.Date) - DateTime.Today).Hours < 24))
+                if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || (DateTime.Parse(item.Date) - DateTime.Today).Hours < 24) && (item.DoctorId == doctorId))
                 {
                     counter = (DateTime.Parse(item.Date) - DateTime.Today).Days;
                     timeSlots[counter].Remove(item.Time);
