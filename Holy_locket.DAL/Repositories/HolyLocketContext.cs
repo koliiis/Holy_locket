@@ -30,6 +30,11 @@ namespace Holy_locket.DAL.Repositories
                    .WithOne(a => a.Doctor)
                    .HasForeignKey(a => a.DoctorId)
                    .IsRequired();
+            modelBuilder.Entity<Doctor>()
+                  .HasMany(a => a.TimesForDayList)
+                  .WithOne(a => a.Doctor)
+                  .HasForeignKey(a => a.DoctorId)
+                  .IsRequired();
             modelBuilder.Entity<Hospital>()
                    .HasMany(h => h.AppointmentList)
                    .WithOne(a => a.Hospital)
@@ -45,7 +50,12 @@ namespace Holy_locket.DAL.Repositories
                    .WithOne(a => a.Patient)
                    .HasForeignKey(a => a.PatientId)
                    .IsRequired();
-           
+            modelBuilder.Entity<TimesForDay>()
+                   .HasMany(a => a.TimeSlotList)
+                   .WithOne(a => a.TimesForDay)
+                   .HasForeignKey(a => a.TimesForDayId)
+                   .IsRequired();
+
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

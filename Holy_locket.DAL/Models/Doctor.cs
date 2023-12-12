@@ -35,5 +35,6 @@ namespace Holy_locket.DAL.Models
         public ICollection<Appointment> AppointmentList { get; set; }
         [NotMapped]
         public ICollection<Rating> RatingList { get; set; }
+        public ICollection<TimesForDay> TimesForDayList { get; set; }
     }
 }
