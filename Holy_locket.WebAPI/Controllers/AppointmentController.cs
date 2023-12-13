@@ -54,19 +54,6 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet()]
-        [Route("TimeSlots")]
-        public async Task<IActionResult> GetTimeAppointmentsSlots(int DoctorId)
-        {
-            //try
-            //{
-                return Ok(await _appointmentService.GetTimeSlots(DoctorId).ConfigureAwait(false));
-            //}
-            //catch (Exception ex)
-            //{
-            //    return StatusCode(500, ex.Message);
-            //}
-        }
         [HttpPost]
         public async Task<IActionResult> PostAppointment(AppointmentDTO appointment)
         {

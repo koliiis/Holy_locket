@@ -72,15 +72,15 @@ namespace Holy_locket.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostDoctors(DoctorDTO doctor)
         {
-            try
-            {
+            //try
+            //{
                 await _doctorService.AddDoctor(doctor).ConfigureAwait(false);
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred while processing your request.");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
         [HttpPut]
         public async Task<IActionResult> PutDoctors(DoctorDTO doctor)
