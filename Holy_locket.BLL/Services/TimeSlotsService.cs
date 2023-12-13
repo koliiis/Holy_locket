@@ -30,12 +30,13 @@ namespace Holy_locket.BLL.Services
         {
             var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
             var timesForDays = (await _timesForDayRepository.Get()).Where(x => x.DoctorId == doctorId).ToList();
+
             int day = (int)DateTime.Now.DayOfWeek;
             List<TimesForDay> result = timesForDays.GetRange(day, timesForDays.Count() - day);
             result.AddRange(timesForDays.GetRange(0, day));
 
             var times = new List<List<string>>();
-            foreach (var item in timesForDays)
+            foreach (var item in result)
             {
                 var ts = _mapper.Map<List<TimeSlotDTO>>(await _timeSlotRepository.Get());
                 var list = ts
