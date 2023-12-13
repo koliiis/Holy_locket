@@ -20,13 +20,14 @@ namespace Holy_locket.BLL.Services
     public class AppointmentService : IAppointmentService
     {
         private readonly IRepository<Appointment> _appointmentRepository;
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ISpecialityService _specialityService;
         private readonly IPatientService _patientService;
         private readonly IDoctorService _doctorService;
         private readonly IRepository<Appointment> _repository;
-        private readonly IConfiguration config;
+       
 
         public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
         {
@@ -41,6 +42,8 @@ namespace Holy_locket.BLL.Services
 
         public async Task<List<List<string>>> GetTimeSlots(int doctorId)
         {
+
+
             var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
             var timeSlots = new List<List<string>>();
             List<string> times = new List<string>() {"12:00-12:30","12:30-13:00","13:00-13:30","13:30-14:00","14:00-14:30","14:30-15:00", "15:00-15:30",
