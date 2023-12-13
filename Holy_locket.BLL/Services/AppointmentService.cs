@@ -26,7 +26,6 @@ namespace Holy_locket.BLL.Services
         private readonly IPatientService _patientService;
         private readonly IDoctorService _doctorService;
        
-
         public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
@@ -36,55 +35,6 @@ namespace Holy_locket.BLL.Services
             _patientService = patientService;
             _doctorService = doctorService;
         }
-
-        public async Task<List<List<string>>> GetTimeSlots(int doctorId)
-        {
-
-
-            var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
-            var timeSlots = new List<List<string>>();
-            List<string> times = new List<string>() {"12:00-12:30","12:30-13:00","13:00-13:30","13:30-14:00","14:00-14:30","14:30-15:00", "15:00-15:30",
-                                                    "15:30-16:00", "16:00-16:30", "16:30-17:00", "17:00-17:30", "17:30-18:00"};
-            int counter = 0;
-            DateTime temp = DateTime.Today;
-            const int DAYS_COUNT = 7;
-
-            for (int i = 0; i < DAYS_COUNT; i++)
-            {
-                var tempList = new List<string>();
-                for (int j = 0; j < times.Count; j++)
-                {
-                    if (DateTime.Parse(times[j].Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay || i != 0)
-                    {
-                        tempList.Add(times[j]);
-                        if (j == times.Count - 1)
-                            timeSlots.Add(tempList);
-                    }
-                    else
-                    {
-                        if (j == times.Count - 1)
-                            timeSlots.Add(new List<string>());
-                    }
-                    
-                }
-            }
-            foreach (var item in appointments)
-            {
-                if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || (DateTime.Parse(item.Date) - DateTime.Today).Hours < 24))
-                {
-                    counter = (DateTime.Parse(item.Date) - DateTime.Today).Days;
-                    timeSlots[counter].Remove(item.Time);
-                    temp = DateTime.Parse(item.Date);
-                }
-            }
-            for (int i = 0; i < DAYS_COUNT; i++)
-            {
-                if (timeSlots[i].Count == 0) timeSlots[i].Add("Немає вільних слотів");
-                
-            }
-            return timeSlots;
-        }
-
         public async Task<AppointmentInfoDTO> MapInfo(AppointmentInfoDTO info)
         {
             var doctor = await _doctorService.GetDoctorById(info.DoctorId);
