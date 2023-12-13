@@ -10,13 +10,10 @@ namespace Holy_locket.WebAPI.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        ITimeSlotsService _timeSlotsService;
         IAppointmentService _appointmentService;
-        public AppointmentController(IAppointmentService appointmentService, ITimeSlotsService timeSlotsService)
+        public AppointmentController(IAppointmentService appointmentService)
         {
-
             _appointmentService = appointmentService;
-            _timeSlotsService = timeSlotsService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllAppointments()
@@ -59,44 +56,29 @@ namespace Holy_locket.WebAPI.Controllers
         }
         [HttpGet()]
         [Route("TimeSlots")]
-        public async Task<IActionResult> GetDoctors(int doctorId)
+        public async Task<IActionResult> GetTimeAppointmentsSlots(int DoctorId)
         {
-            try
-            {
-                var list = await _timeSlotsService.GetTimeSlots(doctorId).ConfigureAwait(false);
-                return Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-        [HttpPost]
-        [Route("TimeSlots")]
-        public async Task<IActionResult> PostDoctors(List<List<string>> times, int doctorId)
-        {
-            try
-            {
-                await _timeSlotsService.PostTimeSlots(times, doctorId).ConfigureAwait(false);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            //try
+            //{
+                return Ok(await _appointmentService.GetTimeSlots(DoctorId).ConfigureAwait(false));
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
         [HttpPost]
         public async Task<IActionResult> PostAppointment(AppointmentDTO appointment)
         {
-            try
-            {
+            //try
+            //{
                 await _appointmentService.AddAppointment(appointment).ConfigureAwait(false);
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
         [HttpPut]
         public async Task<IActionResult> PutAppointment(AppointmentDTO appointment)

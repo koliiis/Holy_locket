@@ -15,20 +15,20 @@ namespace Holy_locket.WebAPI.Controllers
             _timeSlotsService = timeSlotsService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetDoctors(int doctorId)
+        public async Task<IActionResult> GetTimeSlots(int doctorId)
         {
-            try
-            {
+            //try
+            //{
                 var list = await _timeSlotsService.GetTimeSlots(doctorId).ConfigureAwait(false);
                 return Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
         [HttpPost]
-        public async Task<IActionResult> PostDoctors(List<List<string>> times, int doctorId)
+        public async Task<IActionResult> PostTimeSlots(List<List<string>> times, int doctorId)
         {
             try
             {
