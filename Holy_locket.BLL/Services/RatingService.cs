@@ -14,6 +14,7 @@ namespace Holy_locket.BLL.Services
     public class RatingService : IRatingService
     {
         private readonly IRepository<Rating> _repository;
+        private readonly IRepository<Doctor> _docRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public RatingService(IUnitOfWork unitOfWork, IMapper mapper)
@@ -21,10 +22,15 @@ namespace Holy_locket.BLL.Services
             _unitOfWork = unitOfWork;
             _repository = _unitOfWork.GetRepository<Rating>();
             _mapper = mapper;
+            _docRepository = _unitOfWork.GetRepository<Doctor>();
         }
         public async Task AddRating(RatingDTO rating)
         {
             await _repository.Create(_mapper.Map<Rating>(rating)).ConfigureAwait(false);
+            var averageRating = (await _repository.Get().ConfigureAwait(false)).Where(a => a.DoctorId == rating.DoctorId).Average(item => item.Rate);
+            var doctor = await _docRepository.GetById(rating.DoctorId);
+            doctor.Rating = averageRating;
+            await _docRepository.Update(doctor);
         }
         public async Task DeleteRating(int id)
         {
