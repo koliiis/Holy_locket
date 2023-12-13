@@ -10,10 +10,13 @@ namespace Holy_locket.WebAPI.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
+        ITimeSlotsService _timeSlotsService;
         IAppointmentService _appointmentService;
-        public AppointmentController(IAppointmentService appointmentService)
+        public AppointmentController(IAppointmentService appointmentService, ITimeSlotsService timeSlotsService)
         {
+
             _appointmentService = appointmentService;
+            _timeSlotsService = timeSlotsService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllAppointments()
@@ -56,16 +59,31 @@ namespace Holy_locket.WebAPI.Controllers
         }
         [HttpGet()]
         [Route("TimeSlots")]
-        public async Task<IActionResult> GetTimeAppointmentsSlots(int DoctorId)
+        public async Task<IActionResult> GetDoctors(int doctorId)
         {
-            //try
-            //{
-                return Ok(await _appointmentService.GetTimeSlots(DoctorId).ConfigureAwait(false));
-            //}
-            //catch (Exception ex)
-            //{
-            //    return StatusCode(500, ex.Message);
-            //}
+            try
+            {
+                var list = await _timeSlotsService.GetTimeSlots(doctorId).ConfigureAwait(false);
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("TimeSlots")]
+        public async Task<IActionResult> PostDoctors(List<List<string>> times, int doctorId)
+        {
+            try
+            {
+                await _timeSlotsService.PostTimeSlots(times, doctorId).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpPost]
         public async Task<IActionResult> PostAppointment(AppointmentDTO appointment)

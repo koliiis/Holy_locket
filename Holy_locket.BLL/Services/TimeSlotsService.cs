@@ -48,41 +48,33 @@ namespace Holy_locket.BLL.Services
             //                                        "15:30-16:00", "16:00-16:30", "16:30-17:00", "17:00-17:30", "17:30-18:00"};
             int counter = 0;
             DateTime temp = DateTime.Today;
-
             for (int i = 0; i < 7; i++)
             {
                 var tempList = new List<string>();
-                for (int j = 0; j < times[i].Count; j++)
+                foreach (var time in times[i])
                 {
-                    if (DateTime.Parse(times[i][j].Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay || i != 0)
+                    if ((DateTime.Parse(time.Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay || i !=0) && time != null)
                     {
-                        tempList.Add(times[i][j]);
-                        if (j == times.Count - 1)
-                            timeSlots.Add(tempList);
+                        tempList.Add(time);
                     }
-                    else
-                    {
-                        if (j == times.Count - 1)
-                            timeSlots.Add(new List<string>());
-                    }
-
                 }
+                timeSlots.Add(tempList);
             }
             foreach (var item in appointments)
             {
-                if (DateTime.Parse(item.Date) >= DateTime.Today.Date)
+                if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || (DateTime.Parse(item.Date) - DateTime.Today).Hours < 24))
                 {
                     counter = (DateTime.Parse(item.Date) - DateTime.Today).Days;
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
             }
-            //for (int i = 0; i < 7; i++)
-            //{
-            //    if (timeSlots[i].Count == 0) timeSlots[i].Add("Немає вільних слотів");
+            for (int i = 0; i < 7; i++)
+            {
+                if (timeSlots[i].Count == 0) timeSlots[i].Add("Немає вільних слотів");
 
-            //}
-            return times;
+            }
+            return timeSlots;
         }
 
         public async Task PostTimeSlots(List<List<string>> times, int doctorId)
