@@ -113,12 +113,15 @@ const Appointment = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const idUser = sessionStorage.getItem('idUser');
+
         axios.post('https://localhost:7172/api/Appointment', {
             time: selectedTime,
             date: selectedDay,
             hospitalId: 1,
             doctorId: doctor.id,
-            patientId: 1,
+            patientId: idUser,
         })
 
             .then((response) => {
