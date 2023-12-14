@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './doctors.scss';
 import { useNavigate } from 'react-router-dom';
+import {sassNull} from "sass";
 
 function truncateText(text, maxLength) {
     if (text.length <= maxLength) {
@@ -16,14 +17,20 @@ function truncateText(text, maxLength) {
 function Doctors() {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
+    const [specialityName, setSpecialityName] = useState([]);
     const [selectedSpecialization, setSelectedSpecialization] = useState(null);
     const [selectedExperience, setSelectedExperience] = useState(null);
     const [selectedGender, setSelectedGender] = useState(null);
+    const [selectedRating, setSelectedRating] = useState(null);
 
-    const fetchDoctors = (spec, exp = 0, gen) => {
-        console.log(spec, exp, gen)
-        exp = exp === null ? 0 : exp;
-        axios.get(`https://localhost:7172/api/Doctors?minimumExpirience=${exp}&specialityId=0&gender=`)
+    const years_exp = [1, 3, 5, 7, 9, 12, 15];
+    const rating = [1, 2, 3, 4, 5];
+
+    const fetchDoctors = (spec, exp, gen, rat) => {
+
+        console.log(spec, exp, gen, rat)
+
+        axios.get(`https://localhost:7172/api/Doctors?minimumExpirience=${exp === null ? 0 : exp}&specialityName=${spec === null ? '' : spec}&gender=${gen === null ? '' : gen}&rating=${rat === null ? 0 : rat}`)
             .then(response => {
                 setDoctors(response.data);
             })
@@ -33,21 +40,31 @@ function Doctors() {
     };
 
     useEffect(() => {
+        axios.get('https://localhost:7172/api/Speciality')
+            .then(response => {
+                setSpecialityName(response.data);
+            })
+            .catch(error => {
+                console.error("Помилка при отриманні даних:", error);
+            });
+    }, []);
+
+
+    useEffect(() => {
         // Вызов функции при загрузке компонента
-        fetchDoctors(selectedSpecialization, selectedExperience, selectedGender);
-    }, [selectedSpecialization, selectedExperience, selectedGender]);
+        fetchDoctors(selectedSpecialization, selectedExperience, selectedGender, selectedRating);
+    }, [selectedSpecialization, selectedExperience, selectedGender, selectedRating]);
 
     const handleNavigateToAppointment = (doctor) => {
         navigate('/appointment', { state: { doctor } });
     };
 
-    const years_exp = [1, 3, 5, 7, 9, 12, 15];
-
     const handleSelect = (value, type) => {
         const handlers = {
             specialization: setSelectedSpecialization,
             experience: setSelectedExperience,
-            gender: setSelectedGender
+            gender: setSelectedGender,
+            rating: setSelectedRating
         };
 
         const handler = handlers[type];
@@ -58,7 +75,7 @@ function Doctors() {
     };
 
     const handleConfirmFilter = () => {
-        fetchDoctors(selectedSpecialization, selectedExperience, selectedGender);
+        fetchDoctors(selectedSpecialization, selectedExperience, selectedGender, selectedRating);
     };
 
     return (
@@ -77,12 +94,20 @@ function Doctors() {
                                 {selectedSpecialization || 'Спеціалізація'}
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="specializationDropdown">
-                                <li><a className="dropdown-item" onClick={() => handleSelect('Action', 'specialization')}>Action</a><br/></li>
-                                <li><a className="dropdown-item" onClick={() => handleSelect('Another action', 'specialization')}>Another action</a><br/></li>
-                                <li><a className="dropdown-item" onClick={() => handleSelect('Something else here', 'specialization')}>Something else here</a><br/></li>
+                                {specialityName.map(speciality => (
+                                    <li key={speciality.id}>
+                                        <a
+                                            className="dropdown-item"
+                                            onClick={() => handleSelect(speciality.name, 'specialization')}
+                                        >
+                                            {speciality.name}
+                                        </a><br/>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </li>
+
                     <li>
                         <div className="dropdown filt-btn">
                             <a
@@ -108,6 +133,7 @@ function Doctors() {
                             </ul>
                         </div>
                     </li>
+
                     <li>
                         <div className="dropdown filt-btn">
                             <a
@@ -119,15 +145,41 @@ function Doctors() {
                                 {selectedGender || 'Стать'}
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="genderDropdown">
-                                <li><a className="dropdown-item" onClick={() => handleSelect('Чоловік', 'gender')}>Чоловік</a><br/></li>
-                                <li><a className="dropdown-item" onClick={() => handleSelect('Жінка', 'gender')}>Жінка</a><br/></li>
+                                <li><a className="dropdown-item"
+                                       onClick={() => handleSelect('Чоловік', 'gender')}>Чоловік</a><br/></li>
+                                <li><a className="dropdown-item"
+                                       onClick={() => handleSelect('Жінка', 'gender')}>Жінка</a><br/></li>
                             </ul>
                         </div>
                     </li>
+
                     <li>
-                        <button className='filt-btn'>Оцінка</button>
+                        <li>
+                            <div className="dropdown filt-btn">
+                                <a
+                                    className="btn btn-secondary dropdown-toggle"
+                                    role="button"
+                                    id="experienceDropdown"
+                                    data-bs-toggle="dropdown"
+                                >
+                                    {selectedRating === null ? 'Оцінка' : selectedRating +'★'}
+                                </a>
+                                <ul className="dropdown-menu " aria-labelledby="experienceDropdown">
+                                    {rating.map(stars => (
+                                        <li key={stars}>
+                                            <a
+                                                className="dropdown-item"
+                                                onClick={() => handleSelect(stars, 'rating')}
+                                            >
+                                                {Array.from({ length: stars }, () => '★').join('')}
+                                            </a>
+                                            <br/>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </li>
                     </li>
-                    <button className="confirm_filt" onClick={handleConfirmFilter}>Підтвердити</button>
                 </ul>
             </div>
             <div className="col-xxl-10 col-md-8 roww">
@@ -150,7 +202,9 @@ function Doctors() {
                                     {truncateText(doctor.description, 100)}
                                 </div>
                             </div>
-                            <button className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись</button>
+                            <button
+                                className="more_info" onClick={() => handleNavigateToAppointment(doctor)}>Дізнатись
+                            </button>
                         </div>
                     ))}
                 </div>
