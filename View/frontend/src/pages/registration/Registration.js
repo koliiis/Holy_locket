@@ -73,6 +73,7 @@ function Registration() {
                 <div className="master_2">
                     <h2 className="header_regist">Реєстрація</h2>
                     <div className="input">
+
                         <input
                             className="form-control mx-auto my-3"
                             placeholder="Ім'я"

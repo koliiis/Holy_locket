@@ -19,7 +19,12 @@ function Login() {
 
             const jwtToken = response.data.token;
 
+            const idUser = response.data.id;
+
+            console.log(jwtToken, idUser);
+
             sessionStorage.setItem('jwtToken', jwtToken);
+            sessionStorage.setItem('idUser', idUser);
 
             navigate('/landing');
 

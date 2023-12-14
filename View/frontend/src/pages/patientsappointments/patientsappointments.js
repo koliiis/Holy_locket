@@ -8,7 +8,9 @@ function Patientsappointments() {
     const [InfoApp, setInfoApp] = useState([]);
 
     useEffect(() => {
-        axios.get('https://localhost:7172/api/Appointment/InfoPatient?id=1')
+        const idUser = sessionStorage.getItem('idUser');
+
+        axios.get(`https://localhost:7172/api/Appointment/InfoPatient?id=${idUser}`)
             .then(response => {
                 setInfoApp(response.data);
             })
@@ -47,6 +49,7 @@ function Patientsappointments() {
                         <p className="p1">Кабінет: {infapp.hospitalId}</p>
                     </div>
                     <img className="div5" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
+
                 </div>
             ))}
         </div>

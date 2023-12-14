@@ -44,6 +44,11 @@
     margin-bottom: -30px;
 }
 
+.dropdown-menu {
+    width: auto;
+    min-width: 100px;
+}
+
 .card-container {
     margin-top: 20px;
     margin-left: -20px;
@@ -119,6 +124,8 @@
         margin-left: 5px;
     }
 }
+
+
 
 @media screen and (max-width: 1450px) {
     .card-container {
