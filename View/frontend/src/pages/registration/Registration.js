@@ -139,8 +139,10 @@ function Registration() {
                     </div>
 
                     <div className="md-mx-auto btn-reg">
-                        <button className='button_left' type="submit">Зареєструватися</button>
-                        <button className='button_right' type="reset">Уже маю аккаунт</button>
+                        <button className='button_reg' type="submit">Зареєструватися</button>
+                    </div>
+                    <div className='footer_reg'>
+                        Вже маєте зареєстрований акаунт? <a className="link_login" href="/login">Вхід в акаунт</a>
                     </div>
                 </div>
             </form>

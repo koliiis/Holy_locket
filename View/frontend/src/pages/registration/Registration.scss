@@ -66,38 +66,38 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="password
     }
 }
 
-.input {
-    justify-content: center;
-    border-radius: 15px;
-
-    &:focus {
-        background-color: #BCE4D1;
-        box-shadow: #BCE4D1;
-    }
-}
-
 .form-control {
     background: transparent;
     color: white;
     border-radius: 0px;
 }
 
-button:hover {
-    background: #407C51;
-}
+.button_reg {
+    margin: 5px 0 20px 95px;
+    padding: 7px 40px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 
-.button_left, .button_right {
-    width: 200px;
-    height: 37px;
-}
+    &:hover {
+        background-color: #23c483;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
 
-
-.button_left {
-    margin-right: 30px;
-}
-
-.btn-reg {
-    margin: 45px 0 20px 0;
+    &:active {
+        transform: translateY(-1px);
+    }
 }
 
 .cont {
@@ -110,13 +110,31 @@ button:hover {
     margin-top: -2%;
 }
 
+
+
 .master_2 {
+    width: 500px;
     border: 3px solid #FFFF;
     border-radius: 12px;
     padding: 30px;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.4);
     background: transparent;
     backdrop-filter: blur(30px);
+
+    .footer_reg {
+        color: white;
+
+        .link_login {
+            color:  deepskyblue;
+            border-bottom: none;
+            text-decoration: none;
+
+
+            &:hover {
+                filter: drop-shadow(0px 3px 3px  rgba(46, 229, 157, 0.4));
+            }
+        }
+    }
 }
 
 .confirm {
@@ -140,31 +158,76 @@ button:hover {
     padding: 25px;
 }
 
-@media screen and (max-width: 632px) {
+@media screen and (max-width: 520px) {
     .cont {
-        .inputее {
-            .button_right, .button_left {
-                width: 150px;
+
+        .master_2 {
+            width: 400px;
+
+            .header_regist {
+                margin-left: -10px;
+                font-size: 35px;
             }
+        }
+
+        .inputее {
+            margin-left: -50px;
+        }
+
+        .button_reg {
+            margin-left: 50px;
         }
     }
 }
 
-@media screen and (max-width: 520px) {
-    .cont {
-        .inputее {
-            margin-left: -40px;
-        }
 
-        .btn-reg{
-            padding-left: 50px;
-            margin-top: 25px;
-            .button_right, .button_left {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 200px;
-                margin-bottom: 20px;
+@media screen and (max-width: 400px) {
+    .cont {
+        .master_2 {
+            max-width: 250px;
+
+            .button_reg {
+                padding: 4px 10px;
+                font-size: 10px;
+                margin-left: 30px;
+            }
+
+            .header_regist {
+                font-size: 22px;
+                margin-bottom: 15px;
+                margin-top: -10px;
+            }
+
+            .inputее {
+                margin-left: -45px;
+
+                .input-box {
+                    margin-bottom: -5px;
+
+                    &:nth-child(even) {
+                        margin-left: 20px;
+                    }
+
+                    .reg_inpt:valid ~span,
+                    .reg_inpt:focus ~span {
+                        color: #c9cbc8;
+                        transform: translateX(5px) translateY(-17px);
+                        font-size: 0,75em;
+                    }
+                }
+
+                .reg_inpt {
+                    width: 150px;
+                    font-size: 12px;
+                }
+
+                span {
+                    font-size: 11px;;
+                }
+            }
+            .footer_reg {
+                font-size: 12px;
+                margin-bottom: -20px;
             }
         }
     }
