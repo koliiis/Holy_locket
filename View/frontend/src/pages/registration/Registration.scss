@@ -1,26 +1,74 @@
-@import url('https://fonts.googleapis.com/css?family=Anton');
+//@import url('https://fonts.cdnfonts.com/css/bitter');
+@import url('https://fonts.cdnfonts.com/css/roboto');
+@import url('https://fonts.cdnfonts.com/css/getvoip-grotesque');
+
 
 .header_regist {
     text-align: center;
     margin-bottom: 30px;
     font-size: 50px;
-    font-family: 'Anton', sans-serif;
+    font-family: 'GetVoIP Grotesque', sans-serif;
     font-weight: bold;
-    color: #595959;
+    color: #FFFFFF;
 }
 
 input[type="text"], input[type="tel"], input[type="email"], input[type="password"] {
     width: 300px;
     height: 40px;
     font-size: 14px;
-    box-shadow: 0 5px 5px 0 #B1D3BB;
+    border: none;
+    border-bottom: 2px solid #FFFFFF;
 }
 
-input, .form-control {
-    padding-left: 25px;
-    margin: 0 0 10px 0;
+.input-box {
+    position: relative;
+    width: 196px;
+    margin-left: 70px;
+    margin-bottom: 30px;
+
+    .reg_inpt {
+        position: relative;
+        padding: 5px 10px 5px;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        color: white;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+        z-index: 10;
+    }
+
+    span {
+        //font-family: 'GetVoIP Grotesque', sans-serif;
+        font-family: 'Roboto Medium', sans-serif;
+        top: 27%;
+        position: absolute;
+        left: 5%;
+        padding: -20px 10px 10px;
+        font-size: 1em;
+        color: #f0f8ff;
+        letter-spacing: 00.05em;
+        transition: 0.5s;
+        pointer-events: none;
+    }
+
+    .reg_inpt:valid ~span,
+    .reg_inpt:focus ~span {
+        color: #c9cbc8;
+        transform: translateX(5px) translateY(-30px);
+        font-size: 0,75em;
+    }
+
+     .reg_inpt:valid ~i,
+     .reg_inpt:focus ~i {
+        height: 44px;
+    }
+}
+
+.input {
+    justify-content: center;
     border-radius: 15px;
-    background: #BCE4D1;
 
     &:focus {
         background-color: #BCE4D1;
@@ -28,13 +76,21 @@ input, .form-control {
     }
 }
 
-input:focus, .form-control {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+.form-control {
+    background: transparent;
+    color: white;
+    border-radius: 0px;
 }
 
 button:hover {
     background: #407C51;
 }
+
+.button_left, .button_right {
+    width: 200px;
+    height: 37px;
+}
+
 
 .button_left {
     margin-right: 30px;
@@ -50,18 +106,17 @@ button:hover {
     align-items: center;
     max-width: 100%;
     min-height: 95vh;
-    background: url("regisrt.png") round;
+    background: url(https://png.pngtree.com/background/20230411/original/pngtree-medical-health-organ-blue-background-picture-image_2391945.jpg) round;
     margin-top: -2%;
 }
 
 .master_2 {
-    border-width: 10px;
-    border-style: solid;
-    border-image: linear-gradient(to right, rgb(232, 230, 230) 35%, rgb(177, 211, 187) 100%);
-    border-image-slice: 1;
+    border: 3px solid #FFFF;
+    border-radius: 12px;
     padding: 30px;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.4);
-    background: #FAF3DF;
+    background: transparent;
+    backdrop-filter: blur(30px);
 }
 
 .confirm {
@@ -87,14 +142,20 @@ button:hover {
 
 @media screen and (max-width: 632px) {
     .cont {
-        .button_right, .button_left {
-            width: 150px;
+        .inputее {
+            .button_right, .button_left {
+                width: 150px;
+            }
         }
     }
 }
 
-@media screen and (max-width: 433px) {
+@media screen and (max-width: 520px) {
     .cont {
+        .inputее {
+            margin-left: -40px;
+        }
+
         .btn-reg{
             padding-left: 50px;
             margin-top: 25px;
@@ -108,3 +169,4 @@ button:hover {
         }
     }
 }
+

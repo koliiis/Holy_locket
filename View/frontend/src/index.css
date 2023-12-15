@@ -46,3 +46,10 @@ button {
     background: #B1D3BB;
     transition: 0.5s;
 }
+
+button[type="submit"], button[type="reset"] {
+    opacity: 0.6;
+    font-size: 16px;
+    border-radius: 15px;
+    box-shadow:  0 10px 10px 0 #000;
+}

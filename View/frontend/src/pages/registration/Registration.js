@@ -11,7 +11,6 @@ function Registration() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [error, setError] = useState('');
 
     const validateEmail = (email) => {
@@ -72,52 +71,73 @@ function Registration() {
             <form action="#" method="POST"  onSubmit={handleSubmit}>
                 <div className="master_2">
                     <h2 className="header_regist">Реєстрація</h2>
-                    <div className="input">
+                    <div className="inputее">
+                        <div className="input-box">
+                            <input
+                                className="form-control mx-auto my-3 reg_inpt"
+                                required="required"
+                                type="text"
+                                name="username"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <span>Username</span>
+                            <i></i>
+                        </div>
 
-                        <input
-                            className="form-control mx-auto my-3"
-                            placeholder="Ім'я"
-                            type="text"
-                            name="username"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
+                        <div className="input-box">
+                            <input
+                                className="form-control mx-auto my-3 reg_inpt"
+                                required="required"
+                                type="text"
+                                name="surname"
+                                value={surname}
+                                onChange={(e) => setSurname(e.target.value)}
+                            />
+                            <span>Прізвище</span>
+                            <i></i>
+                        </div>
 
-                        <input
-                            className="form-control mx-auto my-3"
-                            placeholder="Прізвище"
-                            type="text"
-                            name="surname"
-                            value={surname}
-                            onChange={(e) => setSurname(e.target.value)}
-                        />
+                        <div className="input-box">
+                            <input
+                                className="form-control mx-auto my-3 reg_inpt"
+                                required="required"
+                                type="tel"
+                                name="usernumber"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+                            <span>Phone number</span>
+                            <i></i>
+                        </div>
 
-                        <input
-                            className="form-control mx-auto my-3"
-                            placeholder="Номер телефону"
-                            type="tel"
-                            name="usernumber"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                        />
+                        <div className="input-box">
+                            <input
+                                className="form-control mx-auto my-3 reg_inpt"
+                                required="required"
+                                type="email"
+                                name="useremail"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <span>Електронна пошта</span>
+                            <i></i>
+                        </div>
 
-                        <input
-                            className="form-control mx-auto my-3"
-                            placeholder="Вам email"
-                            type="email"
-                            name="useremail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-
-                        <input
-                            placeholder="Ваш пароль"
-                            type="password"
-                            className="form-control mx-auto my-3"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-
+                        <div className="input-box">
+                            <input
+                                className="form-control mx-auto my-3 reg_inpt"
+                                required="required"
+                                type="password"
+                                name="useremail"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <span>Пароль</span>
+                            <i></i>
+                        </div>
                     </div>
+
                     <div className="md-mx-auto btn-reg">
                         <button className='button_left' type="submit">Зареєструватися</button>
                         <button className='button_right' type="reset">Уже маю аккаунт</button>
