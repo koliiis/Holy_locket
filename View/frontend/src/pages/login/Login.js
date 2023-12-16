@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css';
+import './Login.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,26 +40,36 @@ function Login() {
                 <div className="master_login">
                     <h2 className="header_log">Увійти</h2>
                     <div className="input">
-                        <input
-                            className="ent-log"
-                            placeholder="Номер телефону"
-                            type="tel"
-                            name="usernumber"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                        /><br />
 
-                        <input
-                            className="ent-log"
-                            placeholder="Ваш пароль"
-                            type="password"
-                            name="user_password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        /><br />
+                        <div className="input-box-log">
+                            <input
+                                className="ent-log"
+                                required="required"
+                                type="tel"
+                                name="usernumber"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
+                            <span>Номер телефону</span>
+                            <i></i>
+                        </div>
+
+                        <div className="input-box-log">
+                            <input
+                                className="ent-log"
+                                required="required"
+                                type="password"
+                                name="user_password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <span>Ваш пароль</span>
+                            <i></i>
+                        </div>
+
                     </div>
                     <div className="buttonn">
-                        <button className='button_log' type="submit">Увійти</button>
+                        <button className='button_log' type="submit">Вхід</button>
                     </div>
                 </div>
             </form>

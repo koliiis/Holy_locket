@@ -199,7 +199,7 @@ function Doctors() {
                                     Працює понад {doctor.experience} років
                                 </h4>
                                 <div className="info">
-                                    {truncateText(doctor.description, 100)}
+                                    {truncateText(doctor.description, 70)}
                                 </div>
                             </div>
                             <button
