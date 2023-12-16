@@ -48,7 +48,6 @@ namespace Holy_locket.BLL.Services
         }
         private async static Task<TokenValidationParameters> GetValidationParameters(IConfiguration config)
         {
-
             return new TokenValidationParameters()
             {
                 ValidateLifetime = true,

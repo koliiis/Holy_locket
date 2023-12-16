@@ -9,6 +9,8 @@ namespace Holy_locket.DAL.Models
 {
     public class TimesForDayDTO
     {
+        public int Id { get; set; }
+        public bool Inactive { get; set; }
         public ICollection<TimeSlot> TimeSlotList { get; set; }
     }
 }
