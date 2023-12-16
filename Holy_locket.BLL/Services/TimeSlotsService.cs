@@ -32,11 +32,11 @@ namespace Holy_locket.BLL.Services
             var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
             var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get()).Where(x => x.DoctorId == doctorId && x.Inactive ==false).ToList());
             var times = new List<List<string>>();
-            DayOfWeekRightOrder(timesForDays).ForEach(async item =>
+            foreach (var item in DayOfWeekRightOrder(timesForDays))
             {
                 var list = await GetTimeSlotsForDay(item);
                 times.Add(list);
-            });
+            }
             var timeSlots = FilterTimeSlots(times);
             RemoveAppointmentsFromTimeSlots(appointments, doctorId, timeSlots);
             SetNoAvailableSlotsMessage(timeSlots);
@@ -50,18 +50,19 @@ namespace Holy_locket.BLL.Services
             result.AddRange(timesForDays.GetRange(0, day));
             return result;
         }
-        private List<TimesForDayDTO> NextWeek(List<TimesForDayDTO> timesForDays)
+        private async Task<List<TimesForDayDTO>> NextWeek(List<TimesForDayDTO> timesForDays)
         {
             int day = (int)DateTime.Now.DayOfWeek;
             List<TimesForDayDTO> result = timesForDays.GetRange(day, day+7);
             if (day == 6) 
             {
                 List<TimesForDayDTO> inactivate = timesForDays.GetRange(0, day);
-                inactivate.ForEach(async item => 
+                foreach (var item in inactivate) 
                 {
                     item.Inactive = true;
                     await _timesForDayRepository.Update(_mapper.Map<TimesForDay>(item));
-                });
+                }
+
             }
             return result;
         }
@@ -88,7 +89,7 @@ namespace Holy_locket.BLL.Services
         {
             int counter = 0;
             DateTime temp = DateTime.Today;
-            appointments.ForEach(item =>
+            foreach (var item in appointments)
             {
                 if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || ((DateTime.Parse(item.Date).Date - DateTime.Now.Date).Days < 1)) && doctorId == item.DoctorId)
                 {
@@ -96,7 +97,7 @@ namespace Holy_locket.BLL.Services
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
-            });
+            }
         }
         private void SetNoAvailableSlotsMessage(List<List<string>> timeSlots)
         {
@@ -110,12 +111,13 @@ namespace Holy_locket.BLL.Services
         {
             var timesForDays = new List<TimesForDay>();
             int counter = 0;
-            times.ForEach(async item =>
+            foreach (var item in times)
             {
                 var timesForDay = new TimesForDay()
                 {
                     DoctorId = doctorId,
                 };
+
                 await _timesForDayRepository.Create(timesForDay);
                 var time = (await _timesForDayRepository.Get()).Where(x => x.DoctorId == doctorId).ToList()[counter];
 
@@ -127,11 +129,10 @@ namespace Holy_locket.BLL.Services
                     {
                         Time = item[j],
                         TimesForDayId = time.Id,
-                    }
-                    );
+                    });
                 }
                 counter++;
-            });
+            }
 
         }
         
