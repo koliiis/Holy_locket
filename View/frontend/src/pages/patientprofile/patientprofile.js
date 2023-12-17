@@ -15,6 +15,8 @@ function Patientprofile() {
     const [InfoPage, setInfoPage] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [editedFirstName, setEditedFirstName] = useState('');
+    const [editedSecondName, setEditedSecondName] = useState('');
+    const [editedEmail, setEditedEmail] = useState('');
     const hasData = Object.keys(InfoPage).length > 0;
 
     useEffect(() => {
@@ -38,6 +40,7 @@ function Patientprofile() {
     const handleSaveClick = () => {
         axios.post('https://localhost:7172/api/Patient/1', {
             firstName: editedFirstName,
+            secondName: editedSecondName,
         })
             .then(response => {
                 console.log("Дані успішно збережено:", response.data);
@@ -53,11 +56,19 @@ function Patientprofile() {
         setEditedFirstName(event.target.value);
     };
 
+    const handleSecondNameChange = (event) => {
+        setEditedSecondName(event.target.value);
+    };
+
+    const handleEmailChange = (event) => {
+        setEditedEmail(event.target.value);
+    };
+
     return (
         <div className="body11">
             <img className="img11" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
                 <h2 className="h22">{isEditing ? (
-                    <input
+                    <input className='inputsmt'
                     placeholder="Ім'я"
                     type="text"
                     name="username"
@@ -66,17 +77,27 @@ function Patientprofile() {
                 />
                 ) : (
                     InfoPage.firstName
-                )} {InfoPage.secondName}</h2>
+                )} {isEditing ? (
+                    <input className='inputsmt'
+                    placeholder="Прізвище"
+                    type="text"
+                    name="surname"
+                    value={editedSecondName}
+                    onChange={handleSecondNameChange}
+                />
+                ) : (
+                    InfoPage.secondName
+                )}</h2>
                 <img className="img22" src={img2}/>
                 <img className="img33" src={img3} onClick={handleEditClick}/>
-                <div className='div11'>
+                {/* <div className='div11'>
                     <p className='p11'></p>
                     {hasData ? (
                         <img className="img44" src={img5}/>
                     ) : (
                         <img className="img44" src={img5} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
                     )}
-                </div>
+                </div> */}
                 <div className='div22'>
                     <p className='p11'>{InfoPage.birthday}</p>
                     {hasData ? (
@@ -86,9 +107,19 @@ function Patientprofile() {
                     )}
                 </div>
                 <div className='div22'>
-                    <p className='p11'>{InfoPage.email}</p>
-                    {hasData ? (
-                        <img className="img44" src={img6}/>
+                    {isEditing ? (
+                    <input className='inputsmt'
+                    placeholder="Електронна адреса"
+                    type="text"
+                    name="email"
+                    value={editedEmail}
+                    onChange={handleEmailChange}
+                />
+                ) : (
+                    <p className='p11'>{InfoPage.secondName}</p>
+                )}
+                    {isEditing ? (
+                        <></>
                     ) : (
                         <img className="img44" src={img6} style={{ marginLeft: '240px', marginTop: '-5px' }}/>
                     )}

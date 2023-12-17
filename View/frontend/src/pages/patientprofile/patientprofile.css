@@ -116,3 +116,10 @@
     color: #595959;
     text-align: left;
 }
+
+.inputsmt{
+    background-color: #FFFFFF;
+    border: 1px solid #E8E6E6;
+    box-shadow: 1px 3px 27px #595959;
+    border-radius: 50px; 
+}
