@@ -1,5 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/anton');
 @import url('https://fonts.cdnfonts.com/css/getvoip-grotesque');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
 
 nav {
     background: #1F292A;
@@ -9,7 +10,8 @@ nav {
     font-size: 30px;
     margin: 0 15% 0 55px;
     color: #B1D3BB;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Futura PT', sans-serif;
+    font-weight: bold;
 }
 
 .horizontal_nav{
@@ -30,7 +32,6 @@ nav {
         font-size: 30px;
         margin: 0 5% 0 55px;
         color: #B1D3BB;
-        font-family: 'Anton', sans-serif;
     }
 
     .horizontal_nav{
