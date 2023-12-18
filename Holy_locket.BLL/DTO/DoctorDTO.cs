@@ -9,18 +9,14 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.DTO
 {
-    public class DoctorDTO
+    public class DoctorDTO : UserDTO
     {
-        public int Id { get; set; } 
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
         public string Description { get; set; }
         public string Gender { get; set; }
-        public string Phone { get; set; }
-        public string Photo { get; set; }   
         public int Experience { get; set; }
         public int SpecialityId { get; set; }
         public string SpecialityName { get; set; }
         public double Rating { get; set; }
+        public override int Role { get; } = 2;
     }
 }

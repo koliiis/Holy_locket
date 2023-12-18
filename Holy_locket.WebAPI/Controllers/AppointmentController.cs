@@ -33,15 +33,15 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                var hospital = await _appointmentService.GetAppointmentById(id).ConfigureAwait(false);
-                return Ok(hospital);
+                var appointments = await _appointmentService.GetAppointmentById(id).ConfigureAwait(false);
+                return Ok(appointments);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet()]
+        [HttpGet]
         [Route("InfoPatient")]
         public async Task<IActionResult> GetInfo(int id)
         {

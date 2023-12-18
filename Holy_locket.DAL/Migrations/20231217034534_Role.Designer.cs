@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Holy_locket.DAL.Migrations
 {
     [DbContext(typeof(HolyLocketContext))]
-    [Migration("20231211231419_RatingDoctors")]
-    partial class RatingDoctors
+    [Migration("20231217034534_Role")]
+    partial class Role
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,12 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("HospitalId");
+
+                    b.HasIndex("PatientId");
+
                     b.ToTable("Appointments");
                 });
 
@@ -66,7 +72,14 @@ namespace Holy_locket.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -75,25 +88,33 @@ namespace Holy_locket.DAL.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Inactive")
-                        .HasMaxLength(15)
                         .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecondName")
                         .IsRequired()
@@ -104,6 +125,8 @@ namespace Holy_locket.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SpecialityId");
 
                     b.ToTable("Doctors");
                 });
@@ -174,6 +197,9 @@ namespace Holy_locket.DAL.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecondName")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -206,6 +232,10 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
                     b.ToTable("Ratings");
                 });
 
@@ -228,6 +258,162 @@ namespace Holy_locket.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specialities");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.TimeSlot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TimesForDayId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TimesForDayId");
+
+                    b.ToTable("TimeSlots");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.TimesForDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("TimesForDays");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.Appointment", b =>
+                {
+                    b.HasOne("Holy_locket.DAL.Models.Doctor", "Doctor")
+                        .WithMany("AppointmentList")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Holy_locket.DAL.Models.Hospital", "Hospital")
+                        .WithMany("AppointmentList")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Holy_locket.DAL.Models.Patient", "Patient")
+                        .WithMany("AppointmentList")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Hospital");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.Doctor", b =>
+                {
+                    b.HasOne("Holy_locket.DAL.Models.Speciality", "Speciality")
+                        .WithMany("DoctorList")
+                        .HasForeignKey("SpecialityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Speciality");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.Rating", b =>
+                {
+                    b.HasOne("Holy_locket.DAL.Models.Doctor", "Doctor")
+                        .WithMany("RatingList")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Holy_locket.DAL.Models.Patient", "Patient")
+                        .WithMany("RatingList")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.TimeSlot", b =>
+                {
+                    b.HasOne("Holy_locket.DAL.Models.TimesForDay", "TimesForDay")
+                        .WithMany("TimeSlotList")
+                        .HasForeignKey("TimesForDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TimesForDay");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.TimesForDay", b =>
+                {
+                    b.HasOne("Holy_locket.DAL.Models.Doctor", "Doctor")
+                        .WithMany("TimesForDayList")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.Doctor", b =>
+                {
+                    b.Navigation("AppointmentList");
+
+                    b.Navigation("RatingList");
+
+                    b.Navigation("TimesForDayList");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.Hospital", b =>
+                {
+                    b.Navigation("AppointmentList");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.Patient", b =>
+                {
+                    b.Navigation("AppointmentList");
+
+                    b.Navigation("RatingList");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.Speciality", b =>
+                {
+                    b.Navigation("DoctorList");
+                });
+
+            modelBuilder.Entity("Holy_locket.DAL.Models.TimesForDay", b =>
+                {
+                    b.Navigation("TimeSlotList");
                 });
 #pragma warning restore 612, 618
         }

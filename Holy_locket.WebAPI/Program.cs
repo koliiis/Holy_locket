@@ -21,6 +21,7 @@ builder.Services.AddTransient<IHospitalService, HospitalService>();
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 builder.Services.AddTransient<IRatingService, RatingService>();
 builder.Services.AddTransient<ITimeSlotsService, TimeSlotsService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(ConfigurationMapper));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -3,6 +3,7 @@ using Holy_locket.BLL.DTO;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace Holy_locket.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ISpecialityService _specialityService;
-        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper, ISpecialityService specialityService)
+        IConfiguration _config;
+        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper, ISpecialityService specialityService, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _doctorRepository = _unitOfWork.GetRepository<Doctor>();
             _mapper = mapper;
             _specialityService = specialityService;
+            _config = config;
         }
         public async Task<DoctorDTO> MapSpeciality(DoctorDTO doctor)
         {
@@ -59,10 +62,6 @@ namespace Holy_locket.BLL.Services
         {
             await _doctorRepository.Update(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
         }
-        public void Dispose()
-        {
-        }
-
         public async Task<IEnumerable<DoctorDTO>> GetFiltered(int minimumExpirience = 0, string? specialityName = null, string? gender = null, double rating = 0)
         {
             var doctors = await _doctorRepository.Get().ConfigureAwait(false);
@@ -82,5 +81,26 @@ namespace Holy_locket.BLL.Services
 
             return filteredList;
         }
+        public async Task<DoctorDTO> GetDoctor(string token)
+        {
+            if (await AuthService.CheckToken(_config, token).ConfigureAwait(false))
+            {
+                var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+
+                if (result.Id != 0 && result.Role == 2)
+                {
+                    var doctor = await _doctorRepository.GetById(result.Id).ConfigureAwait(false);
+                    return await MapSpeciality(_mapper.Map<DoctorDTO>(doctor));
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+        public void Dispose()
+        {
+        }
+
     }
 }

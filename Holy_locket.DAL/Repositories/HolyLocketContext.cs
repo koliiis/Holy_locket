@@ -17,7 +17,7 @@ namespace Holy_locket.DAL.Repositories
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-O252DHK\\SQLEXPRESS;Database=Test3;Trusted_Connection=True;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-O252DHK\\SQLEXPRESS;Database=Test;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,6 +62,8 @@ namespace Holy_locket.DAL.Repositories
                    .WithOne(a => a.TimesForDay)
                    .HasForeignKey(a => a.TimesForDayId)
                    .IsRequired();
+
+            base.OnModelCreating(modelBuilder);
         }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }

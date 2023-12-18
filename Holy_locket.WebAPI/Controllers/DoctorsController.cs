@@ -56,12 +56,13 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDoctorsId(int id)
+        [HttpGet]
+        [Route("UserDoctor")]
+        public async Task<IActionResult> GetDoctor(string token)
         {
             try
             {
-                var doctor = await _doctorService.GetDoctorById(id).ConfigureAwait(false);
+                var doctor = await _doctorService.GetDoctor(token).ConfigureAwait(false);
                 return Ok(doctor);
             }
             catch (Exception ex)

@@ -58,7 +58,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Appointments", (string)null);
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.Doctor", b =>
@@ -69,7 +69,14 @@ namespace Holy_locket.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -78,22 +85,33 @@ namespace Holy_locket.DAL.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Inactive")
-                        .HasMaxLength(15)
                         .HasColumnType("bit");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecondName")
                         .IsRequired()
@@ -107,7 +125,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasIndex("SpecialityId");
 
-                    b.ToTable("Doctors", (string)null);
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.Hospital", b =>
@@ -138,7 +156,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hospitals", (string)null);
+                    b.ToTable("Hospitals");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.Patient", b =>
@@ -176,6 +194,9 @@ namespace Holy_locket.DAL.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecondName")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -183,7 +204,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Patients", (string)null);
+                    b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.Rating", b =>
@@ -212,7 +233,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.Speciality", b =>
@@ -233,7 +254,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specialities", (string)null);
+                    b.ToTable("Specialities");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.TimeSlot", b =>
@@ -258,7 +279,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasIndex("TimesForDayId");
 
-                    b.ToTable("TimeSlots", (string)null);
+                    b.ToTable("TimeSlots");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.TimesForDay", b =>
@@ -279,7 +300,7 @@ namespace Holy_locket.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("TimesForDays", (string)null);
+                    b.ToTable("TimesForDays");
                 });
 
             modelBuilder.Entity("Holy_locket.DAL.Models.Appointment", b =>

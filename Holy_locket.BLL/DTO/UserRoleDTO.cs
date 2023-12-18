@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.DTO
 {
-    public class TokenInfoDTO
+    public class UserRoleDTO
     {
-        public TokenInfoDTO(string Token, int Role) 
-        { 
+        public UserRoleDTO(int Id, int Role)
+        {
+            this.Id = Id;
             this.Role = Role;
-            this.Token = Token;
         }
-        public string Token { get; set; }
+        public int Id { get; set; }
         public int Role { get; set; }
-
     }
 }

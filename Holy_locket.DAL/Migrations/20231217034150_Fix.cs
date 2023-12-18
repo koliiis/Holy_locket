@@ -1,15 +1,90 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Holy_locket.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class TimeSlots : Migration
+    public partial class Fix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "Phone",
+                table: "Doctors",
+                type: "nvarchar(20)",
+                maxLength: 20,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "FirstName",
+                table: "Doctors",
+                type: "nvarchar(15)",
+                maxLength: 15,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "Birthday",
+                table: "Doctors",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<string>(
+                name: "Email",
+                table: "Doctors",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Password",
+                table: "Doctors",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<double>(
+                name: "Rating",
+                table: "Doctors",
+                type: "float",
+                nullable: false,
+                defaultValue: 0.0);
+
+            migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DoctorId = table.Column<int>(type: "int", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    Rate = table.Column<int>(type: "int", nullable: false),
+                    Inactive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateTable(
                 name: "TimesForDays",
                 columns: table => new
@@ -52,16 +127,6 @@ namespace Holy_locket.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ratings_DoctorId",
-                table: "Ratings",
-                column: "DoctorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ratings_PatientId",
-                table: "Ratings",
-                column: "PatientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_SpecialityId",
                 table: "Doctors",
                 column: "SpecialityId");
@@ -79,6 +144,16 @@ namespace Holy_locket.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_PatientId",
                 table: "Appointments",
+                column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_DoctorId",
+                table: "Ratings",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_PatientId",
+                table: "Ratings",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
@@ -122,22 +197,6 @@ namespace Holy_locket.DAL.Migrations
                 principalTable: "Specialities",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Ratings_Doctors_DoctorId",
-                table: "Ratings",
-                column: "DoctorId",
-                principalTable: "Doctors",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Ratings_Patients_PatientId",
-                table: "Ratings",
-                column: "PatientId",
-                principalTable: "Patients",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
@@ -159,27 +218,14 @@ namespace Holy_locket.DAL.Migrations
                 name: "FK_Doctors_Specialities_SpecialityId",
                 table: "Doctors");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Ratings_Doctors_DoctorId",
-                table: "Ratings");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Ratings_Patients_PatientId",
-                table: "Ratings");
+            migrationBuilder.DropTable(
+                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "TimeSlots");
 
             migrationBuilder.DropTable(
                 name: "TimesForDays");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Ratings_DoctorId",
-                table: "Ratings");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Ratings_PatientId",
-                table: "Ratings");
 
             migrationBuilder.DropIndex(
                 name: "IX_Doctors_SpecialityId",
@@ -196,6 +242,40 @@ namespace Holy_locket.DAL.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_Appointments_PatientId",
                 table: "Appointments");
+
+            migrationBuilder.DropColumn(
+                name: "Birthday",
+                table: "Doctors");
+
+            migrationBuilder.DropColumn(
+                name: "Email",
+                table: "Doctors");
+
+            migrationBuilder.DropColumn(
+                name: "Password",
+                table: "Doctors");
+
+            migrationBuilder.DropColumn(
+                name: "Rating",
+                table: "Doctors");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Phone",
+                table: "Doctors",
+                type: "nvarchar(max)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(20)",
+                oldMaxLength: 20);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "FirstName",
+                table: "Doctors",
+                type: "nvarchar(max)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(15)",
+                oldMaxLength: 15);
         }
     }
 }

@@ -29,12 +29,12 @@ namespace Holy_locket.BLL.Services
         }
         public async Task<List<List<string>>> GetTimeSlots(int doctorId)
         {
-            var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
-            var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get()).Where(x => x.DoctorId == doctorId && x.Inactive ==false).ToList());
+            var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
+            var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == doctorId && x.Inactive ==false).ToList());
             var times = new List<List<string>>();
             foreach (var item in DayOfWeekRightOrder(timesForDays))
             {
-                var list = await GetTimeSlotsForDay(item);
+                var list = await GetTimeSlotsForDay(item).ConfigureAwait(false);
                 times.Add(list);
             }
             var timeSlots = FilterTimeSlots(times);
@@ -42,7 +42,6 @@ namespace Holy_locket.BLL.Services
             SetNoAvailableSlotsMessage(timeSlots);
             return timeSlots;
         }
-
         private List<TimesForDayDTO> DayOfWeekRightOrder(List<TimesForDayDTO> timesForDays)
         {
             int day = (int)DateTime.Now.DayOfWeek;
@@ -60,7 +59,7 @@ namespace Holy_locket.BLL.Services
                 foreach (var item in inactivate) 
                 {
                     item.Inactive = true;
-                    await _timesForDayRepository.Update(_mapper.Map<TimesForDay>(item));
+                    await _timesForDayRepository.Update(_mapper.Map<TimesForDay>(item)).ConfigureAwait(false);
                 }
 
             }
@@ -68,7 +67,7 @@ namespace Holy_locket.BLL.Services
         }
         private async Task<List<string>> GetTimeSlotsForDay(TimesForDayDTO item)
         {
-            var ts = _mapper.Map<List<TimeSlotDTO>>(await _timeSlotRepository.Get());
+            var ts = _mapper.Map<List<TimeSlotDTO>>(await _timeSlotRepository.Get().ConfigureAwait(false));
             return ts
                 .Where(x => x.TimesForDayId == item.Id)
                 .Select(a => a.Time).ToList();
@@ -118,7 +117,7 @@ namespace Holy_locket.BLL.Services
                     DoctorId = doctorId,
                 };
 
-                await _timesForDayRepository.Create(timesForDay);
+                await _timesForDayRepository.Create(timesForDay).ConfigureAwait(false);
                 var time = (await _timesForDayRepository.Get()).Where(x => x.DoctorId == doctorId).ToList()[counter];
 
                 var slotsList = new List<TimeSlot>();

@@ -41,39 +41,24 @@ namespace Holy_locket.BLL.Services
         {
             await _repository.Update(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
         }
-        public async Task<PatientDTO> GetPatientById(TokenInfoDTO loginInfo)
+        public async Task<PatientDTO> GetPatientById(string token)
         {
-          
-            if (await AuthService.CheckToken(_config, loginInfo).ConfigureAwait(false))
+            if(await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
-                var patient = await _repository.GetById(loginInfo.id).ConfigureAwait(false);
-                return _mapper.Map<PatientDTO>(patient);
+                var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+
+                if (result.Id != 0 && result.Role == 1)
+                {
+                    var patient = await _repository.GetById(result.Id).ConfigureAwait(false);
+                    return _mapper.Map<PatientDTO>(patient);
+                }
+                else
+                    return null;
             }
             else
                 return null;
+
         }
-
-        public async Task<TokenInfoDTO> CheckLogin(string Phone, string Password)
-        {
-            Expression<Func<Patient, bool>> filter = x => x.Phone == Phone;
-            var result = await _repository.Get(filter);
-            var patient = _mapper.Map<PatientDTO>(result.FirstOrDefault());
-            if (patient == null)
-            {
-                return new TokenInfoDTO(0, null);
-            }
-            else if (patient.Password != Password)
-            {
-                return new TokenInfoDTO(0, null);
-
-            }
-            else
-            {
-                var token = await AuthService.GenerateJSONWebToken(_config, patient.Id).ConfigureAwait(false);
-                return new TokenInfoDTO(patient.Id,token);
-            }
-        }
-
         public void Dispose()
         {
         }
