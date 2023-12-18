@@ -33,9 +33,10 @@ namespace Holy_locket.BLL.Services
             doctor.SpecialityName = speciality.Name;
             return doctor;
         }
-        public async Task AddDoctor(DoctorDTO doctor)
+        public async Task<TokenInfoDTO> AddDoctor(DoctorDTO doctor)
         {
             await _doctorRepository.Create(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
+            return new TokenInfoDTO(await AuthService.GenerateJSONWebToken(_config, doctor.Id, doctor.Role), doctor.Role);
         }
         public async Task DeleteDoctor(int id)
         {

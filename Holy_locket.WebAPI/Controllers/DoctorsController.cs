@@ -73,7 +73,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _doctorService.AddDoctor(doctor).ConfigureAwait(false);
+                var tokenInfo = await _doctorService.AddDoctor(doctor).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception ex)

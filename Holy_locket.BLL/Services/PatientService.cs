@@ -29,9 +29,13 @@ namespace Holy_locket.BLL.Services
             _mapper = mapper;
             _config = config;
         }
-        public async Task CreatePatient(PatientDTO patient)
+        public async Task<TokenInfoDTO> CreatePatient(PatientDTO patient)
         {
             await _repository.Create(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
+            var user = (await _repository.Get())
+            .Where(p => p.Phone == patient.Phone)
+            .FirstOrDefault();
+            return new TokenInfoDTO(await AuthService.GenerateJSONWebToken(_config, user.Id, user.Role), user.Role);
         }
         public async Task DeletePatient(int id)
         {

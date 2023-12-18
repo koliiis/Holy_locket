@@ -39,8 +39,8 @@ namespace Holy_locket.WebAPI.Controllers
         {
             try
             {
-                await _patientService.CreatePatient(patient).ConfigureAwait(false);
-                return Ok();
+                var tokenInfo = await _patientService.CreatePatient(patient).ConfigureAwait(false);
+                return Ok(tokenInfo);
             }
             catch (Exception)
             {

@@ -13,7 +13,7 @@ namespace Holy_locket.BLL.Services.Abstraction
         Task<ICollection<DoctorDTO>> GetAllDoctors();
         Task<DoctorDTO> GetDoctorById(int id);
         Task DeleteDoctor(int id);
-        Task AddDoctor(DoctorDTO doctor);
+        Task<TokenInfoDTO> AddDoctor(DoctorDTO doctor);
         Task UpdateDoctor(DoctorDTO doctor);
         Task<IEnumerable<DoctorDTO>> GetFiltered(int minimumExpirience, string? specialityName, string gender, double rating);
         Task<DoctorDTO> GetDoctor(string token);
