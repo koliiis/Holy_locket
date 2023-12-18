@@ -52,21 +52,6 @@ namespace Holy_locket.BLL.Services
             }
             return info;
         }
-        static int CheckTime(string timeRangeString)
-        {
-            string[] parts = timeRangeString.Split('-');
-            try
-            {
-                var endTime = DateTime.ParseExact(parts[1], "HH:mm", null);
-                TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                return currentTime.CompareTo(endTime.TimeOfDay);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return 0;
-            }
-        }
         public async Task AddAppointment(AppointmentDTO appointmentDTO, string patientToken)
         {
             var result = await AuthService.GetFromToken(patientToken).ConfigureAwait(false);
@@ -77,7 +62,6 @@ namespace Holy_locket.BLL.Services
                 await _appointmentRepository.Create(appointment).ConfigureAwait(false);
             }
         }
-
         public async Task DeleteAppointment(int id)
         {
             await _appointmentRepository.Delete(id).ConfigureAwait(false);
@@ -114,7 +98,6 @@ namespace Holy_locket.BLL.Services
             else
                 return null;
         }
-
         public async Task UpdateAppointment(AppointmentDTO appointment)
         {
             await _appointmentRepository.Update(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);

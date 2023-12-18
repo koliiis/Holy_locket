@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,10 +32,9 @@ namespace Holy_locket.BLL.Services
             _timeSlotRepository = _unitOfWork.GetRepository<TimeSlot>();
             _config = config;
         }
-        public async Task<List<List<string>>> GetTimeSlots(int doctorId, string token)
+        public async Task<List<List<string>>> GetTimeSlots(int doctorId)
         {
-            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
-            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
+            try
             {
                 var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
                 var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == doctorId && x.Inactive == false).ToList());
@@ -48,8 +49,10 @@ namespace Holy_locket.BLL.Services
                 SetNoAvailableSlotsMessage(timeSlots);
                 return timeSlots;
             }
-            else
+            catch (Exception ex)
+            {
                 return null;
+            }
         }
         private List<TimesForDayDTO> DayOfWeekRightOrder(List<TimesForDayDTO> timesForDays)
         {
@@ -118,7 +121,7 @@ namespace Holy_locket.BLL.Services
         public async Task PostTimeSlots(List<List<string>> times, string token)
         {
             var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
-            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
+            if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
                 var timesForDays = new List<TimesForDay>();
                 int counter = 0;

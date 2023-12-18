@@ -62,30 +62,24 @@ namespace Holy_locket.BLL.Services
         {
             await _doctorRepository.Update(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
         }
-        public async Task<IEnumerable<DoctorDTO>> GetFiltered(string token, int minimumExpirience = 0, string? specialityName = null, string? gender = null, double rating = 0)
+        public async Task<IEnumerable<DoctorDTO>> GetFiltered(int minimumExpirience = 0, string? specialityName = null, string? gender = null, double rating = 0)
         {
-            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
-            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
+            var doctors = await _doctorRepository.Get().ConfigureAwait(false);
+            var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);
+            foreach (var doctor in doctorDTOs)
             {
-                var doctors = await _doctorRepository.Get().ConfigureAwait(false);
-                    var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);
-                    foreach (var doctor in doctorDTOs)
-                    {
-                        var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
-                        doctor.SpecialityName = speciality.Name;
-                    }
-                    var filteredList = doctorDTOs
-                        .Where(doctor =>
-                            (specialityName == null || doctor.SpecialityName == specialityName) &&
-                            (gender == null || doctor.Gender == gender) &&
-                            (minimumExpirience == 0 || doctor.Experience > minimumExpirience) &&
-                            (rating == 0 || doctor.Rating > rating)
-                        );
-
-                    return filteredList;
+                var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
+                doctor.SpecialityName = speciality.Name;
             }
-            else
-                return null;
+            var filteredList = doctorDTOs
+                .Where(doctor =>
+                    (specialityName == null || doctor.SpecialityName == specialityName) &&
+                    (gender == null || doctor.Gender == gender) &&
+                    (minimumExpirience == 0 || doctor.Experience > minimumExpirience) &&
+                    (rating == 0 || doctor.Rating > rating)
+                );
+
+            return filteredList;
         }
         public async Task<DoctorDTO> GetDoctor(string token)
         {
@@ -93,7 +87,7 @@ namespace Holy_locket.BLL.Services
             if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
                 var doctor = await _doctorRepository.GetById(result.Id).ConfigureAwait(false);
-                    return await MapSpeciality(_mapper.Map<DoctorDTO>(doctor));
+                return await MapSpeciality(_mapper.Map<DoctorDTO>(doctor));
             }
             else
                 return null;
@@ -101,6 +95,5 @@ namespace Holy_locket.BLL.Services
         public void Dispose()
         {
         }
-
     }
 }

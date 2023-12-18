@@ -76,7 +76,6 @@ namespace Holy_locket.BLL.Services
             {
                 Console.WriteLine($"Failed to get from token: {ex.Message}");
             }
-
             return null;
         }
         private static async Task<TokenValidationParameters> GetValidationParameters(IConfiguration config)

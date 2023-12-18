@@ -10,16 +10,16 @@ namespace Holy_locket.WebAPI.Controllers
     public class TimeSlotsController : ControllerBase
     {
         ITimeSlotsService _timeSlotsService;
-        public TimeSlotsController(ITimeSlotsService timeSlotsService) 
+        public TimeSlotsController(ITimeSlotsService timeSlotsService)
         {
             _timeSlotsService = timeSlotsService;
         }
-        [HttpGet("{patientToken}")]
-        public async Task<IActionResult> GetTimeSlots(int doctorId, string patientToken)
+        [HttpGet]
+        public async Task<IActionResult> GetTimeSlots(int doctorId)
         {
             try
             {
-                var list = await _timeSlotsService.GetTimeSlots(doctorId, patientToken).ConfigureAwait(false);
+                var list = await _timeSlotsService.GetTimeSlots(doctorId).ConfigureAwait(false);
                 return Ok(list);
             }
             catch (Exception ex)

@@ -23,11 +23,11 @@ namespace Holy_locket.WebAPI.Controllers
             _specialityService = specialityService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetDoctors(int minimumExpirience, string? specialityName, string? gender, int rating, string patientToken)
+        public async Task<IActionResult> GetDoctors(int minimumExpirience, string? specialityName, string? gender, int rating)
         {
             try
             {
-                var list = await _doctorService.GetFiltered(patientToken, minimumExpirience, specialityName, gender, rating);
+                var list = await _doctorService.GetFiltered(minimumExpirience, specialityName, gender, rating);
 
                 return Ok(list);
             }
@@ -36,12 +36,12 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-       [HttpGet("DoctorsPage/{patientToken}")]
-        public async Task<IActionResult> GetDoctorsPage(int minimumExpirience, string? specialityName, string? gender, int rating, string patientToken)
+       [HttpGet("DoctorsPage")]
+        public async Task<IActionResult> GetDoctorsPage(int minimumExpirience, string? specialityName, string? gender, int rating)
         {
             try
             {
-                var doctors = await _doctorService.GetFiltered(patientToken,minimumExpirience, specialityName, gender, rating);
+                var doctors = await _doctorService.GetFiltered(minimumExpirience, specialityName, gender, rating);
                 var specialityNames = (await _specialityService.GetAll()).Select(x => x.Name).ToList();
                 var result = new
                 {
