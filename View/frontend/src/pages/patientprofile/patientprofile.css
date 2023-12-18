@@ -15,7 +15,7 @@
 }
 
 .h22 {
-    margin-left: 150px;
+    margin-left: 500px;
     margin-top: -200px;
     font-family: 'Oswald';
     font-size: 45px;
@@ -27,14 +27,14 @@
 .img22 {
     width: 32px;
     height: 32px;
-    margin-left: 1200px;
-    margin-top: -80px;
+    margin-left: 1300px;
+    margin-top: -45px;
 }
 
 .img22:hover {
     cursor: pointer;
-    margin-left: 1203px;
-    margin-top: -77px;
+    margin-left: 1303px;
+    margin-top: -48px;
     width: 26px;
     height: 26px;
 }
@@ -42,13 +42,13 @@
 .img33 {
     width: 32px;
     height: 32px;
-    margin-left: 1280px;
+    margin-left: 1380px;
     margin-top: -95px;
 }
 
 .img33:hover {
     cursor: pointer;
-    margin-left: 1283px;
+    margin-left: 1383px;
     margin-top: -92px;
     width: 26px;
     height: 26px;

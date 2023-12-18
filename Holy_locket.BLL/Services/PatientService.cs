@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace Holy_locket.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        public PatientService(IUnitOfWork unitOfWork,IMapper mapper, IConfiguration config)
+        public PatientService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _repository = unitOfWork.GetRepository<Patient>();
@@ -40,28 +41,38 @@ namespace Holy_locket.BLL.Services
         {
             await _repository.Update(_mapper.Map<Patient>(patient)).ConfigureAwait(false);
         }
-        public async Task<PatientDTO> GetPatientById(int id)
+        public async Task<PatientDTO> GetPatientById(TokenInfoDTO loginInfo)
         {
-            var patient = await _repository.GetById(id).ConfigureAwait(false);
-            return _mapper.Map<PatientDTO>(patient);
+          
+            if (await AuthService.CheckToken(_config, loginInfo).ConfigureAwait(false))
+            {
+                var patient = await _repository.GetById(loginInfo.id).ConfigureAwait(false);
+                return _mapper.Map<PatientDTO>(patient);
+            }
+            else
+                return null;
         }
 
-        public async Task<string> CheckLogin(string Phone, string Password)
+        public async Task<TokenInfoDTO> CheckLogin(string Phone, string Password)
         {
             Expression<Func<Patient, bool>> filter = x => x.Phone == Phone;
             var result = await _repository.Get(filter);
             var patient = _mapper.Map<PatientDTO>(result.FirstOrDefault());
             if (patient == null)
             {
-                return null;
+                return new TokenInfoDTO(0, null);
+            }
+            else if (patient.Password != Password)
+            {
+                return new TokenInfoDTO(0, null);
             }
             else
             {
-                var token = AuthService.GenerateJSONWebToken(_config);
-                return token;
+                var token = await AuthService.GenerateJSONWebToken(_config, patient.Id).ConfigureAwait(false);
+                return new TokenInfoDTO(patient.Id,token);
             }
         }
-       
+
         public void Dispose()
         {
         }

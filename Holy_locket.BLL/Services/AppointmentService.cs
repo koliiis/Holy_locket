@@ -22,24 +22,24 @@ namespace Holy_locket.BLL.Services
         private readonly IRepository<Appointment> _appointmentRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly SpecialityService specialityService;
-        private readonly PatientService patientService;
-        private readonly DoctorService doctorService;
+        private readonly ISpecialityService _specialityService;
+        private readonly IPatientService _patientService;
+        private readonly IDoctorService _doctorService;
         private readonly IRepository<Appointment> _repository;
         private readonly IConfiguration config;
 
-        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork)
+        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
             _mapper = mapper;
-            specialityService = new SpecialityService(_unitOfWork, _mapper);
-            patientService = new PatientService(_unitOfWork, _mapper, config);
-            doctorService = new DoctorService(_unitOfWork, _mapper);
+            _specialityService = specialityService;
+            _patientService = patientService;
+            _doctorService = doctorService;
             _repository = unitOfWork.GetRepository<Appointment>();
         }
 
-        public async Task<List<List<string>>> GetTimeSlots()
+        public async Task<List<List<string>>> GetTimeSlots(int doctorId)
         {
             var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
             var timeSlots = new List<List<string>>();
@@ -48,55 +48,53 @@ namespace Holy_locket.BLL.Services
             int counter = 0;
             DateTime temp = DateTime.Today;
             const int DAYS_COUNT = 7;
-            appointments.Sort();
 
             for (int i = 0; i < DAYS_COUNT; i++)
             {
-                List<string> tempList = new List<string>();
+                var tempList = new List<string>();
                 for (int j = 0; j < times.Count; j++)
                 {
-                    tempList.Add(times[j]);
-                    if (j == times.Count - 1)
-                        timeSlots.Add(tempList);
+                    if (DateTime.Parse(times[j].Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay || i != 0)
+                    {
+                        tempList.Add(times[j]);
+                        if (j == times.Count - 1)
+                            timeSlots.Add(tempList);
+                    }
+                    else
+                    {
+                        if (j == times.Count - 1)
+                            timeSlots.Add(new List<string>());
+                    }
+                    
                 }
             }
-
             foreach (var item in appointments)
             {
-                if (DateTime.Parse(item.Date) == DateTime.Today)
+                if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || (DateTime.Parse(item.Date) - DateTime.Today).Hours < 24) && (item.DoctorId == doctorId))
                 {
-                    timeSlots[counter].Remove(item.Time);
-                }
-                else if(temp < DateTime.Parse(item.Date))
-                {
-                    counter += (DateTime.Parse(item.Date) - temp).Days;
+                    counter = (DateTime.Parse(item.Date) - DateTime.Today).Days;
                     timeSlots[counter].Remove(item.Time);
                     temp = DateTime.Parse(item.Date);
                 }
             }
-
-            for (int i = 0; i < timeSlots.Count; i++)
+            for (int i = 0; i < DAYS_COUNT; i++)
             {
-                for (int j = 0; j < timeSlots[i].Count; j++)
-                {
-                    Console.WriteLine(timeSlots[i][j]);
-                }
-                Console.WriteLine();
+                if (timeSlots[i].Count == 0) timeSlots[i].Add("Немає вільних слотів");
+                
             }
-
             return timeSlots;
         }
 
         public async Task<AppointmentInfoDTO> MapInfo(AppointmentInfoDTO info)
         {
-            var doctor = await doctorService.GetDoctorById(info.DoctorId);
-            var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+            var doctor = await _doctorService.GetDoctorById(info.DoctorId);
+            var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
             info.SpecialityName = speciality.Name;
             info.DoctorName = doctor.FirstName;
             info.DoctorSecondName = doctor.SecondName;
             DateTime date = DateTime.ParseExact(info.Date, "dd/MM/yyyy", null);
             DateTime currentDateTime = DateTime.Now;
-            if (currentDateTime.Date > date ||(currentDateTime.Date == date && CheckTime(info.Time)>=0)) 
+            if (currentDateTime.Date > date || (currentDateTime.Date == date && CheckTime(info.Time) >= 0))
             {
                 info.Irrelevant = true;
             }
@@ -149,7 +147,7 @@ namespace Holy_locket.BLL.Services
             {
                 info.Add(await MapInfo(appointment));
             }
-
+            info.Reverse();
             return info;
         }
 
@@ -157,7 +155,7 @@ namespace Holy_locket.BLL.Services
         {
             await _appointmentRepository.Update(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);
         }
-        public async Task SoftDeleteAppointment(int id) 
+        public async Task SoftDeleteAppointment(int id)
         {
             await _appointmentRepository.SoftDelete(id).ConfigureAwait(false);
         }

@@ -16,17 +16,17 @@ namespace Holy_locket.BLL.Services
         private readonly IRepository<Doctor> _doctorRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly SpecialityService specialityService;
-        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly ISpecialityService _specialityService;
+        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper, ISpecialityService specialityService)
         {
             _unitOfWork = unitOfWork;
             _doctorRepository = _unitOfWork.GetRepository<Doctor>();
             _mapper = mapper;
-            specialityService = new SpecialityService(_unitOfWork, _mapper);
+            _specialityService = specialityService;
         }
         public async Task<DoctorDTO> MapSpeciality(DoctorDTO doctor)
         {
-            var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+            var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
             doctor.SpecialityName = speciality.Name;
             return doctor;
         }
@@ -44,7 +44,7 @@ namespace Holy_locket.BLL.Services
             var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);
             foreach (var doctor in doctorDTOs)
             {
-                var speciality = await specialityService.GetSpecialityById(doctor.SpecialityId);
+                var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
                 doctor.SpecialityName = speciality.Name;
             }
             return doctorDTOs;
@@ -61,6 +61,26 @@ namespace Holy_locket.BLL.Services
         }
         public void Dispose()
         {
+        }
+
+        public async Task<IEnumerable<DoctorDTO>> GetFiltered(int minimumExpirience = 0, string? specialityName = null, string? gender = null, double rating = 0)
+        {
+            var doctors = await _doctorRepository.Get().ConfigureAwait(false);
+            var doctorDTOs = _mapper.Map<ICollection<DoctorDTO>>(doctors);
+            foreach (var doctor in doctorDTOs)
+            {
+                var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
+                doctor.SpecialityName = speciality.Name;
+            }
+            var filteredList = doctorDTOs
+                .Where(doctor =>
+                    (specialityName == null || doctor.SpecialityName == specialityName) &&
+                    (gender == null || doctor.Gender == gender) &&
+                    (minimumExpirience == 0 || doctor.Experience > minimumExpirience) &&
+                    (rating == 0 || doctor.Rating > rating)
+                );
+
+            return filteredList;
         }
     }
 }

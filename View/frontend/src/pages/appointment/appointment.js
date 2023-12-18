@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import "./appointment.css";
+import "./appointment.scss";
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
 import Modal_Appointment from "../../component/modal-appointment";
 
 const Appointment = () => {
     const currentDay = new Date();
+    const [time_slots, setTime_slots] = useState([]);
     const indexDayOfWeek = currentDay.getDay();
     const daysOfWeek = ["НЕДІЛЯ", 'ПОНЕДІЛОК', 'ВІВТОРОК', 'СЕРЕДА', 'ЧЕТВЕР', "П'ЯТНИЦЯ", "CУБОТА"];
     const firstPartOfWeek = daysOfWeek.slice(indexDayOfWeek);
@@ -28,65 +29,82 @@ const Appointment = () => {
     const [selectedTime, setSelectedTime] = useState('');
     const [selectedDay, setSelectedDay] = useState('');
 
-    var iteration = 0;
-    var time_slot = '';
-    const startTime = 10;
-    const endTime = 18;
-    const timeSlots = [];
+    useEffect(() => {
+        axios.get(`https://localhost:7172/api/Appointment/TimeSlots?DoctorId=${doctor.id}`)
+            .then(response => {
+                setTime_slots(response.data);
+                console.log("Peremoga")
+            })
+            .catch(error => {
+                console.error("Ошибка при получении данных о врачах:", error);
+            });
 
-    for (let hour = startTime; hour <= endTime; hour++) {
-        for (let minute = 0; minute < 60; minute += 30) {
-            const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-            iteration += 1;
-            if (iteration === 2) {
-                time_slot = `${time_slot}-${time}`;
-                timeSlots.push(time_slot);
-                time_slot = time;
-                iteration -= 1;
-            } else time_slot += time;
-        }
-    }
+    }, []);
 
-    const [visibleTimeSlots, setVisibleTimeSlots] = useState(timeSlots.slice(0, 6)); // Первоначально отображаем только первые 10 таймслотов
+    const [visibleRows, setVisibleRows] = useState(4);
+    const [showAllSlots, setShowAllSlots] = useState(false);
 
-    const showMoreTimeSlots = () => {
-        setVisibleTimeSlots(timeSlots); // Показываем все таймслоты
-    };
+    const block_timeslots = "Немає вільних слотів";
 
     const renderTimeSlots = () => {
         return (
             <>
-                <tr>
-                    {WorkWeek.map((day, dayIndex) => (
-                        <th key={dayIndex}>
-                            {day}
-                            <br />
-                            {dateArray[dayIndex] && dateArray[dayIndex].toLocaleDateString('uk-UA')}
-                        </th>
-                    ))}
-                </tr>
-
-                {visibleTimeSlots.map((time, timeIndex) => (
-                    <tr key={timeIndex}>
+                <thead>
+                    <tr>
                         {WorkWeek.map((day, dayIndex) => (
-                            <td key={dayIndex}>
-                                <button className="time-btn" onClick={() => handleTimeSelection(time, day, dateArray[dayIndex])}>
-                                    {time}
-                                </button>
-                            </td>
+                            <th key={dayIndex}>
+                                {day}
+                                <br />
+                                {dateArray[dayIndex] && dateArray[dayIndex].toLocaleDateString('uk-UA')}
+                            </th>
                         ))}
                     </tr>
-                ))}
-                <button className="btn_show_more" onClick={showMoreTimeSlots} style={{ display: visibleTimeSlots.length === timeSlots.length ? 'none' : 'block' }}>
-                    Show more
-                </button>
+                </thead>
+                <tbody>
+                    {time_slots.length > 0 && (
+                        // Используем map для прохода по всем временным слотам в виде строки
+                        Array.from({ length: Math.max(...time_slots.map(slots => slots.length)) }).map((_, timeIndex) => (
+                            <tr key={timeIndex} style={{ display: showAllSlots || timeIndex < visibleRows ? 'table-row' : 'none' }}>
+                                {/* Для каждой колонки показываем таймслот, если он есть */}
+                                {time_slots.map((slots, dayIndex) => (
+                                    <td key={dayIndex}>
+                                        {slots[timeIndex] && slots[timeIndex] != block_timeslots &&(
+                                            <button
+                                                className="time-btn"
+                                                onClick={() => handleTimeSelection(slots[timeIndex], WorkWeek[dayIndex], dateArray[dayIndex])}
+                                            >
+                                                {slots[timeIndex]}
+                                            </button>
+                                        )}
+                                        {slots[timeIndex] && slots[timeIndex] === block_timeslots &&(
+                                            <button>{slots[timeIndex]}</button>
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    )}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colSpan={WorkWeek.length}>
+                            <button
+                                className="btn_show_more"
+                                onClick={() => setShowAllSlots(!showAllSlots)}
+                                style={{ display: visibleRows === 12 ? 'none' : 'block' }}
+                            >
+                                {showAllSlots ? 'Show less' : 'Show more'}
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
             </>
         );
     };
 
     const handleTimeSelection = (time, day, date) => {
         setSelectedTime(time);
-        setSelectedDay(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`);
+        setSelectedDay(`${date.getDate().toString().padStart(2, '0')}.${date.getMonth() + 1}.${date.getFullYear()}`);
         setModalActive(true);
     };
 
@@ -110,29 +128,29 @@ const Appointment = () => {
     }
 
     return (
-        <div className="appoint">
+        <div className="container-fluid appoint">
             <div className="doctors">
-                <div className="doctor-photo">
+                <div>
                     <img className="appoint-photo" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"
                          alt={`${doctor.firstName} ${doctor.secondName}`}
                     />
                 </div>
                 <div className="doctor-info">
-                    <h2 className="special">
+                    <h2 className="name_appoint">
                         {doctor.firstName} {doctor.secondName}
-                        <p>{doctor.specialityName || "Специальность не найдена"}</p>
+                        <p className="info-ab-doc_spec">{doctor.specialityName || "Специальность не найдена"}</p>
                     </h2>
-                    <h3>Про лікаря:</h3>
-                    <p>Стать: {doctor.gender}</p>
-                    <p>Стаж: {doctor.experience}</p>
-                    <p>{doctor.description} </p>
+                    <div className="ab-doc">
+                        <h3 className="ab-doc-head">Про лікаря:</h3>
+                        <p className="info-ab-doc_gen">Стать: {doctor.gender}</p>
+                        <p className="info-ab-doc_exp">Стаж: працює понад {doctor.experience}</p>
+                        <p className="info-ab-doc_desc"><span className="fw-bolder">Опис лікаря:</span> {doctor.description} </p>
+                    </div>
                 </div>
             </div>
             <table>
                 <p className="head">Записатись на прийом:</p>
-                <thead>
                 {renderTimeSlots()}
-                </thead>
             </table>
 
             {modalActive && (
@@ -140,15 +158,18 @@ const Appointment = () => {
                     active={modalActive}
                     setActive={() => setModalActive(false)}
                     time={selectedTime}
-                    day={selectedDay}>
+                    day={selectedDay}
+                >
                     <h3>
-                        <p>
+                        <p className="confirm-text">
                             Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
                             на {selectedDay} о {selectedTime}?
                         </p>
                         <div>
-                            <form action="#" method="POST"  onSubmit={handleSubmit}>
-                                <button className="confirm" type="submit">Підтвердити</button>
+                            <form action="#" method="POST" onSubmit={handleSubmit}>
+                                <button className="confirm" type="submit">
+                                    Підтвердити
+                                </button>
                             </form>
                         </div>
                     </h3>
@@ -157,4 +178,5 @@ const Appointment = () => {
         </div>
     );
 };
+
 export default Appointment;
