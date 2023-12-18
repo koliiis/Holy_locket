@@ -17,7 +17,7 @@ $sec-color: #54387F;
     box-shadow: 1px 3px 27px #595959;
     border-radius: 50px;
     margin-bottom: 20px;
-  }
+}
 
 .div21 {
     margin-top: -35px;
@@ -33,22 +33,60 @@ $sec-color: #54387F;
 }
 
 
-.div3, .cancel-btn {
+.div3, .cancel-btn, .rating-btn {
     margin-top: 30px;
     margin-left: 270px;
     width: 170px;
-    height: 40px;
+    height: 45px;
     background-color: #FFFFFF;
     border: 2px solid #407C51;
-    border-radius: 50px;
+    border-radius: 15px;
     font-size: 20px;
     text-align: center;
     color: #407C51;
 }
 
+
+.rating-btn {
+    margin-left: 70px;
+    position: relative;
+    background-color: #fff;
+    border: 2px solid goldenrod;
+    color: goldenrod;
+    font-weight: 400;
+    z-index: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+
+    &:hover {
+        background: goldenrod;
+        color: white;
+    }
+
+    &:after {
+        background: gold;
+        content: "";
+        height: 155px;
+        left: -75px;
+        opacity: 0.4;
+        position: absolute;
+        top: -50px;
+        transform: rotate(35deg);
+        transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
+        width: 50px;
+        z-index: -10;
+    }
+
+    &:hover:after {
+        left: 120%;
+        transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+}
+
 .cancel-btn {
     padding-bottom: 3px;
-    margin-left: 50px;
+    margin-left: 70px;
     position: relative;
     display: inline-block;
     color: #FFFFFF;
@@ -60,14 +98,14 @@ $sec-color: #54387F;
     &:before {
         content: "Ви впенені?";
         position: absolute;
-        top: 0;
+        top: -5%;
         left: -100%;
         width: 100%;
         height: 100px;
         background: linear-gradient(to right, #F44336, #B71C1C);
         transition: left 1s;
         color: white;
-        padding-top: 3px;
+        padding-top: 8.5px;
     }
     &:hover:before {
         left: 0;
@@ -120,6 +158,47 @@ $sec-color: #54387F;
     font-size: 16px;
     color: #595959;
     padding: 8px;
+}
+
+.rating-area {
+    overflow: hidden;
+    width: 265px;
+    margin: 0 auto;
+}
+.rating-area:not(:checked) > input {
+    display: none;
+}
+.rating-area:not(:checked) > label {
+    float: right;
+    width: 42px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 32px;
+    color: lightgrey;
+    text-shadow: 1px 1px #bbb;
+}
+.rating-area:not(:checked) > label:before {
+    content: '★';
+}
+.rating-area > input:checked ~ label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+}
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+}
+.rate-area > label:active {
+    position: relative;
 }
 
 @media screen and (max-width: 1400px) {

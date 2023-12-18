@@ -165,7 +165,7 @@ const Appointment = () => {
                 >
                     <h3>
                         <p className="confirm-text">
-                            Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
+                            Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName}</span>
                             на {selectedDay} о {selectedTime}?
                         </p>
                         <div>

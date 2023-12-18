@@ -182,7 +182,7 @@ function Doctors() {
                     </li>
                 </ul>
             </div>
-            <div className="col-xxl-10 col-md-8 roww">
+            <div className="col-xxl-10 col-md-8 col-ms-12 roww">
                 <div className="row justify-content-center card-container">
                     {doctors.map(doctor => (
                         <div className="cards" key={doctor.id}>

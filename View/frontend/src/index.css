@@ -49,7 +49,6 @@ button {
     &:hover {
         background: #407C51;
     }
-
 }
 
 button[type="submit"], button[type="reset"] {
