@@ -1,15 +1,19 @@
 @import url('https://fonts.cdnfonts.com/css/new-caledonia-lt-std');
+@import url('https://fonts.cdnfonts.com/css/getvoip-grotesque');
+@import url('https://fonts.cdnfonts.com/css/montserrat');
 
 .master-doctor {
+    height: auto;
+    min-height: 90.2vh;
     background: linear-gradient(to right, rgba(177, 211, 200, 0.5) 35%, rgb(232, 230, 230) 100%);
 }
 
 .filters {
-    margin-left: 40px;
+    margin-left: 20px;
     display: flex;
     align-content: center;
-    border: 4px solid white;
-    width: 190px;
+    border: 3px solid white;
+    width: 210px;
     height: 500px;
     border-radius: 0 0 35px 35px;
     background: #9DB39F;
@@ -21,15 +25,18 @@
 .filt {
     font-size: 22px;
     color: #1F292A;
-
+    margin-left: 42px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    border-bottom: 2px solid white;
 }
 
 .filt-btn {
     background: none;
     font-size: 17px;
     color: #595959;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 40px;
+
 }
 
 .filt-btn:hover {
@@ -51,6 +58,19 @@
     min-width: 100px;
 }
 
+.dropdown-toggle {
+    width: auto;
+    min-width: 170px;
+    border: none;
+    height: 40px;
+    margin-left: -90px;
+    margin-bottom: 15px;
+    padding-top: 8px;
+    background: #3F7652;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+
 .card-container {
     margin-top: 20px;
     margin-left: -20px;
@@ -58,9 +78,19 @@
         margin: 20px;
         padding-left: 17vh;
         height: 540px;
-        background: white;
+
         width: 300px;
         text-align: center;
+        border-radius: 50px;
+        background: #e0e0e0;
+        box-shadow:  26px 26px 52px #acacac,
+        -26px -26px 52px #ffffff;
+
+        &:hover {
+            transition: 1s;
+            box-shadow:  6px 6px 72px #8ddf8b,
+            -3px -6px 72px #a5ffa3;
+        }
     }
 
     .ded {
@@ -90,9 +120,7 @@
         max-width: 270px;
         margin-top: 15px;
         margin-left: -115px;
-        font-family: 'New Caledonia LT Std', sans-serif;
-
-
+        font-family: 'Montserrat', sans-serif;
     }
 
     .exp {
