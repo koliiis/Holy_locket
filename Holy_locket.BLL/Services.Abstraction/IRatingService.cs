@@ -10,8 +10,8 @@ namespace Holy_locket.BLL.Services.Abstraction
     public interface IRatingService
     {
         Task DeleteRating(int id);
-        Task UpdateRating(RatingDTO speciality);
-        Task AddRating(RatingDTO speciality);
+        Task UpdateRating(RatingDTO rating);
+        Task AddRating(RatingDTO rating, string patientToken);
         Task<double> GetCalculated(int doctorId);
         Task<ICollection<RatingDTO>> GetAll();
     }

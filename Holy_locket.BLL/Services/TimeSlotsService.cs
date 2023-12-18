@@ -3,6 +3,7 @@ using Holy_locket.BLL.DTO;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -19,28 +20,36 @@ namespace Holy_locket.BLL.Services
         private readonly IRepository<Appointment> _appointmentRepository;
         private readonly IRepository<TimesForDay> _timesForDayRepository;
         private readonly IRepository<TimeSlot> _timeSlotRepository;
-        public TimeSlotsService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
+        private readonly IConfiguration _config;
+        public TimeSlotsService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
             _mapper = mapper;
             _timesForDayRepository = _unitOfWork.GetRepository<TimesForDay>();
             _timeSlotRepository = _unitOfWork.GetRepository<TimeSlot>();
+            _config = config;
         }
-        public async Task<List<List<string>>> GetTimeSlots(int doctorId)
+        public async Task<List<List<string>>> GetTimeSlots(int doctorId, string token)
         {
-            var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
-            var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == doctorId && x.Inactive ==false).ToList());
-            var times = new List<List<string>>();
-            foreach (var item in DayOfWeekRightOrder(timesForDays))
+            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
-                var list = await GetTimeSlotsForDay(item).ConfigureAwait(false);
-                times.Add(list);
+                var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
+                var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == doctorId && x.Inactive == false).ToList());
+                var times = new List<List<string>>();
+                foreach (var item in DayOfWeekRightOrder(timesForDays))
+                {
+                    var list = await GetTimeSlotsForDay(item).ConfigureAwait(false);
+                    times.Add(list);
+                }
+                var timeSlots = FilterTimeSlots(times);
+                RemoveAppointmentsFromTimeSlots(appointments, doctorId, timeSlots);
+                SetNoAvailableSlotsMessage(timeSlots);
+                return timeSlots;
             }
-            var timeSlots = FilterTimeSlots(times);
-            RemoveAppointmentsFromTimeSlots(appointments, doctorId, timeSlots);
-            SetNoAvailableSlotsMessage(timeSlots);
-            return timeSlots;
+            else
+                return null;
         }
         private List<TimesForDayDTO> DayOfWeekRightOrder(List<TimesForDayDTO> timesForDays)
         {
@@ -52,11 +61,11 @@ namespace Holy_locket.BLL.Services
         private async Task<List<TimesForDayDTO>> NextWeek(List<TimesForDayDTO> timesForDays)
         {
             int day = (int)DateTime.Now.DayOfWeek;
-            List<TimesForDayDTO> result = timesForDays.GetRange(day, day+7);
-            if (day == 6) 
+            List<TimesForDayDTO> result = timesForDays.GetRange(day, day + 7);
+            if (day == 6)
             {
                 List<TimesForDayDTO> inactivate = timesForDays.GetRange(0, day);
-                foreach (var item in inactivate) 
+                foreach (var item in inactivate)
                 {
                     item.Inactive = true;
                     await _timesForDayRepository.Update(_mapper.Map<TimesForDay>(item)).ConfigureAwait(false);
@@ -106,35 +115,39 @@ namespace Holy_locket.BLL.Services
             }
         }
 
-        public async Task PostTimeSlots(List<List<string>> times, int doctorId)
+        public async Task PostTimeSlots(List<List<string>> times, string token)
         {
-            var timesForDays = new List<TimesForDay>();
-            int counter = 0;
-            foreach (var item in times)
+            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
-                var timesForDay = new TimesForDay()
+                var timesForDays = new List<TimesForDay>();
+                int counter = 0;
+                foreach (var item in times)
                 {
-                    DoctorId = doctorId,
-                };
-
-                await _timesForDayRepository.Create(timesForDay).ConfigureAwait(false);
-                var time = (await _timesForDayRepository.Get()).Where(x => x.DoctorId == doctorId).ToList()[counter];
-
-                var slotsList = new List<TimeSlot>();
-
-                for (int j = 0; j < item.Count; j++)
-                {
-                    await _timeSlotRepository.Create(new TimeSlot()
+                    var timesForDay = new TimesForDay()
                     {
-                        Time = item[j],
-                        TimesForDayId = time.Id,
-                    });
+                        DoctorId = result.Id,
+                    };
+
+                    await _timesForDayRepository.Create(timesForDay).ConfigureAwait(false);
+                    var time = (await _timesForDayRepository.Get()).Where(x => x.DoctorId == result.Id).ToList()[counter];
+
+                    var slotsList = new List<TimeSlot>();
+
+                    for (int j = 0; j < item.Count; j++)
+                    {
+                        await _timeSlotRepository.Create(new TimeSlot()
+                        {
+                            Time = item[j],
+                            TimesForDayId = time.Id,
+                        });
+                    }
+                    counter++;
                 }
-                counter++;
             }
 
         }
-        
+
         public async Task DeleteTimeSlots(int doctorId)
         {
             throw new NotImplementedException();

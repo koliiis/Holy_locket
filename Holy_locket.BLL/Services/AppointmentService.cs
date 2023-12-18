@@ -25,8 +25,9 @@ namespace Holy_locket.BLL.Services
         private readonly ISpecialityService _specialityService;
         private readonly IPatientService _patientService;
         private readonly IDoctorService _doctorService;
-       
-        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
+        private readonly IConfiguration _config;
+
+        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
@@ -34,6 +35,7 @@ namespace Holy_locket.BLL.Services
             _specialityService = specialityService;
             _patientService = patientService;
             _doctorService = doctorService;
+            _config = config;
         }
         public async Task<AppointmentInfoDTO> MapInfo(AppointmentInfoDTO info)
         {
@@ -44,7 +46,7 @@ namespace Holy_locket.BLL.Services
             info.DoctorSecondName = doctor.SecondName;
             DateTime date = DateTime.ParseExact(info.Date, "dd/MM/yyyy", null);
             DateTime currentDateTime = DateTime.Now;
-            if (currentDateTime.Date > date || (currentDateTime.Date == date && CheckTime(info.Time) >= 0))
+            if (currentDateTime.Date > date || (currentDateTime.Date == date && DateTime.Now > DateTime.ParseExact($"{info.Date} {info.Time}", "dd/MM/yyyy HH:mm", null)))
             {
                 info.Irrelevant = true;
             }
@@ -65,9 +67,15 @@ namespace Holy_locket.BLL.Services
                 return 0;
             }
         }
-        public async Task AddAppointment(AppointmentDTO appointment)
+        public async Task AddAppointment(AppointmentDTO appointmentDTO, string patientToken)
         {
-            await _appointmentRepository.Create(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);
+            var result = await AuthService.GetFromToken(patientToken).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, patientToken).ConfigureAwait(false))
+            {
+                var appointment = _mapper.Map<Appointment>(appointmentDTO);
+                appointment.PatientId = result.Id;
+                await _appointmentRepository.Create(appointment).ConfigureAwait(false);
+            }
         }
 
         public async Task DeleteAppointment(int id)
@@ -87,18 +95,24 @@ namespace Holy_locket.BLL.Services
             return _mapper.Map<AppointmentDTO>(appointment);
         }
 
-        public async Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(int id)
+        public async Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(string token)
         {
-            Expression<Func<Appointment, bool>> filter = x => x.PatientId == id;
-            var appointments = _mapper.Map<ICollection<AppointmentInfoDTO>>(await _appointmentRepository.Get(filter));
-            List<AppointmentInfoDTO> info = new List<AppointmentInfoDTO>();
-
-            foreach (var appointment in appointments)
+            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
-                info.Add(await MapInfo(appointment));
+                Expression<Func<Appointment, bool>> filter = x => x.PatientId == result.Id;
+                var appointments = _mapper.Map<ICollection<AppointmentInfoDTO>>(await _appointmentRepository.Get(filter));
+                List<AppointmentInfoDTO> info = new List<AppointmentInfoDTO>();
+
+                foreach (var appointment in appointments)
+                {
+                    info.Add(await MapInfo(appointment));
+                }
+                info.Reverse();
+                return info;
             }
-            info.Reverse();
-            return info;
+            else
+                return null;
         }
 
         public async Task UpdateAppointment(AppointmentDTO appointment)

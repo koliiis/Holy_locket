@@ -21,13 +21,12 @@ namespace Holy_locket.WebAPI.Controllers
             _patientService = patientService;
             _config = config;
         }
-        [HttpGet]
-        [Route("UserPatient")]
-        public async Task<IActionResult> GetPatient(string token)
+        [HttpGet("UserPatient/{patientToken}")]
+        public async Task<IActionResult> GetPatient(string patientToken)
         {
             try
             {
-                var patient = await _patientService.GetPatientById(token).ConfigureAwait(false);
+                var patient = await _patientService.GetPatientById(patientToken).ConfigureAwait(false);
                 return Ok(patient);
             }
             catch (Exception ex)

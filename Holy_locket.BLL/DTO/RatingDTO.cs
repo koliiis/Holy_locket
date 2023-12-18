@@ -11,7 +11,6 @@ namespace Holy_locket.BLL.DTO
     {
         public int Id { get; set; }
         public int DoctorId { get; set; }
-        public int PatientId { get; set; }
         public int Rate { get; set; }
     }
 }

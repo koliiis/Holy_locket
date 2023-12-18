@@ -43,21 +43,14 @@ namespace Holy_locket.BLL.Services
         }
         public async Task<PatientDTO> GetPatientById(string token)
         {
-            if(await AuthService.CheckToken(_config, token).ConfigureAwait(false))
+            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
-                var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
-
-                if (result.Id != 0 && result.Role == 1)
-                {
-                    var patient = await _repository.GetById(result.Id).ConfigureAwait(false);
+                var patient = await _repository.GetById(result.Id).ConfigureAwait(false);
                     return _mapper.Map<PatientDTO>(patient);
-                }
-                else
-                    return null;
             }
             else
                 return null;
-
         }
         public void Dispose()
         {

@@ -15,7 +15,6 @@ namespace Holy_locket.BLL.DTO
         public string Date { get; set; }
         public int HospitalId { get; set; }
         public int DoctorId { get; set; }
-        public int PatientId { get; set; }
         public bool Inactive { get; set; }
     }
 }

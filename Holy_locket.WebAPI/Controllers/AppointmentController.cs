@@ -41,25 +41,24 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet]
-        [Route("InfoPatient")]
-        public async Task<IActionResult> GetInfo(int id)
+        [HttpGet("InfoPatient/{patientToken}")]
+        public async Task<IActionResult> GetInfo(string patientToken)
         {
             try
             {
-                return Ok(await _appointmentService.GetAppointmentInfo(id).ConfigureAwait(false));
+                return Ok(await _appointmentService.GetAppointmentInfo(patientToken).ConfigureAwait(false));
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpPost]
-        public async Task<IActionResult> PostAppointment(AppointmentDTO appointment)
+        [HttpPost("{patientToken}")]
+        public async Task<IActionResult> PostAppointment(AppointmentDTO appointment, string patientToken)
         {
             try
             {
-                await _appointmentService.AddAppointment(appointment).ConfigureAwait(false);
+                await _appointmentService.AddAppointment(appointment, patientToken).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception ex)
