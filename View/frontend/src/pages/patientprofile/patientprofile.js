@@ -111,7 +111,7 @@ function Patientprofile() {
                 )}
                 {isEditing ? (
                     <input className='inputemail'
-                    placeholder="Електронна адресаa"
+                    placeholder="Електронна адреса"
                     type="text"
                     name="email"
                     value={editedEmail}
