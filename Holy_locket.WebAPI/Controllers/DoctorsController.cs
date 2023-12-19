@@ -17,10 +17,12 @@ namespace Holy_locket.WebAPI.Controllers
     {
         IDoctorService _doctorService;
         ISpecialityService _specialityService;
-        public DoctorsController(IDoctorService doctorService, ISpecialityService specialityService)
+        ITimeSlotsService _timeSlotsService;
+        public DoctorsController(IDoctorService doctorService, ISpecialityService specialityService, ITimeSlotsService timeSlotsService)
         {
             _doctorService = doctorService;
             _specialityService = specialityService;
+            _timeSlotsService= timeSlotsService;
         }
         [HttpGet]
         public async Task<IActionResult> GetDoctors(int minimumExpirience, string? specialityName, string? gender, int rating)

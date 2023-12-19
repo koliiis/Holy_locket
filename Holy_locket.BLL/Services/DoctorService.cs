@@ -36,7 +36,12 @@ namespace Holy_locket.BLL.Services
         }
         public async Task<TokenInfoDTO> AddDoctor(DoctorDTO doctor)
         {
-            await _doctorRepository.Create(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
+            var speciality = await _specialityService.GetSpecialityById(doctor.SpecialityId);
+            doctor.SpecialityName = speciality.Name;
+            Console.WriteLine(doctor.SpecialityId + "  " + doctor.SpecialityName);
+            var d = _mapper.Map<Doctor>(doctor);
+            await _doctorRepository.Create(d).ConfigureAwait(false);
+            Console.WriteLine(d.SpecialityId);
             var user = (await _doctorRepository.Get())
             .Where(d => d.Phone == doctor.Phone)
             .FirstOrDefault();
