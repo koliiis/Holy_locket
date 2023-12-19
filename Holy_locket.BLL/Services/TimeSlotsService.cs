@@ -54,27 +54,27 @@ namespace Holy_locket.BLL.Services
                 return null;
             }
         }
-        public async Task<List<List<string>>> GetDoctorTimeSlots(string token)
-        {
-            try
+            public async Task<List<List<string>>> GetDoctorTimeSlots(string token)
             {
-                var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
-                if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
+                try
                 {
-                    var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
-                    var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == result.Id && x.Inactive == false).ToList());
-                    var timeSlots = GenerateTimeSlots(appointments, result.Id);
-                    SetNoAvailableDoctorSlotsMessage(timeSlots);
-                    return timeSlots;
+                    var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+                    if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
+                    {
+                        var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
+                        var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == result.Id && x.Inactive == false).ToList());
+                        var timeSlots = GenerateTimeSlots(appointments, result.Id);
+                        SetNoAvailableDoctorSlotsMessage(timeSlots);
+                        return timeSlots;
+                    }
+                    else
+                        return BadRequest($"Произошла ошибка при получении временных слотов доктора.");
+            }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
                 }
-                else
-                    return null;
             }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
         private List<TimesForDayDTO> DayOfWeekRightOrder(List<TimesForDayDTO> timesForDays)
         {
             int day = (int)DateTime.Now.DayOfWeek;
