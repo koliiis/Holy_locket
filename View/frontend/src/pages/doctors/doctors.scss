@@ -1,13 +1,19 @@
+@import url('https://fonts.cdnfonts.com/css/new-caledonia-lt-std');
+@import url('https://fonts.cdnfonts.com/css/getvoip-grotesque');
+@import url('https://fonts.cdnfonts.com/css/montserrat');
+
 .master-doctor {
+    height: auto;
+    min-height: 90.2vh;
     background: linear-gradient(to right, rgba(177, 211, 200, 0.5) 35%, rgb(232, 230, 230) 100%);
 }
 
 .filters {
-    margin-left: 40px;
+    margin-left: 20px;
     display: flex;
     align-content: center;
-    border: 4px solid white;
-    width: 190px;
+    border: 3px solid white;
+    width: 210px;
     height: 500px;
     border-radius: 0 0 35px 35px;
     background: #9DB39F;
@@ -19,15 +25,18 @@
 .filt {
     font-size: 22px;
     color: #1F292A;
-
+    margin-left: 42px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    border-bottom: 2px solid white;
 }
 
 .filt-btn {
     background: none;
     font-size: 17px;
     color: #595959;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 40px;
+
 }
 
 .filt-btn:hover {
@@ -44,6 +53,24 @@
     margin-bottom: -30px;
 }
 
+.dropdown-menu {
+    width: auto;
+    min-width: 100px;
+}
+
+.dropdown-toggle {
+    width: auto;
+    min-width: 170px;
+    border: none;
+    height: 40px;
+    margin-left: -90px;
+    margin-bottom: 15px;
+    padding-top: 8px;
+    background: #3F7652;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+
 .card-container {
     margin-top: 20px;
     margin-left: -20px;
@@ -51,9 +78,19 @@
         margin: 20px;
         padding-left: 17vh;
         height: 540px;
-        background: white;
+
         width: 300px;
         text-align: center;
+        border-radius: 50px;
+        background: #e0e0e0;
+        box-shadow:  26px 26px 52px #acacac,
+        -26px -26px 52px #ffffff;
+
+        &:hover {
+            transition: 1s;
+            box-shadow:  6px 6px 72px #8ddf8b,
+            -3px -6px 72px #a5ffa3;
+        }
     }
 
     .ded {
@@ -75,7 +112,7 @@
 
     .name {
         color: #1F292A;
-        padding-left: 15px;
+        padding-left: 30px;
     }
 
     .info {
@@ -83,15 +120,17 @@
         max-width: 270px;
         margin-top: 15px;
         margin-left: -115px;
+        font-family: 'Montserrat', sans-serif;
     }
 
     .exp {
         font-size: 19px;
         margin-top: 8px;
+        padding-left: 27px;
     }
 
     .specail-card {
-        margin-left: 15px;
+        margin-left: 10px;
         font-size: 19px;
         color: #595959;
     }
@@ -100,7 +139,7 @@
         background: #7BBD8E;
         padding: 10px 50px;
         border-radius: 20px;
-        transform: translate(-37%, 60%);
+        transform: translate(-33%, 60%);
         color: #ffff;
     }
 
@@ -120,32 +159,107 @@
     }
 }
 
+
+
 @media screen and (max-width: 1450px) {
+
+    .filters {
+        margin-left: -100px;
+    }
     .card-container {
-        .cards {
-            width: 300px;
-        }
+
         .ded {
-            transform: translate(-45%, 20%);
+            transform: translate(-25%, 20%);
+        }
+
+        .info {
+            margin-left: -90px;
         }
         .more_info {
-            transform: translate(-50%, 60%);
+            transform: translate(-25%, 60%);
         }
     }
 }
 
 @media screen and (max-width: 1100px) {
+    .filters {
+        margin-left: -20px;
+        margin-right: 30px;
+    }
+
     .card-container {
         .cards {
             width: 250px;
         }
         .ded {
-            transform: translate(-57%, 20%);
+            transform: translate(-40%, 20%);
         }
+        .name {
+            color: #1F292A;
+            padding-left: 50px;
+        }
+
+        .specail-card {
+            margin-left: 0px;
+        }
+
+        .info {
+            margin-left: -90px;
+            font-size: 14.5px;
+        }
+
         .more_info {
-            transform: translate(-57%, 60%);
+            transform: translate(-40%, 60%);
         }
     }
+}
+
+@media screen and (max-width: 770px) {
+    .filters {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 150px;
+
+
+        .filt {
+            position: relative;
+            top: -10%;
+            left: 35%;
+            border: none;
+        }
+
+        .dropdown-toggle {
+            min-width: 120px;
+            font-size: 10px;
+        }
+
+        .dropdown-menu {
+            width: auto;
+            min-width: 100px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        .many {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: -20%;
+            left: 50%;
+            padding-top: 20px;
+
+            li:last-child {
+                padding-top: 15px;
+            }
+
+
+            .filt-btn {
+                padding-right: 100px;
+            }
+        }
+    }
+
 }
 
 

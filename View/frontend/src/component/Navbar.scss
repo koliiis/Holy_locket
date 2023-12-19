@@ -1,4 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/anton');
+@import url('https://fonts.cdnfonts.com/css/getvoip-grotesque');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
 
 nav {
     background: #1F292A;
@@ -6,20 +8,39 @@ nav {
 
 .logo {
     font-size: 30px;
-    margin: 0 20% 0 55px;
+    margin: 0 15% 0 55px;
     color: #B1D3BB;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Futura PT', sans-serif;
+    font-weight: bold;
 }
 
 .horizontal_nav{
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: center;
+    align-items: center;
 
     .child {
         margin-right: 15px;
         color: #B1D3BB;
+        font-family: 'GetVoIP Grotesque', sans-serif;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 1130px) {
+    .logo {
+        font-size: 30px;
+        margin: 0 5% 0 55px;
+        color: #B1D3BB;
+    }
+
+    .horizontal_nav{
+        .child {
+            margin-right: 15px;
+            color: #B1D3BB;
+            font-family: 'GetVoIP Grotesque', sans-serif;
+            font-size: 14px;
+        }
     }
 }
 

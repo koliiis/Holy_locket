@@ -10,7 +10,6 @@ import Patientsappointments from "./pages/patientsappointments/patientsappointme
 import Patientprofile from "./pages/patientprofile/patientprofile";
 import Login from "./pages/login/Login";
 
-
 const App = () => {
   return (
       <div className="App">

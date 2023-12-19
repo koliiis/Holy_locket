@@ -46,8 +46,6 @@ const Appointment = () => {
 
     const block_timeslots = "Немає вільних слотів";
 
-
-    console.log(time_slots[2])
     const renderTimeSlots = () => {
         return (
             <>
@@ -113,12 +111,15 @@ const Appointment = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const idUser = sessionStorage.getItem('idUser');
+
         axios.post('https://localhost:7172/api/Appointment', {
             time: selectedTime,
             date: selectedDay,
             hospitalId: 1,
             doctorId: doctor.id,
-            patientId: 1,
+            patientId: idUser,
         })
 
             .then((response) => {
@@ -164,7 +165,7 @@ const Appointment = () => {
                 >
                     <h3>
                         <p className="confirm-text">
-                            Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName} </span>
+                            Ви впевненні, що хочете записатися до лікаря <span>{doctor.firstName} {doctor.secondName}</span>
                             на {selectedDay} о {selectedTime}?
                         </p>
                         <div>

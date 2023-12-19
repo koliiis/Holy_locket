@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css?family=Anton');
+@import url('https://fonts.cdnfonts.com/css/getvoip-grotesque');
+@import url('https://fonts.cdnfonts.com/css/roboto');
+
+.header_log{
+    padding-top: 10px;
+    text-align: center;
+    margin: 10px -30px 30px -30px;
+    font-size: 50px;
+    font-family: 'GetVoIP Grotesque', sans-serif;
+    color: #FFFFFF;
+}
+
+
+.input-box-log {
+    position: relative;
+    width: 196px;
+    margin-left: 50px;
+    margin-bottom: 30px;
+
+    .ent-log {
+        position: relative;
+        padding: 5px 10px 5px;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        color: white;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+        z-index: 10;
+    }
+
+    span {
+        /*font-family: 'GetVoIP Grotesque', sans-serif;*/
+        font-family: 'Roboto Medium', sans-serif;
+        top: 27%;
+        position: absolute;
+        left: 5%;
+        padding: -20px 10px 10px;
+        font-size: 1em;
+        color: #f0f8ff;
+        letter-spacing: 00.05em;
+        transition: 0.5s;
+        pointer-events: none;
+    }
+
+    .ent-log:valid ~span,
+    .ent-log:focus ~span {
+        color: #c9cbc8;
+        transform: translateX(5px) translateY(-30px);
+        font-size: 0,75em;
+    }
+
+    .ent-log:valid ~i,
+    .ent-log:focus ~i {
+        height: 44px;
+    }
+}
+
+.button_log {
+    margin: 5px 0 20px 30%;
+    padding: 7px 55px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+        background-color: #23c483;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+    }
+}
+
+.master {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url("bg_reg.jpg") round;
+}
+
+.master_login {
+    width: 450px;
+    border: 3px solid #FFFF;
+    border-radius: 12px;
+    padding: 0 30px 30px 30px;
+    margin-top: -25%;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.4);
+    background: transparent;
+    backdrop-filter: blur(30px);
+}
+
+@media screen and (max-width: 550px) {
+    .master_login {
+        width: 400px;
+
+        .input-box-log {
+            margin-left: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 405px) {
+    .master_login {
+        width: 350px;
+        height: 350px;
+
+        .header_log {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+
+        span {
+            font-size: 12px;
+        }
+
+        .button_log {
+            width: 200px;
+            margin-left: 50px;
+        }
+
+        .ent-log {
+            width: 250px;
+        }
+    }
+}

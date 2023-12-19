@@ -1,47 +1,103 @@
-@import url('https://fonts.googleapis.com/css?family=Anton');
+//@import url('https://fonts.cdnfonts.com/css/bitter');
+@import url('https://fonts.cdnfonts.com/css/roboto');
+@import url('https://fonts.cdnfonts.com/css/getvoip-grotesque');
+
 
 .header_regist {
     text-align: center;
     margin-bottom: 30px;
     font-size: 50px;
-    font-family: 'Anton', sans-serif;
+    font-family: 'GetVoIP Grotesque', sans-serif;
     font-weight: bold;
-    color: #595959;
+    color: #FFFFFF;
 }
 
 input[type="text"], input[type="tel"], input[type="email"], input[type="password"] {
     width: 300px;
     height: 40px;
     font-size: 14px;
-    box-shadow: 0 5px 5px 0 #B1D3BB;
+    border: none;
+    border-bottom: 2px solid #FFFFFF;
 }
 
-input, .form-control {
-    padding-left: 25px;
-    margin: 0 0 10px 0;
-    border-radius: 15px;
-    background: #BCE4D1;
+.input-box {
+    position: relative;
+    width: 196px;
+    margin-left: 70px;
+    margin-bottom: 30px;
 
-    &:focus {
-        background-color: #BCE4D1;
-        box-shadow: #BCE4D1;
+    .reg_inpt {
+        position: relative;
+        padding: 5px 10px 5px;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        color: white;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+        z-index: 10;
+    }
+
+    span {
+        //font-family: 'GetVoIP Grotesque', sans-serif;
+        font-family: 'Roboto Medium', sans-serif;
+        top: 27%;
+        position: absolute;
+        left: 5%;
+        padding: -20px 10px 10px;
+        font-size: 1em;
+        color: #f0f8ff;
+        letter-spacing: 00.05em;
+        transition: 0.5s;
+        pointer-events: none;
+    }
+
+    .reg_inpt:valid ~span,
+    .reg_inpt:focus ~span {
+        color: #c9cbc8;
+        transform: translateX(5px) translateY(-30px);
+        font-size: 0,75em;
+    }
+
+     .reg_inpt:valid ~i,
+     .reg_inpt:focus ~i {
+        height: 44px;
     }
 }
 
-input:focus, .form-control {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+.form-control {
+    background: transparent;
+    color: white;
+    border-radius: 0px;
 }
 
-button:hover {
-    background: #407C51;
-}
+.button_reg {
+    margin: 5px 0 20px 95px;
+    padding: 7px 40px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 
-.button_left {
-    margin-right: 30px;
-}
+    &:hover {
+        background-color: #23c483;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
 
-.btn-reg {
-    margin: 45px 0 20px 0;
+    &:active {
+        transform: translateY(-1px);
+    }
 }
 
 .cont {
@@ -50,18 +106,33 @@ button:hover {
     align-items: center;
     max-width: 100%;
     min-height: 95vh;
-    background: url("regisrt.png") round;
+    background: url("bg_reg.jpg") round;
     margin-top: -2%;
 }
 
 .master_2 {
-    border-width: 10px;
-    border-style: solid;
-    border-image: linear-gradient(to right, rgb(232, 230, 230) 35%, rgb(177, 211, 187) 100%);
-    border-image-slice: 1;
+    width: 500px;
+    border: 3px solid #FFFF;
+    border-radius: 12px;
     padding: 30px;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.4);
-    background: #FAF3DF;
+    background: transparent;
+    backdrop-filter: blur(30px);
+
+    .footer_reg {
+        color: white;
+
+        .link_login {
+            color:  deepskyblue;
+            border-bottom: none;
+            text-decoration: none;
+
+
+            &:hover {
+                filter: drop-shadow(0px 3px 3px  rgba(46, 229, 157, 0.4));
+            }
+        }
+    }
 }
 
 .confirm {
@@ -85,26 +156,78 @@ button:hover {
     padding: 25px;
 }
 
-@media screen and (max-width: 632px) {
+@media screen and (max-width: 520px) {
     .cont {
-        .button_right, .button_left {
-            width: 150px;
+
+        .master_2 {
+            width: 400px;
+
+            .header_regist {
+                margin-left: -10px;
+                font-size: 35px;
+            }
+        }
+
+        .inputее {
+            margin-left: -50px;
+        }
+
+        .button_reg {
+            margin-left: 50px;
         }
     }
 }
 
-@media screen and (max-width: 433px) {
+
+@media screen and (max-width: 400px) {
     .cont {
-        .btn-reg{
-            padding-left: 50px;
-            margin-top: 25px;
-            .button_right, .button_left {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 200px;
-                margin-bottom: 20px;
+        .master_2 {
+            max-width: 250px;
+
+            .button_reg {
+                padding: 4px 10px;
+                font-size: 10px;
+                margin-left: 30px;
+            }
+
+            .header_regist {
+                font-size: 22px;
+                margin-bottom: 15px;
+                margin-top: -10px;
+            }
+
+            .inputее {
+                margin-left: -45px;
+
+                .input-box {
+                    margin-bottom: -5px;
+
+                    &:nth-child(even) {
+                        margin-left: 20px;
+                    }
+
+                    .reg_inpt:valid ~span,
+                    .reg_inpt:focus ~span {
+                        color: #c9cbc8;
+                        transform: translateX(5px) translateY(-17px);
+                        font-size: 0,75em;
+                    }
+                }
+
+                .reg_inpt {
+                    width: 150px;
+                    font-size: 12px;
+                }
+
+                span {
+                    font-size: 11px;;
+                }
+            }
+            .footer_reg {
+                font-size: 12px;
+                margin-bottom: -20px;
             }
         }
     }
 }
+
