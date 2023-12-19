@@ -21,12 +21,12 @@ namespace Holy_locket.WebAPI.Controllers
             _patientService = patientService;
             _config = config;
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPatientByID(int id, string token)
+        [HttpGet("UserPatient/{patientToken}")]
+        public async Task<IActionResult> GetPatient(string patientToken)
         {
             try
             {
-                var patient = await _patientService.GetPatientById(new TokenInfoDTO(id, token)).ConfigureAwait(false);
+                var patient = await _patientService.GetPatientById(patientToken).ConfigureAwait(false);
                 return Ok(patient);
             }
             catch (Exception ex)
@@ -34,21 +34,6 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-        [HttpPost()]
-        [Route("login")]
-        public async Task<IActionResult> Login(LoginInfoDTO login)
-        {
-            try
-            {
-                var result = await _patientService.CheckLogin(login.phone, login.password).ConfigureAwait(false);
-                return result.token == null ? Unauthorized() : Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred while processing your request.");
-            }
-        }
-
         [HttpPost]
         public async Task<IActionResult> PostPatient(PatientDTO patient)
         {

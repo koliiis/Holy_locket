@@ -25,10 +25,9 @@ namespace Holy_locket.BLL.Services
         private readonly ISpecialityService _specialityService;
         private readonly IPatientService _patientService;
         private readonly IDoctorService _doctorService;
-        private readonly IRepository<Appointment> _repository;
-        private readonly IConfiguration config;
+        private readonly IConfiguration _config;
 
-        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService)
+        public AppointmentService(IMapper mapper, IUnitOfWork unitOfWork, ISpecialityService specialityService, IDoctorService doctorService, IPatientService patientService, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _appointmentRepository = _unitOfWork.GetRepository<Appointment>();
@@ -36,55 +35,8 @@ namespace Holy_locket.BLL.Services
             _specialityService = specialityService;
             _patientService = patientService;
             _doctorService = doctorService;
-            _repository = unitOfWork.GetRepository<Appointment>();
+            _config = config;
         }
-
-        public async Task<List<List<string>>> GetTimeSlots(int doctorId)
-        {
-            var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get());
-            var timeSlots = new List<List<string>>();
-            List<string> times = new List<string>() {"12:00-12:30","12:30-13:00","13:00-13:30","13:30-14:00","14:00-14:30","14:30-15:00", "15:00-15:30",
-                                                    "15:30-16:00", "16:00-16:30", "16:30-17:00", "17:00-17:30", "17:30-18:00"};
-            int counter = 0;
-            DateTime temp = DateTime.Today;
-            const int DAYS_COUNT = 7;
-
-            for (int i = 0; i < DAYS_COUNT; i++)
-            {
-                var tempList = new List<string>();
-                for (int j = 0; j < times.Count; j++)
-                {
-                    if (DateTime.Parse(times[j].Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay || i != 0)
-                    {
-                        tempList.Add(times[j]);
-                        if (j == times.Count - 1)
-                            timeSlots.Add(tempList);
-                    }
-                    else
-                    {
-                        if (j == times.Count - 1)
-                            timeSlots.Add(new List<string>());
-                    }
-                    
-                }
-            }
-            foreach (var item in appointments)
-            {
-                if (DateTime.Parse(item.Date) >= DateTime.Today.Date && (item.Inactive == false || (DateTime.Parse(item.Date) - DateTime.Today).Hours < 24) && (item.DoctorId == doctorId))
-                {
-                    counter = (DateTime.Parse(item.Date) - DateTime.Today).Days;
-                    timeSlots[counter].Remove(item.Time);
-                    temp = DateTime.Parse(item.Date);
-                }
-            }
-            for (int i = 0; i < DAYS_COUNT; i++)
-            {
-                if (timeSlots[i].Count == 0) timeSlots[i].Add("Немає вільних слотів");
-                
-            }
-            return timeSlots;
-        }
-
         public async Task<AppointmentInfoDTO> MapInfo(AppointmentInfoDTO info)
         {
             var doctor = await _doctorService.GetDoctorById(info.DoctorId);
@@ -94,32 +46,22 @@ namespace Holy_locket.BLL.Services
             info.DoctorSecondName = doctor.SecondName;
             DateTime date = DateTime.ParseExact(info.Date, "dd/MM/yyyy", null);
             DateTime currentDateTime = DateTime.Now;
-            if (currentDateTime.Date > date || (currentDateTime.Date == date && CheckTime(info.Time) >= 0))
+            if (currentDateTime.Date > date || (currentDateTime.Date == date && DateTime.Now > DateTime.ParseExact($"{info.Date} {info.Time}", "dd/MM/yyyy HH:mm", null)))
             {
                 info.Irrelevant = true;
             }
             return info;
         }
-        static int CheckTime(string timeRangeString)
+        public async Task AddAppointment(AppointmentDTO appointmentDTO, string patientToken)
         {
-            string[] parts = timeRangeString.Split('-');
-            try
+            var result = await AuthService.GetFromToken(patientToken).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, patientToken).ConfigureAwait(false))
             {
-                var endTime = DateTime.ParseExact(parts[1], "HH:mm", null);
-                TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                return currentTime.CompareTo(endTime.TimeOfDay);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return 0;
+                var appointment = _mapper.Map<Appointment>(appointmentDTO);
+                appointment.PatientId = result.Id;
+                await _appointmentRepository.Create(appointment).ConfigureAwait(false);
             }
         }
-        public async Task AddAppointment(AppointmentDTO appointment)
-        {
-            await _appointmentRepository.Create(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);
-        }
-
         public async Task DeleteAppointment(int id)
         {
             await _appointmentRepository.Delete(id).ConfigureAwait(false);
@@ -137,20 +79,25 @@ namespace Holy_locket.BLL.Services
             return _mapper.Map<AppointmentDTO>(appointment);
         }
 
-        public async Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(int id)
+        public async Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(string token)
         {
-            Expression<Func<Appointment, bool>> filter = x => x.PatientId == id;
-            var appointments = _mapper.Map<ICollection<AppointmentInfoDTO>>(await _repository.Get(filter));
-            List<AppointmentInfoDTO> info = new List<AppointmentInfoDTO>();
-
-            foreach (var appointment in appointments)
+            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 1 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
-                info.Add(await MapInfo(appointment));
-            }
-            info.Reverse();
-            return info;
-        }
+                Expression<Func<Appointment, bool>> filter = x => x.PatientId == result.Id;
+                var appointments = _mapper.Map<ICollection<AppointmentInfoDTO>>(await _appointmentRepository.Get(filter));
+                List<AppointmentInfoDTO> info = new List<AppointmentInfoDTO>();
 
+                foreach (var appointment in appointments)
+                {
+                    info.Add(await MapInfo(appointment));
+                }
+                info.Reverse();
+                return info;
+            }
+            else
+                return null;
+        }
         public async Task UpdateAppointment(AppointmentDTO appointment)
         {
             await _appointmentRepository.Update(_mapper.Map<Appointment>(appointment)).ConfigureAwait(false);

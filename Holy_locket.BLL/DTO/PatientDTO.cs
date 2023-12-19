@@ -7,14 +7,8 @@ using System.Threading.Tasks;
 
 namespace Holy_locket.BLL.DTO
 {
-    public class PatientDTO
+    public class PatientDTO : UserDTO
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public DateTime Birthday { get; set; }
+        public override int Role { get; } = 1;
     }
 }

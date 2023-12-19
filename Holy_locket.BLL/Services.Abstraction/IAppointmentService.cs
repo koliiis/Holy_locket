@@ -9,13 +9,12 @@ namespace Holy_locket.BLL.Services.Abstraction
 {
     public interface IAppointmentService : IDisposable
     {
-        Task<List<List<string>>> GetTimeSlots(int doctorId);
         Task<ICollection<AppointmentDTO>> GetAllAppointments();
         Task<AppointmentDTO> GetAppointmentById(int id);
         Task DeleteAppointment(int id);
         Task SoftDeleteAppointment(int id);
-        Task AddAppointment(AppointmentDTO doctor);
-        Task UpdateAppointment(AppointmentDTO doctor);
-        Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(int id);
+        Task AddAppointment(AppointmentDTO appointment, string patientToken);
+        Task UpdateAppointment(AppointmentDTO appointment);
+        Task<ICollection<AppointmentInfoDTO>> GetAppointmentInfo(string token);
     }
 }

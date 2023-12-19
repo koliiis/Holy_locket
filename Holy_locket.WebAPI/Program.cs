@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+Console.WriteLine((int)DateTime.Now.DayOfWeek);
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<HolyLocketContext>();
@@ -20,6 +20,8 @@ builder.Services.AddTransient<ISpecialityService, SpecialityService>();
 builder.Services.AddTransient<IHospitalService, HospitalService>();
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 builder.Services.AddTransient<IRatingService, RatingService>();
+builder.Services.AddTransient<ITimeSlotsService, TimeSlotsService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(ConfigurationMapper));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

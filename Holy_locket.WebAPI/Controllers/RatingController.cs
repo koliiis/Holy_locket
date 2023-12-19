@@ -41,12 +41,12 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-        [HttpPost]
-        public async Task<IActionResult> AddRating(RatingDTO rating)
+        [HttpPost("{patientToken}")]
+        public async Task<IActionResult> AddRating(RatingDTO rating, string patientToken)
         {
             try
             {
-                await _ratingService.AddRating(rating).ConfigureAwait(false);
+                await _ratingService.AddRating(rating, patientToken).ConfigureAwait(false);
                 return Ok();
             }
             catch (Exception ex)
