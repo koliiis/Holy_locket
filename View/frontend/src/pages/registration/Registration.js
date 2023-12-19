@@ -115,7 +115,7 @@ function Registration() {
                             <input
                                 className="form-control mx-auto my-3 reg_inpt"
                                 required="required"
-                                type="email"
+                                type="text"
                                 name="useremail"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
