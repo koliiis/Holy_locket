@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,30 +52,30 @@ namespace Holy_locket.BLL.Services
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
-            public async Task<List<List<string>>> GetDoctorTimeSlots(string token)
+        public async Task<List<List<string>>> GetDoctorTimeSlots(string token)
+        {
+            try
             {
-                try
+                var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+                if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
                 {
-                    var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
-                    if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
-                    {
-                        var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
-                        var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == result.Id && x.Inactive == false).ToList());
-                        var timeSlots = GenerateTimeSlots(appointments, result.Id);
-                        SetNoAvailableDoctorSlotsMessage(timeSlots);
-                        return timeSlots;
-                    }
-                    else
-                        return BadRequest($"Произошла ошибка при получении временных слотов доктора.");
-            }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
+                    var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
+                    var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == result.Id && x.Inactive == false).ToList());
+                    var timeSlots = GenerateTimeSlots(appointments, result.Id);
+                    SetNoAvailableDoctorSlotsMessage(timeSlots);
+                    return timeSlots;
                 }
+                else
+                    return BadRequest($"Произошла ошибка при получении временных слотов доктора.");
             }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         private List<TimesForDayDTO> DayOfWeekRightOrder(List<TimesForDayDTO> timesForDays)
         {
             int day = (int)DateTime.Now.DayOfWeek;
@@ -138,7 +139,7 @@ namespace Holy_locket.BLL.Services
             {
                 DateTime currentDate = DateTime.Today.AddDays(i);
                 List<string> slotsForDay = appointments
-                    .Where(a => DateTime.Parse(a.Date).Date == currentDate && a.DoctorId == doctorId && a.Inactive == false && (i!=0 || DateTime.Parse(a.Time.Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay))
+                    .Where(a => DateTime.Parse(a.Date).Date == currentDate && a.DoctorId == doctorId && a.Inactive == false && (i != 0 || DateTime.Parse(a.Time.Split("-")[0]).TimeOfDay > DateTime.Now.TimeOfDay))
                     .OrderBy(a => a.Time)
                     .Select(a => a.Time)
                     .ToList();
