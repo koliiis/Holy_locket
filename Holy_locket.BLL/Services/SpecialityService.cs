@@ -33,7 +33,6 @@ namespace Holy_locket.BLL.Services
         public async Task UpdateSpeciality(SpecialityDTO speciality)
         {
             await _repository.Update(_mapper.Map<Speciality>(speciality)).ConfigureAwait(false);
-
         }
         public async Task<SpecialityDTO> GetSpecialityById(int id)
         {
