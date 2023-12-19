@@ -11,9 +11,12 @@ function PatientsAppointments() {
     const [currentInfapp, setCurrentInfapp] = useState(null);
 
     const [rating, setRating] = useState(null);
+
+    const jwtToken = sessionStorage.getItem('jwtToken');
+
     const handleRatingChange = (event) => {
         setRating(event.target.value);
-        axios.post('https://localhost:7172/api/Patient', {
+        axios.post(`https://localhost:7172/api/Rating/${jwtToken}`, {
             doctorId: currentInfapp.id,
             patientId: 1,
             rate: rating
@@ -27,13 +30,10 @@ function PatientsAppointments() {
             });
         }
 
-
-
-
     useEffect(() => {
-        const idUser = sessionStorage.getItem('idUser');
+        const jwtToken = sessionStorage.getItem('jwtToken');
 
-        axios.get(`https://localhost:7172/api/Appointment/InfoPatient?id=${idUser}`)
+        axios.get(`https://localhost:7172/api/Appointment/InfoPatient/${jwtToken}`)
             .then(response => {
                 setInfoApp(response.data);
             })
@@ -80,7 +80,6 @@ function PatientsAppointments() {
                         <p className="p1">Кабінет: {infapp.hospitalId}</p>
                     </div>
                     <img className="div5" src="https://ggclinic.com.ua/wp-content/uploads/2022/06/doctor-full.jpeg"/>
-
                 </div>
             ))}
 

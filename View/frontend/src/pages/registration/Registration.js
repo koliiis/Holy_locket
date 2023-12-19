@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Registration.scss';
 import axios from "axios";
 import Modal_Appointment from "../../component/modal-appointment";
 
 function Registration() {
+
     const [modalSuccessActive, setModalSuccessActive] = useState(false);
     const [modalErrorActive, setModalErrorActive] = useState(false);
     const [name, setName] = useState('');
@@ -12,13 +14,14 @@ function Registration() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
       };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         let hasErrors = false;
@@ -49,21 +52,25 @@ function Registration() {
             return;
           }
 
-        axios.post('https://localhost:7172/api/Patient', {
-            firstName: name,
-            secondName: surname,
-            phone: phoneNumber,
-            email: email,
-            password: password,
-        })
+        try {
+            const response = await axios.post('https://localhost:7172/api/User/login', {
+                firstName: name,
+                secondName: surname,
+                phone: phoneNumber,
+                email: email,
+                password: password,
+            });
 
-        .then((response) => {
-            console.log("Peremoga");
-            setModalSuccessActive(true);
-        })
-        .catch((error) => {
-            console.error('Ошибка при отправке данных:', error);
-        });
+            const jwtToken = response.data.token;
+
+            sessionStorage.setItem('jwtToken', jwtToken);
+
+            navigate('/landing');
+
+            console.log('Успешный вход, JWT токен:', jwtToken);
+        } catch (error) {
+            console.error('Ошибка при входе:', error);
+        }
     }
 
     return (

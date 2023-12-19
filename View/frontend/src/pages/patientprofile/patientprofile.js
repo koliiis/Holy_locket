@@ -17,10 +17,9 @@ function Patientprofile() {
     useEffect(() => {
         // Получаем токен из сессии
         const jwtToken = sessionStorage.getItem('jwtToken');
-        const idUser = sessionStorage.getItem('idUser');
 
         // Выполняем запрос с токеном к вашему серверу
-        axios.get(`https://localhost:7172/api/Patient/${idUser}?token=${jwtToken}`, {
+        axios.get(`https://localhost:7172/api/Patient/UserPatient/${jwtToken}`, {
         })
             .then(response => {
                 setInfoPage(response.data);

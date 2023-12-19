@@ -12,19 +12,14 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://localhost:7172/api/Patient/login', {
+            const response = await axios.post('https://localhost:7172/api/User/login', {
                 phone: phone,
                 password: password,
             });
 
             const jwtToken = response.data.token;
 
-            const idUser = response.data.id;
-
-            console.log(jwtToken, idUser);
-
             sessionStorage.setItem('jwtToken', jwtToken);
-            sessionStorage.setItem('idUser', idUser);
 
             navigate('/landing');
 
