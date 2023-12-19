@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Holy_locket.BLL.DTO;
-using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
 using Holy_locket.DAL.Repositories;
@@ -13,7 +12,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Holy_locket.BLL.Services
+namespace Holy_locket.BLL.Services.Abstraction
 {
     public class UserService : IUserService
     {
