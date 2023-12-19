@@ -3,6 +3,7 @@ using Holy_locket.BLL.DTO;
 using Holy_locket.BLL.Services.Abstraction;
 using Holy_locket.DAL.Abstracts;
 using Holy_locket.DAL.Models;
+using Holy_locket.DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,10 @@ namespace Holy_locket.BLL.Services
         public async Task<TokenInfoDTO> AddDoctor(DoctorDTO doctor)
         {
             await _doctorRepository.Create(_mapper.Map<Doctor>(doctor)).ConfigureAwait(false);
-            return new TokenInfoDTO(await AuthService.GenerateJSONWebToken(_config, doctor.Id, doctor.Role), doctor.Role);
+            var user = (await _doctorRepository.Get())
+            .Where(d => d.Phone == doctor.Phone)
+            .FirstOrDefault();
+            return new TokenInfoDTO(await AuthService.GenerateJSONWebToken(_config, user.Id, user.Role), user.Role);
         }
         public async Task DeleteDoctor(int id)
         {

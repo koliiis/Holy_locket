@@ -40,5 +40,18 @@ namespace Holy_locket.WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("{doctorToken}")]
+        public async Task<IActionResult> GetDoctorTimeSlots(string doctorToken)
+        {
+            try
+            {
+                var list = await _timeSlotsService.GetDoctorTimeSlots(doctorToken).ConfigureAwait(false);
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
