@@ -30,7 +30,7 @@ function Registration() {
         if (name.length < 2 || name.length > 15) {
             setError('Неправильно введено ім`я');
             hasErrors = true;
-        } else if (surname.length < 7 || surname.length > 20) {
+        } else if (surname.length < 3 || surname.length > 20) {
             setError('Неправильно введено прізвище');
             hasErrors = true;
         } else if (phoneNumber.length < 6) {
@@ -53,7 +53,7 @@ function Registration() {
           }
 
         try {
-            const response = await axios.post('https://localhost:7172/api/User/login', {
+            const response = await axios.post('https://localhost:7172/api/Patient', {
                 firstName: name,
                 secondName: surname,
                 phone: phoneNumber,

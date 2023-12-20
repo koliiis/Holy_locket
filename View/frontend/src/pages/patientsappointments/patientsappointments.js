@@ -18,7 +18,6 @@ function PatientsAppointments() {
         setRating(event.target.value);
         axios.post(`https://localhost:7172/api/Rating/${jwtToken}`, {
             doctorId: currentInfapp.id,
-            patientId: 1,
             rate: rating
         })
 
@@ -31,16 +30,20 @@ function PatientsAppointments() {
         }
 
     useEffect(() => {
-        const jwtToken = sessionStorage.getItem('jwtToken');
 
         axios.get(`https://localhost:7172/api/Appointment/InfoPatient/${jwtToken}`)
             .then(response => {
                 setInfoApp(response.data);
+
             })
             .catch(error => {
                 console.error('Помилка при отриманні даних:', error);
+                if (error.response.status === 401) {
+                    sessionStorage.removeItem('jwtToken');
+                    navigate("/login");
+                }
             });
-    }, []);
+    });
 
     const handleCancel = (id) => {
         axios.delete(`https://localhost:7172/api/Appointment/SoftDelete?id=${id}`, { id })

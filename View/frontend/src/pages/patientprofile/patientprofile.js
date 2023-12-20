@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./patientprofile.css";
+import { useNavigate } from 'react-router-dom';
 
 import img2 from './img2.png';
 import img3 from './img3.png';
@@ -13,21 +14,28 @@ import img9 from './img9.png';
 
 function Patientprofile() {
     const [infoPage, setInfoPage] = useState([]);
+    const navigate = useNavigate();
+    const jwtToken = sessionStorage.getItem('jwtToken');
 
     useEffect(() => {
-        // Получаем токен из сессии
-        const jwtToken = sessionStorage.getItem('jwtToken');
 
-        // Выполняем запрос с токеном к вашему серверу
         axios.get(`https://localhost:7172/api/Patient/UserPatient/${jwtToken}`, {
         })
             .then(response => {
-                setInfoPage(response.data);
+                setInfoPage(response.data)
+                console.log(response.data);
+
             })
             .catch(error => {
                 console.error("Помилка при отриманні даних:", error);
+                if (error.response.status === 401) {
+                    sessionStorage.removeItem('jwtToken');
+                    navigate("/login");
+                }
             });
     }, []);
+
+
 
     return (
         <div className="body11">

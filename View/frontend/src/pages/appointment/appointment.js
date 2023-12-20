@@ -113,7 +113,7 @@ const Appointment = () => {
 
         const jwtToken = sessionStorage.getItem('jwtToken');
 
-        axios.post(`https://localhost:7172/api/Appointment/${jwtToken}`, {
+        axios.post(`https://localhost:7172/api/Appointment/wswswasdawsdwds`, {
             time: selectedTime,
             date: selectedDay,
             hospitalId: 1,
@@ -125,6 +125,11 @@ const Appointment = () => {
             })
             .catch((error) => {
                 console.error('Ошибка при отправке данных:', error);
+                if (error.response.status === 401) {
+                    console.log("wqdawdsd")
+                    sessionStorage.removeItem('jwtToken');
+                    window.location.reload();
+                }
             });
     }
 
