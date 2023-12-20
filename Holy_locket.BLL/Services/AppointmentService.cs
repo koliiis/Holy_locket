@@ -46,7 +46,7 @@ namespace Holy_locket.BLL.Services
             info.DoctorSecondName = doctor.SecondName;
             DateTime date = DateTime.ParseExact(info.Date, "dd/MM/yyyy", null);
             DateTime currentDateTime = DateTime.Now;
-            if (currentDateTime.Date > date || (currentDateTime.Date == date && DateTime.Now > DateTime.ParseExact($"{info.Date} {info.Time}", "dd/MM/yyyy HH:mm", null)))
+            if (currentDateTime.Date > date || (currentDateTime.Date == date && DateTime.Now > DateTime.ParseExact($"{info.Date} {info.Time.Split("-")[0]}", "dd/MM/yyyy HH:mm", null)))
             {
                 info.Irrelevant = true;
             }
