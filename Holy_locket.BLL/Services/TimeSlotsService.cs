@@ -159,6 +159,7 @@ namespace Holy_locket.BLL.Services
         }
         public async Task PostTimeSlots(List<List<string>> times, string token)
         {
+            if (times == null) return;
             var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
             if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {

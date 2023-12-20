@@ -76,12 +76,13 @@ namespace Holy_locket.WebAPI.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> PostDoctors(DoctorDTO doctor)
+        public async Task<IActionResult> PostDoctors(RegisterDoctorsDTO register)
         {
             try
             {
-                var tokenInfo = await _doctorService.AddDoctor(doctor).ConfigureAwait(false);
-                return Ok();
+                var tokenInfo = await _doctorService.AddDoctor(register.Doctor).ConfigureAwait(false);
+                await _timeSlotsService.PostTimeSlots(register.Times, tokenInfo.Token);
+                return Ok(tokenInfo);
             }
             catch (Exception ex)
             {
