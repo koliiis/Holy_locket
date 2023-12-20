@@ -78,9 +78,7 @@ th, td {
     text-align: center;
 }
 
-.time-btn:focus{
-    background: red;
-}
+
 
 .time-btn:hover {
     color: #ffff;
@@ -90,7 +88,7 @@ th, td {
 
 }
 
-.time-btn {
+.time-btn, .not-free-time {
     background: #ffff;
     font-size: 16px;
     color: #407C51;
@@ -99,9 +97,23 @@ th, td {
     border: 2px solid #407C51;
 }
 
-th, .time-btn {
+th, .time-btn, .not-free-time {
     width: 175px;
     border-radius: 20px;
+}
+
+.not-free-time {
+    font-size: 18px;
+    color: red;
+    border: 3px solid red;
+
+    &:hover {
+        color: #ffff;
+        border-color: #ffff;
+        filter: drop-shadow(10px 4px 5px gray);
+        transform: scale(1.3);
+        background: red;
+    }
 }
 
 thead {

@@ -2,6 +2,7 @@ import React from 'react';
 import './landing.scss';
 
 function Landing() {
+
     return (
         <div className="container-fluid row bodys">
             <div className="col-8 col-12-lg blurd">
@@ -9,8 +10,6 @@ function Landing() {
                 <h2 className="firt-part-logo">HOLY</h2>
 
                 <div className="main-text">
-                    <h2 className="headerr">Допомога при використанні</h2>
-
                     <p className="textt">Елітна приватна лікарня в Києві - сучасний заклад у престижному районі з
                         високотехнологічним обладнанням. Індивідуальні палати, комфорт та конфіденційність.
                         Кваліфікований медперсонал, широкий спектр послуг, включаючи косметологію та антивікову

@@ -30,7 +30,7 @@ namespace Holy_locket.BLL.Services
                 config["Jwt:Issuer"],
                 config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: credentials
             );
 

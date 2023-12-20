@@ -93,18 +93,23 @@
         }
     }
 
+    .stars {
+        font-size: 19px;
+        transform: translate(20%, 50%);
+    }
+
     .ded {
         max-width: 170px;
         max-height: 170px;
         border-radius: 40%;
         padding-right: 10px;
-        transform: translate(-30%, 20%);
+        transform: translate(-30%, 0%);
     }
 
     .name,
     .exp,
     .info {
-        margin-top: 45px;
+        margin-top: 15px;
         margin-left: -140px;
         font-size: 25px;
         color: #595959;

@@ -21,8 +21,11 @@
 
 .modal_content {
     padding: 20px;
-    border-radius: 12px;
-    background-color: #FAF3DF;
+    border-radius: 50px;
+    background: #e0e0e0;
+    border: 3px solid rgba(0, 0, 0, 0.4);
+    box-shadow:  6px 6px 52px #acacac,
+    -6px -6px 52px #ffffff;
     height: auto;
     width: auto;
     max-width: 700px;

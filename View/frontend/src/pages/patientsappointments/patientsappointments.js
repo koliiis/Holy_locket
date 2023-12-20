@@ -13,6 +13,7 @@ function PatientsAppointments() {
     const [rating, setRating] = useState(null);
 
     const jwtToken = sessionStorage.getItem('jwtToken');
+    console.log(jwtToken);
 
     const handleRatingChange = (event) => {
         setRating(event.target.value);

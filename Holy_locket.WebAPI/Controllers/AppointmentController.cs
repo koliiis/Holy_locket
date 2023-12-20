@@ -44,18 +44,18 @@ namespace Holy_locket.WebAPI.Controllers
         [HttpGet("InfoPatient/{patientToken}")]
         public async Task<IActionResult> GetInfo(string patientToken)
         {
-            try
+            //try
             {
                 return Ok(await _appointmentService.GetAppointmentInfo(patientToken).ConfigureAwait(false));
             }
-            catch (UnauthorizedAccessException)
-            {
-                return StatusCode(401, "Unauthorized");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            //catch (UnauthorizedAccessException)
+            //{
+            //    return StatusCode(401, "Unauthorized");
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
         [HttpPost("{patientToken}")]
         public async Task<IActionResult> PostAppointment(AppointmentDTO appointment, string patientToken)

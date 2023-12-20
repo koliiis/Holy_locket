@@ -77,7 +77,7 @@ const Appointment = () => {
                                             </button>
                                         )}
                                         {slots[timeIndex] && slots[timeIndex] === block_timeslots &&(
-                                            <button>{slots[timeIndex]}</button>
+                                            <button className="not-free-time">{slots[timeIndex]}</button>
                                         )}
                                     </td>
                                 ))}
@@ -113,7 +113,7 @@ const Appointment = () => {
 
         const jwtToken = sessionStorage.getItem('jwtToken');
 
-        axios.post(`https://localhost:7172/api/Appointment/wswswasdawsdwds`, {
+        axios.post(`https://localhost:7172/api/Appointment/${jwtToken}`, {
             time: selectedTime,
             date: selectedDay,
             hospitalId: 1,
