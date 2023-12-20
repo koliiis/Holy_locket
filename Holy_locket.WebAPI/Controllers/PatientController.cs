@@ -29,9 +29,13 @@ namespace Holy_locket.WebAPI.Controllers
                 var patient = await _patientService.GetPatientById(patientToken).ConfigureAwait(false);
                 return Ok(patient);
             }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401, "Unauthorized");
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpPost]
@@ -42,9 +46,9 @@ namespace Holy_locket.WebAPI.Controllers
                 var tokenInfo = await _patientService.CreatePatient(patient).ConfigureAwait(false);
                 return Ok(tokenInfo);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpPut]
@@ -55,9 +59,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _patientService.UpdatePatient(patient).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
-            {
-                return StatusCode(500, "An error occurred while processing your request.");
+            catch (Exception ex) 
+            { 
+                return StatusCode(500, ex.Message); 
             }
         }
         [HttpDelete]
@@ -68,9 +72,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _patientService.DeletePatient(id).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
-            {
-                return StatusCode(500, "An error occurred while processing your request.");
+            catch (Exception ex) 
+            { 
+                return StatusCode(500, ex.Message); 
             }
         }
     }

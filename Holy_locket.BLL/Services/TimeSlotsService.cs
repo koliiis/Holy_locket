@@ -57,24 +57,19 @@ namespace Holy_locket.BLL.Services
         }
         public async Task<List<List<string>>> GetDoctorTimeSlots(string token)
         {
-            try
+
+            var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
+            if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
             {
-                var result = await AuthService.GetFromToken(token).ConfigureAwait(false);
-                if (result?.Id != 0 && result?.Role == 2 && await AuthService.CheckToken(_config, token).ConfigureAwait(false))
-                {
-                    var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
-                    var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == result.Id && x.Inactive == false).ToList());
-                    var timeSlots = GenerateTimeSlots(appointments, result.Id);
-                    SetNoAvailableDoctorSlotsMessage(timeSlots);
-                    return timeSlots;
-                }
-                else
-                    return BadRequest($"Произошла ошибка при получении временных слотов доктора.");
+                var appointments = _mapper.Map<List<AppointmentDTO>>(await _appointmentRepository.Get().ConfigureAwait(false));
+                var timesForDays = _mapper.Map<List<TimesForDayDTO>>((await _timesForDayRepository.Get().ConfigureAwait(false)).Where(x => x.DoctorId == result.Id && x.Inactive == false).ToList());
+                var timeSlots = GenerateTimeSlots(appointments, result.Id);
+                SetNoAvailableDoctorSlotsMessage(timeSlots);
+                return timeSlots;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            else
+                throw new UnauthorizedAccessException($"Unauthorized");
+
         }
         private List<TimesForDayDTO> DayOfWeekRightOrder(List<TimesForDayDTO> timesForDays)
         {
@@ -192,6 +187,8 @@ namespace Holy_locket.BLL.Services
                     counter++;
                 }
             }
+            else
+                throw new UnauthorizedAccessException($"Unauthorized");
 
         }
 

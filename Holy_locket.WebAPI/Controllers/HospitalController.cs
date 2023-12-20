@@ -24,7 +24,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpGet("{id}")]
@@ -37,7 +37,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpPost]
@@ -48,9 +48,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _hospitalService.CreateHospital(hospital).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpPut]
@@ -61,9 +61,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _hospitalService.UpdateHospital(hospital).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpDelete]
@@ -74,9 +74,9 @@ namespace Holy_locket.WebAPI.Controllers
                 await _hospitalService.DeleteHospital(id).ConfigureAwait(false);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
     }

@@ -22,7 +22,7 @@ namespace Holy_locket.WebAPI.Controllers
         {
             _doctorService = doctorService;
             _specialityService = specialityService;
-            _timeSlotsService= timeSlotsService;
+            _timeSlotsService = timeSlotsService;
         }
         [HttpGet]
         public async Task<IActionResult> GetDoctors(int minimumExpirience, string? specialityName, string? gender, int rating)
@@ -35,10 +35,10 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
-       [HttpGet("DoctorsPage")]
+        [HttpGet("DoctorsPage")]
         public async Task<IActionResult> GetDoctorsPage(int minimumExpirience, string? specialityName, string? gender, int rating)
         {
             try
@@ -54,7 +54,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpGet("UserDoctor/{doctorToken}")]
@@ -65,10 +65,15 @@ namespace Holy_locket.WebAPI.Controllers
                 var doctor = await _doctorService.GetDoctor(doctorToken).ConfigureAwait(false);
                 return Ok(doctor);
             }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401, "Unauthorized");
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
+
         }
         [HttpPost]
         public async Task<IActionResult> PostDoctors(DoctorDTO doctor)
@@ -93,7 +98,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(ex.HResult, ex.Message);
             }
 
         }
@@ -107,7 +112,7 @@ namespace Holy_locket.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex.Message);
             }
         }
     }

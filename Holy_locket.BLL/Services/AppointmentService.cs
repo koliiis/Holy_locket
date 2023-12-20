@@ -61,6 +61,8 @@ namespace Holy_locket.BLL.Services
                 appointment.PatientId = result.Id;
                 await _appointmentRepository.Create(appointment).ConfigureAwait(false);
             }
+            else
+                throw new UnauthorizedAccessException($"Unauthorized");
         }
         public async Task DeleteAppointment(int id)
         {
@@ -96,7 +98,7 @@ namespace Holy_locket.BLL.Services
                 return info;
             }
             else
-                return null;
+                throw new UnauthorizedAccessException($"Unauthorized");
         }
         public async Task UpdateAppointment(AppointmentDTO appointment)
         {

@@ -48,6 +48,10 @@ namespace Holy_locket.WebAPI.Controllers
             {
                 return Ok(await _appointmentService.GetAppointmentInfo(patientToken).ConfigureAwait(false));
             }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401, "Unauthorized");
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
@@ -60,6 +64,10 @@ namespace Holy_locket.WebAPI.Controllers
             {
                 await _appointmentService.AddAppointment(appointment, patientToken).ConfigureAwait(false);
                 return Ok();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401, "Unauthorized");
             }
             catch (Exception ex)
             {

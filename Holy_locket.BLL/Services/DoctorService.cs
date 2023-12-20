@@ -95,7 +95,7 @@ namespace Holy_locket.BLL.Services
                 return await MapSpeciality(_mapper.Map<DoctorDTO>(doctor));
             }
             else
-                return null;
+                throw new UnauthorizedAccessException($"Unauthorized");
         }
         public void Dispose()
         {

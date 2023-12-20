@@ -35,6 +35,10 @@ namespace Holy_locket.WebAPI.Controllers
                 await _timeSlotsService.PostTimeSlots(times, doctorToken).ConfigureAwait(false);
                 return Ok();
             }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401, "Unauthorized");
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
@@ -47,6 +51,10 @@ namespace Holy_locket.WebAPI.Controllers
             {
                 var list = await _timeSlotsService.GetDoctorTimeSlots(doctorToken).ConfigureAwait(false);
                 return Ok(list);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401, "Unauthorized");
             }
             catch (Exception ex)
             {

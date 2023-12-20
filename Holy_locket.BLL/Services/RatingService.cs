@@ -40,6 +40,8 @@ namespace Holy_locket.BLL.Services
                     doctor.Rating = averageRating;
                     await _docRepository.Update(doctor);
             }
+            else
+                throw new UnauthorizedAccessException($"Unauthorized");
         }
         public async Task DeleteRating(int id)
         {

@@ -54,7 +54,7 @@ namespace Holy_locket.BLL.Services
                     return _mapper.Map<PatientDTO>(patient);
             }
             else
-                return null;
+                throw new UnauthorizedAccessException($"Unauthorized");
         }
         public void Dispose()
         {
