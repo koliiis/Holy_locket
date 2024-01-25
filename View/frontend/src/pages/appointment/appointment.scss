@@ -148,7 +148,12 @@ thead {
 }
 
 .confirm-text {
-    font-size: 25px;
+    font-size: 21px;
+}
+
+.confirm {
+    padding: 10px 15px;
+    margin-bottom: -20px;
 }
 
 @media screen and (max-width: 1310px) {

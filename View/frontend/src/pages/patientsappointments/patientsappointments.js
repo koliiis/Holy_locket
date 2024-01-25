@@ -13,12 +13,15 @@ function PatientsAppointments() {
     const [rating, setRating] = useState(null);
 
     const jwtToken = sessionStorage.getItem('jwtToken');
-    console.log(jwtToken);
 
-    const handleRatingChange = (event) => {
-        setRating(event.target.value);
+    const handleRating = (e) => {
+        setRating(e.target.value);
+    }
+
+    const handleRatingChange = (id) => {
+
         axios.post(`https://localhost:7172/api/Rating/${jwtToken}`, {
-            doctorId: currentInfapp.id,
+            doctorId: id,
             rate: rating
         })
 
@@ -100,26 +103,28 @@ function PatientsAppointments() {
                             Оцініть якість послуг (від 1 до 5), які вам надал лікар {currentInfapp.doctorName} {currentInfapp.doctorSecondName} на {currentInfapp.time}
                         </p>
                         <div className="rating-area">
-                            <input type="radio" id="star-5" name="rating" value="5" onChange={handleRatingChange}/>
+                            <input type="radio" id="star-5" name="rating" value="5" onChange={handleRating}/>
                             <label htmlFor="star-5" title="Оценка «5»"></label>
 
-                            <input type="radio" id="star-4" name="rating" value="4" onChange={handleRatingChange}/>
+                            <input type="radio" id="star-4" name="rating" value="4" onChange={handleRating}/>
                             <label htmlFor="star-4" title="Оценка «4»"></label>
 
-                            <input type="radio" id="star-3" name="rating" value="3" onChange={handleRatingChange}/>
+                            <input type="radio" id="star-3" name="rating" value="3" onChange={handleRating}/>
                             <label htmlFor="star-3" title="Оценка «3»"></label>
 
-                            <input type="radio" id="star-2" name="rating" value="2" onChange={handleRatingChange}/>
+                            <input type="radio" id="star-2" name="rating" value="2" onChange={handleRating}/>
                             <label htmlFor="star-2" title="Оценка «2»"></label>
 
-                            <input type="radio" id="star-1" name="rating" value="1" onChange={handleRatingChange}/>
+                            <input type="radio" id="star-1" name="rating" value="1" onChange={handleRating}/>
                             <label htmlFor="star-1" title="Оценка «1»"></label>
 
-                            <p>Выбранная оценка: {rating}</p>
                         </div>
                         <div>
-                            <form action="#" method="POST" onSubmit={() => handleTimeSelection(currentInfapp)}>
-                                <button className="confirm" type="submit">Підтвердити</button>
+                            <form action="#" method="POST">
+                                <button className="confirm" type="button"
+                                        onClick={() => handleRatingChange(currentInfapp.id)}>
+                                    Підтвердити
+                                </button>
                             </form>
                         </div>
                     </h3>

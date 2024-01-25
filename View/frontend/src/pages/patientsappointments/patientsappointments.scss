@@ -164,6 +164,7 @@ $sec-color: #54387F;
     overflow: hidden;
     width: 265px;
     margin: 0 auto;
+    transform: translate(-7%, -40%);
 }
 .rating-area:not(:checked) > input {
     display: none;

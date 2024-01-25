@@ -131,6 +131,7 @@ const Appointment = () => {
                     window.location.reload();
                 }
             });
+        setModalActive(false);
     }
 
     return (
